@@ -1,26 +1,25 @@
-
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { message } from "antd";
 import logo from "../../Assets/logo.png";
-
-
+import axios from "../../Axios/Axios";
+import { Spinner } from "flowbite-react";
 function Usersignup() {
-    const [name, setName] = useState()
-    const [phone, setPhone] = useState("")
-    const [age, setAge] = useState("")
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirm, setConfirm] = useState('')
-    const [error, setError] = useState(null)
-    const [errors,setErrors] =useState({})
-    const [address,setAddress]=useState('')
+    // const [name, setName] = useState("")
+    // const [phone, setPhone] = useState("")
+    // const [age, setAge] = useState("")
+    // const [email, setEmail] = useState("");
+    // const [password, setPassword] = useState("");
+    // const [confirmPassword, setConfirm] = useState('')
+    const [error, setError] = useState(null);
+    const [errors, setErrors] = useState({});
+    // const [address,setAddress]=useState('')
     const [selectedOption, setSelectedOption] = useState("");
-  
+
     const handleOptionChange = (event) => {
         setSelectedOption(event.target.value);
-        console.log(selectedOption)
-      };
-
+        console.log(selectedOption);
+    };
 
     const validateFields = (data) => {
         let errors = {};
@@ -76,38 +75,35 @@ function Usersignup() {
         // Return true if there are no errors, false otherwise
         return Object.keys(errors).length === 0;
     };
-    const handleSubmit =async (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        
+
         let data = new FormData(e.currentTarget);
         data = {
-          username: data.get("username"),
-          age: data.get("age"),
-          sex: data.get("sex"),
-          number: data.get("number"),
-          email: data.get("email"),
-          password: data.get("password"),
-          confirmPassword: data.get("confirmPassword"),
-          address: data.get("address"),
+            username: data.get("username"),
+            age: data.get("age"),
+            sex: data.get("sex"),
+            number: data.get("number"),
+            email: data.get("email"),
+            password: data.get("password"),
+            confirmPassword: data.get("confirmPassword"),
+            address: data.get("address"),
         };
-        console.log(data,"this is data")
+        console.log(data, "this is data");
         try {
-            if(validateFields(data)){
-                console.log("hiiiii")
-                
+            if (validateFields(data)) {
+                axios.post("/signup", data).then((response) => {
+                    const result = response.data;
+                    console.log(result);
+                });
             }
-        } catch (error) {
-            
-        }
-
+        } catch (error) { }
     };
-  return (
-    < >
-    <section className="bg-gray-50 dark:bg-gray-900 " >
+    return (
+        <>
+            <section className="bg-gray-50 dark:bg-gray-900 ">
                 <div className="flex flex-col items-center justify-center px-6 py-8   mx-auto md:max-h-full  lg:py-0">
-                    <Link
-                        className="flex items-center mb-6 mt-4  text-2xl font-semibold text-gray-900 dark:text-white"
-                    >
+                    <Link className="flex items-center mb-6 mt-4  text-2xl font-semibold text-gray-900 dark:text-white">
                         <img className="w-18 h-10 mr-2" src={logo} alt="logo" />
                     </Link>
                     <div className="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
@@ -124,19 +120,20 @@ function Usersignup() {
                                         full name
                                     </label>
                                     <input
-                                        onChange={(e) => setName(e.target.value)}
                                         type="text"
                                         name="username"
                                         id="username"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Enter your full name"
-                                        
                                     />
                                 </div>
-                                {errors.username && ( <span className="error text-red-400 text-sm"> {errors.username}</span>)}
-                               
-             
-  
+                                {errors.username && (
+                                    <span className="error text-red-400 text-sm">
+                                        {" "}
+                                        {errors.username}
+                                    </span>
+                                )}
+
                                 <div>
                                     <label
                                         htmlFor="age"
@@ -145,22 +142,25 @@ function Usersignup() {
                                         age
                                     </label>
                                     <input
-                                        onChange={(e) => setAge(e.target.value)}
                                         type="number"
                                         name="age"
                                         id="age"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Enter your age"
-                                   
                                     />
                                 </div>
-                                {errors.age && ( <span className="error text-red-400 text-sm"> {errors.age}</span>)}
+                                {errors.age && (
+                                    <span className="error text-red-400 text-sm">
+                                        {" "}
+                                        {errors.age}
+                                    </span>
+                                )}
                                 <label
-                                        htmlFor="sex"
-                                        className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-                                    >
-                                       gender
-                                    </label>
+                                    htmlFor="sex"
+                                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                                >
+                                    gender
+                                </label>
                                 <div className="flex  flex-wrap justify-between bg-white">
                                     <div className=" border-r text-xs py-2 border-r-black p-2 w-1/3  ">
                                         <input
@@ -170,7 +170,6 @@ function Usersignup() {
                                             value="male"
                                             checked={selectedOption === "male"}
                                             onChange={handleOptionChange}
-                                        
                                         />
                                         <label
                                             className="inline-block px-2 text-gray-600 font-medium"
@@ -187,7 +186,6 @@ function Usersignup() {
                                             value="female"
                                             checked={selectedOption === "female"}
                                             onChange={handleOptionChange}
-                                       
                                         />
                                         <label
                                             className="inline-block px-2 text-gray-600 font-medium"
@@ -196,7 +194,7 @@ function Usersignup() {
                                             Female
                                         </label>
                                     </div>
-                                    <div className=" p-2 w-1/3 text-xs" >
+                                    <div className=" p-2 w-1/3 text-xs">
                                         <input
                                             type="radio"
                                             id="option3"
@@ -204,7 +202,6 @@ function Usersignup() {
                                             value="others"
                                             checked={selectedOption === "others"}
                                             onChange={handleOptionChange}
-                                         
                                         />
                                         <label
                                             className="inline-block px-2   text-gray-600 font-medium"
@@ -214,25 +211,33 @@ function Usersignup() {
                                         </label>
                                     </div>
                                 </div>
-                                {errors.sex && ( <span className="error text-red-400 text-sm"> {errors.sex}</span>)}
+                                {errors.sex && (
+                                    <span className="error text-red-400 text-sm">
+                                        {" "}
+                                        {errors.sex}
+                                    </span>
+                                )}
                                 <div>
                                     <label
                                         htmlFor="address"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
-                                       Address
+                                        Address
                                     </label>
                                     <input
-                                        onChange={(e) => setAddress(e.target.value)}
                                         type="text"
                                         name="address"
                                         id="address"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Enter your address"
-                                       
                                     />
                                 </div>
-                                {errors.address && ( <span className="error text-red-400 text-sm"> {errors.address}</span>)}
+                                {errors.address && (
+                                    <span className="error text-red-400 text-sm">
+                                        {" "}
+                                        {errors.address}
+                                    </span>
+                                )}
 
                                 <div>
                                     <label
@@ -242,16 +247,19 @@ function Usersignup() {
                                         email
                                     </label>
                                     <input
-                                        onChange={(e) => setEmail(e.target.value)}
                                         type="email"
                                         name="email"
                                         id="email"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Enter your email"
-                                       
                                     />
                                 </div>
-                                {errors.email && ( <span className="error text-red-400 text-sm"> {errors.email}</span>)}
+                                {errors.email && (
+                                    <span className="error text-red-400 text-sm">
+                                        {" "}
+                                        {errors.email}
+                                    </span>
+                                )}
                                 <div>
                                     <label
                                         htmlFor="number"
@@ -260,16 +268,19 @@ function Usersignup() {
                                         phone
                                     </label>
                                     <input
-                                        onChange={(e) => setPhone(e.target.value)}
                                         type="number"
                                         name="number"
                                         id="number"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                         placeholder="Enter your phone number"
-                                    
                                     />
                                 </div>
-                                {errors.number && ( <span className="error text-red-400 text-sm"> {errors.number}</span>)}
+                                {errors.number && (
+                                    <span className="error text-red-400 text-sm">
+                                        {" "}
+                                        {errors.number}
+                                    </span>
+                                )}
                                 <div>
                                     <label
                                         htmlFor="password"
@@ -278,34 +289,44 @@ function Usersignup() {
                                         Password
                                     </label>
                                     <input
-                                        onChange={(e) => setPassword(e.target.value)}
                                         type="password"
                                         name="password"
                                         id="password"
                                         placeholder="Enter your password"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                       
                                     />
                                 </div>
-                                {errors.password && ( <span className="error text-red-400 text-sm"> {errors.password}</span>)}
+                                {errors.password && (
+                                    <span className="error text-red-400 text-sm">
+                                        {" "}
+                                        {errors.password}
+                                    </span>
+                                )}
+
                                 <div>
                                     <label
-                                        htmlFor="ConsfirmPassword"
+                                        htmlFor="confirmPassword"
                                         className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                                     >
                                         Confirm Password
                                     </label>
                                     <input
-                                        onChange={(e) => setConfirm(e.target.value)}
-                                        type="ConsfirmPassword"
-                                        name="ConsfirmPassword"
-                                        id="ConsfirmPassword"
+                                        type="password"
+                                        name="confirmPassword"
+                                        id="confirmPassword"
                                         placeholder="Confirm your password"
                                         className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                       
                                     />
                                 </div>
-                                {errors.confirmPassword && ( <span className="error text-red-400 text-sm"> {errors.confirmPassword}</span>)}
+                                {errors.confirmPassword && (
+                                    <span className="error text-red-400 text-sm">
+                                        {" "}
+                                        {errors.confirmPassword}
+                                    </span>
+                                )}
+                                <div className="text-center">
+                                    <Spinner aria-label="Center-aligned spinner example" size="xl" />
+                                </div>
 
                                 <button
                                     type="submit"
@@ -313,6 +334,7 @@ function Usersignup() {
                                 >
                                     Sign up
                                 </button>
+
 
                                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                                     Already have a account ?{" "}
@@ -328,9 +350,8 @@ function Usersignup() {
                     </div>
                 </div>
             </section>
-      
-    </>
-  )
+        </>
+    );
 }
 
-export default Usersignup
+export default Usersignup;
