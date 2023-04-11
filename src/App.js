@@ -1,27 +1,20 @@
-
-import {BrowserRouter,Route,Routes} from 'react-router-dom'
-import './App.css';
-
-import Home from './pages/client/Home';
-import Login from './pages/client/Login';
-import Signup from './pages/client/Signup';
-import DoctorSignup from './pages/Doctor/DoctorSignup';
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css";
+import AdminRoutes from "./routes/AdminRoutes";
+import ClientRoutes from "./routes/ClientRoutes";
+import DoctorRoutes from "./routes/DoctorRoutes";
 
 function App() {
   return (
-
- <BrowserRouter>
-  <main>
-    <Routes>
-      <Route path='/' element={<Home/>}/>
-      <Route path='/login' element={<Login/>}/>
-      <Route path='/signup' element={<Signup/>}></Route>
-      <Route path='/doctor/doctor_signup' element={<DoctorSignup/>}></Route>
-      </Routes>
-  </main>
-</BrowserRouter> 
-
-
+    <BrowserRouter>
+      <main>
+        <Routes>
+          <Route path="/*" element={<ClientRoutes/>} />
+          <Route path="/admin*" element={<AdminRoutes/>} />
+          <Route path="/doctor*" element={<DoctorRoutes/>} />
+        </Routes>
+      </main>
+    </BrowserRouter>
   );
 }
 

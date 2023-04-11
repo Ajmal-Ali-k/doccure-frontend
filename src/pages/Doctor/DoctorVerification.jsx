@@ -1,17 +1,17 @@
 import React from 'react'
-import DoctorSignupComponent from '../../components/DoctorComponents/DoctorSignupComponent'
+
+import VerificationComponent from '../../components/DoctorComponents/VerificationComponent'
 import NavbarComponent from '../../components/HomeComponents/NavbarComponent'
 import FooterComponent from '../../components/HomeComponents/FooterComponent'
 
-
-function DoctorSignup() {
+function DoctorVerification() {
   return (
     <div>
-       <NavbarComponent/>
-      <DoctorSignupComponent/>
+    <NavbarComponent/>
+      <VerificationComponent/>
       <FooterComponent/>
     </div>
   )
 }
 
-export default DoctorSignup
+export default DoctorVerification

@@ -1,10 +1,82 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 function DoctorSignupComponent() {
+  const [errors, setErrors] = useState({});
 
+  const validateFields = (data) => {
+    let errors = {};
 
+    // Validate fName
+    if (!data.name.trim()) {
+      errors.name = "First name is required";
+    }
 
+    // Validate Specialization
+    if (!data.sepecialization) {
+      errors.sepecialization = "Specialization is required";
+    }
+
+    // Validate experience
+    if (!data.expirience) {
+      errors.expirience = "Experience is required";
+    } else if (parseInt(data.expirience) < 0) {
+      errors.expirience = "Experiance is invalid";
+    }
+
+    // location licenceImg
+    if (!data.certificate.name) {
+      errors.certificate = "licence is required";
+    }
+
+    // Validate number
+    if (!data.number) {
+      errors.number = "Phone number is required";
+    }
+
+    // Validate email
+    if (!data.email.trim()) {
+      errors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(data.email)) {
+      errors.email = "Email is invalid";
+    }
+
+    // Validate password
+    if (!data.password) {
+      errors.password = "Password is required";
+    } else if (data.password.length < 6) {
+      errors.password = "Password must be at least 6 characters";
+    }
+
+    // Validate confirmPassword
+    if (!data.confirmpassword) {
+      errors.confirmpassword = "Confirm password is required";
+    } else if (data.password !== data.confirmpassword) {
+      errors.confirmpassword = "Passwords do not match";
+    }
+
+    setErrors(errors);
+
+    // Return true if there are no errors, false otherwise
+    return Object.keys(errors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    let data = new FormData(e.currentTarget);
+    data = {
+      name: data.get("name"),
+      number: data.get("number"),
+      email: data.get("email"),
+      address: data.get("address"),
+      specialization: data.get("sepecialization"),
+      certificate: data.get("certificate"),
+      expirience: data.get("expirience"),
+      password: data.get("password"),
+      confirmpassword: data.get("confirmpassword"),
+    };
+    console.log(data, "this the doctor data");
+  };
 
   return (
     <div>
@@ -13,7 +85,7 @@ function DoctorSignupComponent() {
           <h2 className="mb-4 text-xl font-bold text-gray-900 dark:text-white">
             Start your career
           </h2>
-          <form action="#">
+          <form onSubmit={handleSubmit}>
             <div className="grid gap-4 mb-4 sm:grid-cols-2 sm:gap-6 sm:mb-5">
               <div className="sm:col-span-2">
                 <label
@@ -30,8 +102,12 @@ function DoctorSignupComponent() {
                   placeholder="Enter your name"
                   required
                 />
+                {errors.name && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.name}
+                  </span>
+                )}
               </div>
-
               <div className="w-full">
                 <label
                   htmlFor="number"
@@ -47,6 +123,11 @@ function DoctorSignupComponent() {
                   placeholder="Enter your phone number"
                   required
                 />
+                {errors.phone && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.phone}
+                  </span>
+                )}
               </div>
               <div className="w-full">
                 <label
@@ -63,10 +144,15 @@ function DoctorSignupComponent() {
                   placeholder="Enter your email"
                   required
                 />
+                {errors.email && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.email}
+                  </span>
+                )}
               </div>
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="Address"
+                  htmlFor="address"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Address
@@ -79,6 +165,11 @@ function DoctorSignupComponent() {
                   placeholder="Enter your address"
                   required
                 />
+                {errors.address && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.address}
+                  </span>
+                )}
               </div>
               <div>
                 <label
@@ -89,6 +180,7 @@ function DoctorSignupComponent() {
                 </label>
                 <select
                   id="specialization"
+                  name="specialization"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 >
                   <option selected> </option>
@@ -97,6 +189,11 @@ function DoctorSignupComponent() {
                   <option value="GA">Dermatologists</option>
                   <option value="PH">Neurologists</option>
                 </select>
+                {errors.specialization && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.specialization}
+                  </span>
+                )}
               </div>
               <div>
                 <label
@@ -113,55 +210,76 @@ function DoctorSignupComponent() {
                   placeholder="Enter your number of Expirience"
                   required
                 />
+                {errors.expirience && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.expirience}
+                  </span>
+                )}
               </div>
               <div className="sm:col-span-2">
                 <label
-                  htmlFor="description"
+                  htmlFor="certificate"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Upload your certificate
                 </label>
                 <input
                   id="certificate"
+                  name="certificate"
                   type="file"
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-400 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Write a product description here..."
                 />
+                {errors.certificate && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.certificate}
+                  </span>
+                )}
               </div>
               <div className="w-full">
                 <label
-                  htmlFor="brand"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   password
                 </label>
                 <input
                   type="text"
-                  name="brand"
-                  id="brand"
+                  name="password"
+                  id="password"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter password"
                   required
                 />
+                {errors.password && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.password}
+                  </span>
+                )}
               </div>
               <div className="w-full">
                 <label
-                  htmlFor="brand"
+                  htmlFor="confirmpassword"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Confirm password
                 </label>
                 <input
                   type="text"
-                  name="brand"
-                  id="brand"
+                  name="confirmpassword"
+                  id="confirmpassword"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Confirm password"
                   required
                 />
+                {errors.confirmpassword && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.confirmpassword}
+                  </span>
+                )}
               </div>
             </div>
-            
+
             <div className="flex items-center space-x-4">
               <button
                 type="submit"
@@ -169,10 +287,7 @@ function DoctorSignupComponent() {
               >
                 Register
               </button>
-              {/* <button type="button" className="text-red-600 inline-flex items-center hover:text-white border border-red-600 hover:bg-red-600 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900">
-            <svg className="w-5 h-5 mr-1 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fillRule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clipRule="evenodd" /></svg>
-            Delete
-          </button> */}
+          
             </div>
             <p className="text-sm font-light text-gray-500 dark:text-gray-400 pt-2">
               Already have a account ?{" "}
