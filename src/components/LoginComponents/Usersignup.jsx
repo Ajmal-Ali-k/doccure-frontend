@@ -5,10 +5,10 @@ import logo from "../../Assets/logo.png";
 import axios from "../../Axios/Axios";
 import { Spinner } from "flowbite-react";
 function Usersignup() {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
   const [error, setError] = useState(null);
   const [errors, setErrors] = useState({});
- const [loading,setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
 
   const handleOptionChange = (event) => {
@@ -87,32 +87,28 @@ function Usersignup() {
     console.log(data, "this is data");
     try {
       if (validateFields(data)) {
-        setLoading(true)
-        setError(null)
+        setLoading(true);
+        setError(null);
         axios.post("/signup", data).then((response) => {
           const result = response.data;
-          if(result.success){
-          setLoading(false)
-            message.success('Signup Succesfully ')
-            navigate('/login')
-            
-          }else{
-            setLoading(false)
-            setError(result.message)
-            message.error(result.message).then(()=>{
-                setError(null);
-            })
-        
-            
+          if (result.success) {
+            setLoading(false);
+            message.success("Signup Succesfully ");
+            navigate("/login");
+          } else {
+            setLoading(false);
+            setError(result.message);
+            message.error(result.message).then(() => {
+              setError(null);
+            });
           }
         });
-      }else{
-        console.log("no validated")
+      } else {
+        console.log("no validated");
       }
-
     } catch (error) {
-        console.log(error)
-        message.error('Somthing went wrong !');
+      console.log(error);
+      message.error("Somthing went wrong !");
     }
   };
   return (
@@ -340,7 +336,6 @@ function Usersignup() {
                     {errors.confirmPassword}
                   </span>
                 )}
-          
 
                 <button
                   type="submit"
@@ -348,12 +343,19 @@ function Usersignup() {
                 >
                   Sign up
                 </button>
-              {loading &&  <div className="text-center">
-                  <Spinner
-                    aria-label="Center-aligned spinner example"
-                    size="xl"
-                  />
-                </div>}
+                {loading && (
+                  <div className="text-center">
+                    <Spinner
+                      aria-label="Center-aligned spinner example"
+                      size="xl"
+                    />
+                  </div>
+                )}
+                {error && (
+                  <div className="error text-center w-full p-2 bg-red-600 bg-opacity-30 text-red-500">
+                    {error}
+                  </div>
+                )}
 
                 <p className="text-sm font-light text-gray-500 dark:text-gray-400">
                   Already have a account ?{" "}

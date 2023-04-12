@@ -10,8 +10,8 @@ function App() {
       <main>
         <Routes>
           <Route path="/*" element={<ClientRoutes/>} />
-          <Route path="/admin*" element={<AdminRoutes/>} />
-          <Route path="/doctor*" element={<DoctorRoutes/>} />
+          <Route path="/admin/*" element={<AdminRoutes/>} />
+          <Route path="/doctor/*" element={<DoctorRoutes/>} />
         </Routes>
       </main>
     </BrowserRouter>

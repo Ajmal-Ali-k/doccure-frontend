@@ -1,8 +1,24 @@
+import { message } from "antd";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+import { Spinner } from "flowbite-react";
+import axios from  "../../Axios/Axios"
 
 function DoctorSignupComponent() {
+  const navigate = useNavigate()
+  const [error,setError] = useState(null)
   const [errors, setErrors] = useState({});
+  const [loading,setLoading] =useState(false)
+
+
+  const toBase64=(image)=>new Promise((resolve,reject)=>{
+    const reader = new FileReader();
+    reader.readAsDataURL(image);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  }).catch((err)=>{
+    console.log(err);
+  })
 
   const validateFields = (data) => {
     let errors = {};
@@ -13,8 +29,8 @@ function DoctorSignupComponent() {
     }
 
     // Validate Specialization
-    if (!data.sepecialization) {
-      errors.sepecialization = "Specialization is required";
+    if (!data.specialization) {
+      errors.specialization = "Specialization is required";
     }
 
     // Validate experience
@@ -33,6 +49,10 @@ function DoctorSignupComponent() {
     if (!data.number) {
       errors.number = "Phone number is required";
     }
+      // Validate address
+      if (!data.address) {
+        errors.address = "Address is required";
+      }
 
     // Validate email
     if (!data.email.trim()) {
@@ -61,7 +81,7 @@ function DoctorSignupComponent() {
     return Object.keys(errors).length === 0;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     let data = new FormData(e.currentTarget);
     data = {
@@ -69,13 +89,43 @@ function DoctorSignupComponent() {
       number: data.get("number"),
       email: data.get("email"),
       address: data.get("address"),
-      specialization: data.get("sepecialization"),
+      specialization: data.get("specialization"),
       certificate: data.get("certificate"),
       expirience: data.get("expirience"),
       password: data.get("password"),
       confirmpassword: data.get("confirmpassword"),
     };
-    console.log(data, "this the doctor data");
+
+    
+    try {
+      if(validateFields(data)){
+        setLoading(true)
+        setError(null)
+        console.log("hiiiiiiiiiiiiiiii")
+       
+        const image = await toBase64(data.certificate)
+        data.certificate =image
+        axios.post("/admin/signup",{
+          data
+        }).then((res)=>{
+          setLoading(false)
+          console.log(res.data)
+          if(res.data.success){
+            message.success("Registration successfully compeleted");
+            navigate("/doctor/doctor_verification")
+          }else{
+            message.e
+          }
+        })
+
+
+      }
+      
+    } catch (error) {
+      console.log(error)
+      message.error('some went wrong !')
+      
+    }
   };
 
   return (
@@ -100,7 +150,7 @@ function DoctorSignupComponent() {
                   id="name"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your name"
-                  required
+                  
                 />
                 {errors.name && (
                   <span className="error text-red-400 text-sm">
@@ -119,13 +169,15 @@ function DoctorSignupComponent() {
                   type="number"
                   name="number"
                   id="number"
+
+                  
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your phone number"
-                  required
+                  
                 />
-                {errors.phone && (
+                {errors.number && (
                   <span className="error text-red-400 text-sm">
-                    {errors.phone}
+                    {errors.number}
                   </span>
                 )}
               </div>
@@ -142,7 +194,7 @@ function DoctorSignupComponent() {
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your email"
-                  required
+                  
                 />
                 {errors.email && (
                   <span className="error text-red-400 text-sm">
@@ -163,7 +215,7 @@ function DoctorSignupComponent() {
                   id="address"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your address"
-                  required
+                  
                 />
                 {errors.address && (
                   <span className="error text-red-400 text-sm">
@@ -184,10 +236,10 @@ function DoctorSignupComponent() {
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 >
                   <option selected> </option>
-                  <option value="TV">Dentist</option>
-                  <option value="PC">Cardiologists</option>
-                  <option value="GA">Dermatologists</option>
-                  <option value="PH">Neurologists</option>
+                  <option value="Dentist">Dentist</option>
+                  <option value="Cardiologists">Cardiologists</option>
+                  <option value="Dermatologists">Dermatologists</option>
+                  <option value="Neurologists">Neurologists</option>
                 </select>
                 {errors.specialization && (
                   <span className="error text-red-400 text-sm">
@@ -208,7 +260,7 @@ function DoctorSignupComponent() {
                   id="expirience"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your number of Expirience"
-                  required
+                  
                 />
                 {errors.expirience && (
                   <span className="error text-red-400 text-sm">
@@ -249,7 +301,7 @@ function DoctorSignupComponent() {
                   id="password"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter password"
-                  required
+                  
                 />
                 {errors.password && (
                   <span className="error text-red-400 text-sm">
@@ -270,7 +322,7 @@ function DoctorSignupComponent() {
                   id="confirmpassword"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Confirm password"
-                  required
+                  
                 />
                 {errors.confirmpassword && (
                   <span className="error text-red-400 text-sm">
@@ -287,8 +339,23 @@ function DoctorSignupComponent() {
               >
                 Register
               </button>
+           
           
             </div>
+           {loading && 
+            <div className="text-center mt-3">
+                  <Spinner
+                    aria-label="Center-aligned spinner example"
+                    size="xl"
+                  />
+                </div>
+                }
+                {error && (
+            <div className="error text-center w-full p-2 bg-red-600 bg-opacity-30 text-red-500">
+              {error}
+            </div>
+          )}
+          
             <p className="text-sm font-light text-gray-500 dark:text-gray-400 pt-2">
               Already have a account ?{" "}
               <Link

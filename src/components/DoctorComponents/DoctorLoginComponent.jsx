@@ -27,7 +27,7 @@ function DoctorLoginComponent() {
             />
           </div>
           <div className="mb-4">
-            <label htmlFor="password" className="block text-gray-900 text-sm mb-2">Password</label>
+            <label htmlFor="password"  className="block text-gray-900 text-sm mb-2">Password</label>
             <input
               type="password"
               id="password"
