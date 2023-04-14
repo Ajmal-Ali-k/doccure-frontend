@@ -72,8 +72,8 @@ function NavbarComponent() {
         <Navbar.Link href="/" >
           Home
         </Navbar.Link>
-        {/* <Navbar.Link href="/navbars">About</Navbar.Link> */}
-        <Navbar.Link href="/navbars">Services</Navbar.Link>
+        <Navbar.Link href="/doctors">doctors</Navbar.Link>
+        <Navbar.Link href="/navbar">Services</Navbar.Link>
         <Navbar.Link href="/navbars">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>

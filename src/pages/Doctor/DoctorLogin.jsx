@@ -6,11 +6,11 @@ import FooterComponent from '../../components/HomeComponents/FooterComponent'
 function DoctorLogin() {
   return (
     <div>
-    <NavbarComponent/>
+      <NavbarComponent />
 
 
-      <DoctorLoginComponent/>
-      <FooterComponent/>
+      <DoctorLoginComponent />
+      <FooterComponent />
     </div>
   )
 }
