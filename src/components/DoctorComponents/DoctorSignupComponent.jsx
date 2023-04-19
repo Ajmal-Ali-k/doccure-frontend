@@ -44,6 +44,9 @@ function DoctorSignupComponent() {
     if (!data.certificate.name) {
       errors.certificate = "licence is required";
     }
+    if (!data.photo.name) {
+      errors.photo = "licence is required";
+    }
 
     // Validate number
     if (!data.number) {
@@ -91,6 +94,7 @@ function DoctorSignupComponent() {
       address: data.get("address"),
       specialization: data.get("specialization"),
       certificate: data.get("certificate"),
+      photo:data.get('photo'),
       expirience: data.get("expirience"),
       password: data.get("password"),
       confirmpassword: data.get("confirmpassword"),
@@ -104,7 +108,9 @@ function DoctorSignupComponent() {
         console.log("hiiiiiiiiiiiiiiii")
 
         const image = await toBase64(data.certificate)
+        const photo = await toBase64(data.photo)
         data.certificate = image
+        data.photo =photo
         axios.post("/doctors/signup", {
           data
         }).then((res) => {
@@ -285,12 +291,32 @@ function DoctorSignupComponent() {
                   id="certificate"
                   name="certificate"
                   type="file"
-                  className="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-400 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  className="block p-1 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-400 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Write a product description here..."
                 />
                 {errors.certificate && (
                   <span className="error text-red-400 text-sm">
                     {errors.certificate}
+                  </span>
+                )}
+              </div>
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="photo"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                  Upload your photo
+                </label>
+                <input
+                  id="photo"
+                  name="photo"
+                  type="file"
+                  className="block p-1 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-primary-500 focus:border-primary-500 dark:bg-gray-400 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Write a product description here..."
+                />
+                {errors.photo && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.photo}
                   </span>
                 )}
               </div>

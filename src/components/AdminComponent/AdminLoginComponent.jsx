@@ -19,6 +19,8 @@ function AdminLoginComponent() {
     setLoading(true)
     axios.post('/admin/admin_login',{email,password}).then((res)=>{
       const result = res.data
+      console.log(result,"this is the result from token")
+
       if(result.success){
         setLoading(false)
         localStorage.setItem('adminToken',JSON.stringify( result))

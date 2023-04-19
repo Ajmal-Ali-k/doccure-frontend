@@ -1,21 +1,31 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../../Assets/logo.png";
 import { Sidebar } from "flowbite-react";
+import { useDispatch } from "react-redux";
 import {
   HiChartPie,
   HiViewBoards,
   HiInbox,
   HiUser,
   HiShoppingBag,
-  HiArrowSmRight,
+  // HiArrowSmRight,
   HiTable,
 } from "react-icons/hi";
+import { setLogout } from "../../store/slice/adminSlice";
 
 function AdminSidebar() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
+  const handlelogout = ()=>{
+    localStorage.removeItem("adminToken")
+    dispatch(setLogout())
+    navigate('/admin')
+
+  }
   return (
     <div>
-      <div className="w-fit">
+      <div className="w-fit ">
         <Sidebar aria-label="Sidebar with logo branding example">
           <Sidebar.Logo
             href="#"
@@ -30,7 +40,7 @@ function AdminSidebar() {
               <Sidebar.Item href="/admin/new_doctors" icon={HiViewBoards}>
                NewDoctors
               </Sidebar.Item>
-              <Sidebar.Item href="#" icon={HiInbox}>
+              <Sidebar.Item href="/admin/department" icon={HiInbox}>
                 Department
               </Sidebar.Item>
               <Sidebar.Item href="#" icon={HiUser}>
@@ -39,11 +49,11 @@ function AdminSidebar() {
               <Sidebar.Item href="#" icon={HiShoppingBag}>
                 Doctors
               </Sidebar.Item>
-              <Sidebar.Item href="#" icon={HiArrowSmRight}>
+              {/* <Sidebar.Item href="#" icon={HiArrowSmRight}>
                 Sign In
-              </Sidebar.Item>
-              <Sidebar.Item href="#" icon={HiTable}>
-                Sign Up
+              </Sidebar.Item> */}
+              <Sidebar.Item href="#"  icon={HiTable}>
+              <div onClick={handlelogout}>Logout</div>
               </Sidebar.Item>
             </Sidebar.ItemGroup>
           </Sidebar.Items>

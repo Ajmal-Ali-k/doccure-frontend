@@ -1,5 +1,5 @@
 import React from 'react'
-import DoctorsFilterCart from '../../components/doctorsListComponent/DoctorsFilterCart'
+import DoctorsFilterCard from '../../components/doctorsListComponent/DoctorsFilterCard'
 import NavbarComponent from '../../components/HomeComponents/NavbarComponent'
 
 function Doctors() {
@@ -8,7 +8,7 @@ function Doctors() {
     <NavbarComponent/>
     <div className="w-full flex">
       <div className="w-1/5 fixed inset-0 md:relative sm:relative lg:relative lg:translate-x-0">
-      <DoctorsFilterCart/>
+      <DoctorsFilterCard/>
       </div>
       <div className="w-full ">
 

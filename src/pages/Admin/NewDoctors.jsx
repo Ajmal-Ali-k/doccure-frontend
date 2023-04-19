@@ -5,7 +5,7 @@ import NewDoctorsComponent from "../../components/AdminComponent/NewDoctorsCompo
 function NewDoctors() {
   return (
     <div className="w-full flex">
-      <div className="w-1/5 fixed inset-0 md:relative sm:relative lg:relative lg:translate-x-0">
+      <div className="w-1/5 fixed h-max  inset-0 md:relative sm:relative lg:relative lg:translate-x-0">
         <AdminSidebar />
       </div>
       <div className="w-full ">
