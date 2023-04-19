@@ -1,24 +1,40 @@
 import { message } from "antd";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Spinner } from "flowbite-react";
-import axios from "../../Axios/Axios"
+import axios from "../../Axios/Axios";
+import { getDepartment } from "../../Api/services/DoctorReq";
 
 function DoctorSignupComponent() {
-  const navigate = useNavigate()
-  const [error, setError] = useState(null)
+  const navigate = useNavigate();
+  const [error, setError] = useState(null);
   const [errors, setErrors] = useState({});
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
+  const [departments, setDepartments] = useState([]);
 
+  const getDepartments = async () => {
+    await getDepartment()
+      .then((data) => {
+        setDepartments(data.data.departments);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  useEffect(() => {
+    getDepartments();
+  }, []);
+  console.log(departments, "this is departments signup");
 
-  const toBase64 = (image) => new Promise((resolve, reject) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(image);
-    reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
-  }).catch((err) => {
-    console.log(err);
-  })
+  const toBase64 = (image) =>
+    new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(image);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = (error) => reject(error);
+    }).catch((err) => {
+      console.log(err);
+    });
 
   const validateFields = (data) => {
     let errors = {};
@@ -94,49 +110,43 @@ function DoctorSignupComponent() {
       address: data.get("address"),
       specialization: data.get("specialization"),
       certificate: data.get("certificate"),
-      photo:data.get('photo'),
+      photo: data.get("photo"),
       expirience: data.get("expirience"),
       password: data.get("password"),
       confirmpassword: data.get("confirmpassword"),
     };
 
-
     try {
       if (validateFields(data)) {
-        setLoading(true)
-        setError(null)
-        console.log("hiiiiiiiiiiiiiiii")
-
-        const image = await toBase64(data.certificate)
-        const photo = await toBase64(data.photo)
-        data.certificate = image
-        data.photo =photo
-        axios.post("/doctors/signup", {
-          data
-        }).then((res) => {
-
-          console.log(res.data)
-          if (res.data.success) {
-            setLoading(false)
-            message.success("Registration successfully compeleted");
-            navigate("/doctor/doctor_verification")
-          } else {
-            console.log("fuddfgdf")
-            setLoading(false)
-            setError(res.data.message)
-            message.error(res.data.message).then(() => {
-              setError(null);
-            })
-          }
-        })
-
-
+        setLoading(true);
+        setError(null);
+        const image = await toBase64(data.certificate);
+        const photo = await toBase64(data.photo);
+        data.certificate = image;
+        data.photo = photo;
+        axios
+          .post("/doctors/signup", {
+            data,
+          })
+          .then((res) => {
+            console.log(res.data);
+            if (res.data.success) {
+              setLoading(false);
+              message.success("Registration successfully compeleted");
+              navigate("/doctor/doctor_verification");
+            } else {
+              console.log("fuddfgdf");
+              setLoading(false);
+              setError(res.data.message);
+              message.error(res.data.message).then(() => {
+                setError(null);
+              });
+            }
+          });
       }
-
     } catch (error) {
-      console.log(error)
-      message.error('some went wrong !')
-
+      console.log(error);
+      message.error("some went wrong !");
     }
   };
 
@@ -162,7 +172,6 @@ function DoctorSignupComponent() {
                   id="name"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your name"
-
                 />
                 {errors.name && (
                   <span className="error text-red-400 text-sm">
@@ -181,11 +190,8 @@ function DoctorSignupComponent() {
                   type="number"
                   name="number"
                   id="number"
-
-
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your phone number"
-
                 />
                 {errors.number && (
                   <span className="error text-red-400 text-sm">
@@ -206,7 +212,6 @@ function DoctorSignupComponent() {
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your email"
-
                 />
                 {errors.email && (
                   <span className="error text-red-400 text-sm">
@@ -227,7 +232,6 @@ function DoctorSignupComponent() {
                   id="address"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your address"
-
                 />
                 {errors.address && (
                   <span className="error text-red-400 text-sm">
@@ -242,16 +246,18 @@ function DoctorSignupComponent() {
                 >
                   Specialization
                 </label>
+
                 <select
                   id="specialization"
                   name="specialization"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 >
                   <option selected> </option>
-                  <option value="Dentist">Dentist</option>
-                  <option value="Cardiologists">Cardiologists</option>
-                  <option value="Dermatologists">Dermatologists</option>
-                  <option value="Neurologists">Neurologists</option>
+                  {departments.map((val) => {
+                    return (
+                      <option value={val.department}>{val.department}</option>
+                    );
+                  })}
                 </select>
                 {errors.specialization && (
                   <span className="error text-red-400 text-sm">
@@ -272,7 +278,6 @@ function DoctorSignupComponent() {
                   id="expirience"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter your number of Expirience"
-
                 />
                 {errors.expirience && (
                   <span className="error text-red-400 text-sm">
@@ -333,7 +338,6 @@ function DoctorSignupComponent() {
                   id="password"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Enter password"
-
                 />
                 {errors.password && (
                   <span className="error text-red-400 text-sm">
@@ -354,7 +358,6 @@ function DoctorSignupComponent() {
                   id="confirmpassword"
                   className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="Confirm password"
-
                 />
                 {errors.confirmpassword && (
                   <span className="error text-red-400 text-sm">
@@ -371,17 +374,15 @@ function DoctorSignupComponent() {
               >
                 Register
               </button>
-
-
             </div>
-            {loading &&
+            {loading && (
               <div className="text-center mt-3">
                 <Spinner
                   aria-label="Center-aligned spinner example"
                   size="xl"
                 />
               </div>
-            }
+            )}
             {error && (
               <div className="error text-center w-full p-2 bg-red-600 bg-opacity-30 text-red-500">
                 {error}

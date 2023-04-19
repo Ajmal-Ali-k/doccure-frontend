@@ -8,6 +8,8 @@ const instance = axios.create({
 export const AxiosAdmin = axios.create({
   baseURL:"http://localhost:8080/admin"
 })
-
+export const AxiosClient = axios.create({
+  baseURL:baseUrl
+})
 
 export default instance;

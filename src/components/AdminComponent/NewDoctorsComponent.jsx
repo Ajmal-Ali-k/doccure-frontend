@@ -7,16 +7,17 @@ import { approveDoc, rejectDoc } from "../../Api/services/AdminReq";
 
 import { useSelector } from "react-redux";
 import FieldsetComponent from "./FieldsetComponent";
+import { getDocdetails } from "../../Api/services/AdminReq";
 
 function NewDoctorsComponent() {
   const [pendingDoctors, setPendingDoctors] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
-  console.log(refresh, "refresh");
+ 
 
   function getPendingDoctors() {
     axios.get("/admin/getpendig_doctors").then((response) => {
-      console.log(response);
+
 
       if (response.data.success) {
         setPendingDoctors(response.data.pendingDoctors);
@@ -60,6 +61,21 @@ function NewDoctorsComponent() {
       setRefresh(!refresh);
     }
   };
+
+  const docDetailhandles = async(id)=>{
+    console.log(id,"this is the vew id")
+    const response = await getDocdetails(id,token)
+    if(response.data.success){
+
+    }else{
+      message.error("some thing went wrong");
+      getPendingDoctors();
+      setRefresh(!refresh);
+    }
+  }
+
+
+
   return (
     <div>
       <>
@@ -114,10 +130,11 @@ function NewDoctorsComponent() {
                           </td>
 
                           <td className="py-3 px-6  text-center">
-                            <div className="flex items-center justify-center font-medium">
-                              <Link to="/admin/new_doctor_details">
+                            <div className="flex items-center justify-center font-medium" onClick={()=>docDetailhandles(val._id)}>
+                              {/* <Link to="/admin/new_doctor_details">
                                 <GrView />
-                              </Link>
+                              </Link> */}
+                              <GrView />
                             </div>
                           </td>
 

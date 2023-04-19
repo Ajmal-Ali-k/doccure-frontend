@@ -70,3 +70,16 @@ export const deleteDepartment = (id,token)=>{
         return error?.response
     }
 }
+
+export const getDocdetails = (id,token)=>{
+    console.log("this axios id",id)
+    try {
+        const response = AxiosAdmin.get(`/new_doctor_details`,{id},{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}

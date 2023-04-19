@@ -23,7 +23,7 @@ function NavbarComponent() {
       <Navbar.Brand>
         <img
           src={logo}
-          className="mr-3 h-6 sm:h-9"
+          className="mr-3 ml-5 h-6 sm:h-9"
           alt="Flowbite Logo"
         />
 
@@ -40,7 +40,7 @@ function NavbarComponent() {
 
       }
       {
-        client && <div className="flex md:order-2">
+        client && <div className="flex md:order-2 mr-5">
           <Dropdown
             arrowIcon={false}
             inline={true}
@@ -74,7 +74,7 @@ function NavbarComponent() {
           Home
         </Navbar.Link>
         <Navbar.Link href="/doctors">doctors</Navbar.Link>
-        <Navbar.Link href="/navbar">Services</Navbar.Link>
+        <Navbar.Link href="/departments">Services</Navbar.Link>
         <Navbar.Link href="/navbars">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>
