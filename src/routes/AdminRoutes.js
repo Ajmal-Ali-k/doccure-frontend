@@ -12,7 +12,7 @@ function AdminRoutes() {
     <Routes>
        <Route path='/' element={<AdminLogin/>}/> 
       <Route path='/new_doctors' element={<NewDoctors/>}></Route>
-      <Route path='/new_doctor_details' element={<NewDocDetails/>}/>
+      <Route path='/new_doctor_details/:id' element={<NewDocDetails/>}/>
       <Route path='/department' element={<Department/>}/>
     </Routes>
       

@@ -74,7 +74,7 @@ export const deleteDepartment = (id,token)=>{
 export const getDocdetails = (id,token)=>{
     console.log("this axios id",id)
     try {
-        const response = AxiosAdmin.get(`/new_doctor_details`,{id},{
+        const response = AxiosAdmin.get(`/new_doctor_details?id=${id}`,{
             headers:{Authorization:"Bearer"+ token}
         },)
         return response

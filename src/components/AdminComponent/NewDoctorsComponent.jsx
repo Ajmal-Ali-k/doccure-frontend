@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { message } from "antd";
 import { GrView } from "react-icons/gr";
 import axios from "../../Axios/Axios";
@@ -7,7 +7,7 @@ import { approveDoc, rejectDoc } from "../../Api/services/AdminReq";
 
 import { useSelector } from "react-redux";
 import FieldsetComponent from "./FieldsetComponent";
-import { getDocdetails } from "../../Api/services/AdminReq";
+
 
 function NewDoctorsComponent() {
   const [pendingDoctors, setPendingDoctors] = useState([]);
@@ -34,6 +34,7 @@ function NewDoctorsComponent() {
 
   useEffect(() => {
     getPendingDoctors();
+     // eslint-disable-next-line 
   }, [setRefresh]);
 
   const { token } = useSelector((state) => state.adminLogin);
@@ -62,16 +63,10 @@ function NewDoctorsComponent() {
     }
   };
 
-  const docDetailhandles = async(id)=>{
-    console.log(id,"this is the vew id")
-    const response = await getDocdetails(id,token)
-    if(response.data.success){
+  const navigate = useNavigate();
+  const docDetailhandles = (id)=>{
+      navigate('/admin/new_doctor_details/'+id)
 
-    }else{
-      message.error("some thing went wrong");
-      getPendingDoctors();
-      setRefresh(!refresh);
-    }
   }
 
 
