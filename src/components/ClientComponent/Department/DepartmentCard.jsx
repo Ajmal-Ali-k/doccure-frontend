@@ -16,7 +16,7 @@ function DepartmentCard() {
     getDepartments();
   }, []);
   console.log(department, "this is depatment");
-  console.log("this is token", token);
+
   return (
     <>
           <div className="flex flex-wrap  m-5">

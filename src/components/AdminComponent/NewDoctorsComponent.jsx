@@ -13,10 +13,15 @@ function NewDoctorsComponent() {
   const [pendingDoctors, setPendingDoctors] = useState([]);
   const [refresh, setRefresh] = useState(false);
 
+  const { token } = useSelector((state) => state.adminLogin);
+
  
 
   function getPendingDoctors() {
-    axios.get("/admin/getpendig_doctors").then((response) => {
+    axios.get("/admin/getpendig_doctors",{
+      headers:{Authorization: "Bearer" + token}
+
+    }).then((response) => {
 
 
       if (response.data.success) {
@@ -37,7 +42,7 @@ function NewDoctorsComponent() {
      // eslint-disable-next-line 
   }, [setRefresh]);
 
-  const { token } = useSelector((state) => state.adminLogin);
+
   async function handleApprove(id) {
     const response = await approveDoc(id, token);
     if (response.data.success) {

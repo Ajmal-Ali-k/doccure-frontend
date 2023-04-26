@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import { getDocdetails } from "../../Api/services/AdminReq.js";
 import { message } from "antd";
 import { approveDoc,rejectDoc } from "../../Api/services/AdminReq.js";
@@ -15,6 +15,7 @@ function NewDoctorDetaill() {
   console.log("this is the token", token);
   useEffect(() => {
     DoctorDetails();
+     // eslint-disable-next-line
   }, [refresh]);
   const DoctorDetails = async () => {
     const response = await getDocdetails(data, token);
