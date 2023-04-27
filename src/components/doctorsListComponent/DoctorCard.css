@@ -301,9 +301,9 @@
 .clinic-booking a + a {
 	margin-top: 15px;
 }
-.clinic-booking a {
+.clinic-booking div {
     background-color: #fff;
-    border: 2px solid #20c0f3;
+    border: 2px solid #2563eb;
     border-radius: 4px;
     color: #20c0f3;
     display: block;
@@ -315,15 +315,15 @@
     text-transform: uppercase;
     width: 100%;
 }
-.clinic-booking a.view-pro-btn:hover, .clinic-booking a.view-pro-btn:focus {
+.clinic-booking div.view-pro-btn:hover, .clinic-booking div.view-pro-btn:focus {
 	background: #2563eb; 
 	color: #fff;
 }
-.clinic-booking a.apt-btn {
+.clinic-booking div.apt-btn {
     background-color: #2563eb;
     color: #fff;
 }
-.clinic-booking a.apt-btn:hover, .clinic-booking a.apt-btn:focus {
+.clinic-booking div.apt-btn:hover, .clinic-booking div.apt-btn:focus {
 	background-color: #2563eb;
 	border-color: #2563eb;
 	color: #fff;

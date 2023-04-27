@@ -61,7 +61,7 @@ function AdminLoginComponent() {
                 Password
               </label>
               <input
-                type="text"
+                type="password"
                 class="border rounded-lg px-3 py-2 mt-1 mb-5 text-sm w-full"
                 onChange={(e)=>setPassword
                 (e.target.value)}

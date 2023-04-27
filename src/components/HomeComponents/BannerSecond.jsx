@@ -3,7 +3,7 @@ import doctorImage from "../../Assets/doctor-img2.25a4c44d54b14fcc4ca9.png";
 import { Link } from "react-router-dom";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 
-function LandingSecond() {
+function BannerSecond() {
   const doctor = false;
   return (
     <div>
@@ -53,4 +53,4 @@ function LandingSecond() {
   );
 }
 
-export default LandingSecond;
+export default BannerSecond;

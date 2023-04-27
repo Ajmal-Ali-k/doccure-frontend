@@ -1,16 +1,16 @@
 import React from "react";
 
 import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
-import LandingPageFirst from "../../components/HomeComponents/LandingPageFirst";
-import LandingSecond from "../../components/HomeComponents/LandingSecond";
 import Footer from "../../components/HomeComponents/FooterComponent";
+import BannerFirst from "../../components/HomeComponents/BannerFirst";
+import BannerSecond from "../../components/HomeComponents/BannerSecond";
 
 function Home() {
   return (
     <div>
       <NavbarComponent />
-      <LandingPageFirst/>
-      <LandingSecond/>
+      <BannerFirst/>
+    <BannerSecond/>
       <Footer />
     </div>
   );

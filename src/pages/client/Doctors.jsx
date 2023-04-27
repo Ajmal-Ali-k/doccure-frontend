@@ -8,7 +8,7 @@ function Doctors() {
     <div>
       <NavbarComponent />
       <div className="w-full flex">
-        <div className="w-1/5 fixed inset-0 md:relative sm:relative lg:relative lg:translate-x-0">
+        <div className="w-1/5  inset-0 md:relative sm:relative lg:relative lg:translate-x-0 ">
           <DoctorsFilterCard />
         </div>
         <div className="w-full ">

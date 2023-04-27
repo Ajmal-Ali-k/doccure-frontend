@@ -18,10 +18,10 @@ function DoctorsFilterCard() {
   },[])
   console.log(departments,"this is the dep")
   return (
-    <div>
+    <>
       <div
         href="#"
-        className="block max-w-md w-72 mt-5 p-6 ml-8 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+        className="block max-w-md w-72 mt-5 p-6 ml-8 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 sticky top-0"
       >
         <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
           select your specialist
@@ -49,7 +49,7 @@ function DoctorsFilterCard() {
 
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

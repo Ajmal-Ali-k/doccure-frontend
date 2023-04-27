@@ -52,7 +52,7 @@ function AdminSidebar() {
               {/* <Sidebar.Item href="#" icon={HiArrowSmRight}>
                 Sign In
               </Sidebar.Item> */}
-              <Sidebar.Item href="#"  icon={HiTable}>
+              <Sidebar.Item   icon={HiTable}>
               <div onClick={handlelogout}>Logout</div>
               </Sidebar.Item>
             </Sidebar.ItemGroup>

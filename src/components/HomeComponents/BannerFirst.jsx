@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom'
  import doctorImage from '../../Assets/doctor-image.jpg'
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-function LandingPageFirst() {
+function BannerFirst() {
   const client = false
   return (
     <div >
@@ -44,4 +44,4 @@ function LandingPageFirst() {
   );
 }
 
-export default LandingPageFirst;
+export default BannerFirst;
