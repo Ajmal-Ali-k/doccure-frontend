@@ -9,13 +9,20 @@ import { setLogout } from "../../store/slice/userSlice";
 
 
 function NavbarComponent() {
+  const {name} = useSelector((state)=> state.clientLogin)
+  console.log(name,"this is client ame")
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { client } = useSelector((state) => state.clientLogin)
+
+  
   const handleLogout = () => {
     localStorage.removeItem("clientToken");
     dispatch(setLogout())
     navigate('/')
+  }
+  const handleNavigate =()=>{
+    navigate('/profile')
   }
   return (
 
@@ -46,20 +53,20 @@ function NavbarComponent() {
             inline={true}
             label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded={true} />}
           >
-            {/* <Dropdown.Header>
-        <span className="block text-sm">
-          Bonnie Green
+            <Dropdown.Header>
+        <span className="block text-sm uppercase">
+          {name}
         </span>
-        <span className="block truncate text-sm font-medium">
+        {/* <span className="block truncate text-sm font-medium">
           name@flowbite.com
-        </span>
-      </Dropdown.Header> */}
-            <Dropdown.Item>
-              Dashboard
+        </span> */}
+      </Dropdown.Header>
+            <Dropdown.Item onClick={handleNavigate}>
+             profile
             </Dropdown.Item>
-            <Dropdown.Item>
+            {/* <Dropdown.Item>
               Settings
-            </Dropdown.Item>
+            </Dropdown.Item> */}
 
             <Dropdown.Divider />
             <Dropdown.Item onClick={handleLogout}>
@@ -73,8 +80,8 @@ function NavbarComponent() {
         <Navbar.Link href="/" >
           Home
         </Navbar.Link>
-        <Navbar.Link href="/doctors">doctors</Navbar.Link>
-        <Navbar.Link href="/departments">Services</Navbar.Link>
+        <Navbar.Link href="/doctors">Doctors</Navbar.Link>
+        <Navbar.Link href="/departments">Departments</Navbar.Link>
         <Navbar.Link href="/navbars">Contact</Navbar.Link>
       </Navbar.Collapse>
     </Navbar>

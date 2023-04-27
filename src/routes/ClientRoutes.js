@@ -7,7 +7,8 @@ import Doctors from "../pages/client/Doctors";
 import Department from "../pages/client/Department";
 import DoctorDynamic from "../pages/client/DoctorDynamic";
 import UserPrivateRoutes from "../utils/UserPrivateRoutes";
-import UserPubicRoutes from "../utils/UserPubicRoutes";
+import UserProfile from "../pages/client/UserProfile";
+//import UserPubicRoutes from "../utils/UserPubicRoutes";
 
 function ClientRoutes() {
   return (
@@ -21,6 +22,8 @@ function ClientRoutes() {
           <Route path="/doctors" element={<Doctors />} />
           <Route path="/departments" element={<Department />} />
           <Route path="/doctor_detail" element={<DoctorDynamic />} />
+          <Route path="/profile" element={<UserProfile />} />
+
         </Route>
       </Routes>
     </div>
