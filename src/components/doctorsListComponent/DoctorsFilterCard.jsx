@@ -1,22 +1,40 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import {getDepartment} from '../../Api/services/ClientReq'
+
+import { getDepartment,getFilteredDoctors } from "../../Api/services/ClientReq";
 import { useSelector } from "react-redux";
 
-function DoctorsFilterCard() {
-  const {token} = useSelector((state)=>state.clientLogin)
-  console.log(token,"this is client token")
-  const [departments,setDepartments] = useState([])
-  const getDepartments = async ()=>{
-    await getDepartment(token)
-    .then((data)=>setDepartments(data.data.departments))
-    .catch((error)=>console.log(error))
+function DoctorsFilterCard({selected,setSelected}) {
+  const { token } = useSelector((state) => state.clientLogin);
+ 
 
-  }
-  useEffect(()=>{
-    getDepartments()
-  },[])
-  console.log(departments,"this is the dep")
+  const [departments, setDepartments] = useState([]);
+  const getDepartments = async () => {
+    await getDepartment(token)
+      .then((data) => setDepartments(data.data.departments))
+      .catch((error) => console.log(error));
+  };
+  useEffect(() => {
+    getDepartments();
+  }, []);
+  const handleChange = (e) => {
+    const value = e.target.value;
+    const checked = e.target.checked;
+    console.log(value, checked);
+    if (checked) {
+      setSelected([
+        ...selected, value
+      ]);
+    } else {
+     setSelected(selected.filter((e) =>e !== value))
+    }
+  };
+console.log(selected)
+const filteredDoctors =async()=>{
+  await getFilteredDoctors(selected,token)
+}
+// useEffect(()=>{
+// filteredDoctors()
+// },[selected])
   return (
     <>
       <div
@@ -29,24 +47,22 @@ function DoctorsFilterCard() {
         <hr />
 
         <div className="filter-widget">
-        {
-          departments.map((val)=>{
-            return(
+          {departments.map((val) => {
+            return (
               <div>
-            <label className="inline-block text-sm font-normal cursor-pointer mx-3 my-2 ">
-              <input
-                type="checkbox"
-                className=" cursor-pointer"
-                name="select_specialist"
-               
-              />
-              <span className="checkmark" /> {val.department}
-            </label>
-          </div>
-            )
-          })
-        }
-
+                <label className="inline-block text-sm font-normal cursor-pointer mx-3 my-2 ">
+                  <input
+                    type="checkbox"
+                    className=" cursor-pointer"
+                    name="select_specialist"
+                    value={val.department}
+                    onChange={handleChange}
+                  />
+                  <span className="checkmark" /> {val.department}
+                </label>
+              </div>
+            );
+          })}
         </div>
       </div>
     </>

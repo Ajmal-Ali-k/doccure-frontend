@@ -10,7 +10,7 @@ import { setLogout } from "../../store/slice/userSlice";
 
 function NavbarComponent() {
   const {name} = useSelector((state)=> state.clientLogin)
-  console.log(name,"this is client ame")
+
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { client } = useSelector((state) => state.clientLogin)

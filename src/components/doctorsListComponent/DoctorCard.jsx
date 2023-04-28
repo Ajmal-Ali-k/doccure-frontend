@@ -4,12 +4,18 @@ import img from "../../Assets/doctor-image.jpg";
 import { useSelector } from "react-redux";
 import { getDoctors } from "../../Api/services/ClientReq";
 import { useNavigate } from "react-router-dom";
+import DoctorsFilterCard from "../doctorsListComponent/DoctorsFilterCard"
 
 
 function DoctorCard() {
   const navigate = useNavigate()
   const { token } = useSelector((state) => state.clientLogin);
+  const [selected, setSelected] = useState([]);
   const [doctors, setDoctors] = useState([]);
+  const[filterd,setFiltered]=useState([])
+
+  console.log(filterd,'here is doctors');
+ 
   const getDoc = async () => {
     await getDoctors(token)
       .then((data) => {
@@ -22,22 +28,64 @@ function DoctorCard() {
   useEffect(() => {
     getDoc();
   }, []);
-  console.log(doctors, "this is doctors dataaa");
-  const handleClick =()=>{
+
+  const handleClick = () => {
     navigate('/doctor_detail')
-    
+
   }
+
+  useEffect(()=>{
+     const filteredDoctors =[]
+
+    console.log('use effect');
+
+
+   for (let i = 0; i < doctors.length; i++) {
+  
+      console.log(6666666666);
+      console.log(doctors[i],'haaai');
+
+      for (let j= 0; j< selected.length; j++) {
+        console.log( doctors[i].specialization,selected[j]);
+        console.log(doctors[i].specialization===selected[j]);
+  
+        if ( doctors[i].specialization===selected[j]) {
+          console.log(12121212121212);
+         
+         filteredDoctors.push(doctors[i])
+         
+          setFiltered(filteredDoctors)
+        }
+        else{
+          //  setFiltered([])
+        }
+      
+      }
+    }
+  
+    
+   
+  },[selected])
   return (
-    <div>
-      {doctors.map((val) => {
+    <>
+
+    <div className="w-full flex">
+        <div className="w-1/5  inset-0 md:relative sm:relative lg:relative lg:translate-x-0 ">
+          <DoctorsFilterCard selected ={selected} setSelected={setSelected}/>
+        </div>
+
+        <div className="w-full ">
+  
+          {(selected[0]?filterd:doctors).map((val) => {
         return (
+      
           <div className="block  w-auto mt-5  p-6 mx-20 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
             <div className="card-body">
               <div className="doctor-widget">
                 <div className="doc-info-left">
                   <div className="doctor-img">
                     <div href="doctor-profile.html">
-             
+
                       <img
                         src={val.photo}
                         className="img-fluid"
@@ -84,7 +132,12 @@ function DoctorCard() {
           </div>
         );
       })}
-    </div>
+    
+        </div>
+      </div>
+
+     
+    </>
   );
 }
 

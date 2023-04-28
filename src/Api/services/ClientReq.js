@@ -21,3 +21,16 @@ export const getDoctors = (token)=>{
         return error?.response
     }
 }
+
+export const getFilteredDoctors =(data,token)=>{
+    try {
+        const response = AxiosClient.post('/filteredDoctors',{data},{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}
