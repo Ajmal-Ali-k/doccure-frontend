@@ -44,15 +44,12 @@ function AdminSidebar() {
               <Sidebar.Item href="/admin/department" icon={HiInbox}>
                 Department
               </Sidebar.Item>
-              <Sidebar.Item href="#" icon={HiUser}>
+              <Sidebar.Item href="/admin/userlist" icon={HiUser}>
                 Users
               </Sidebar.Item>
-              <Sidebar.Item href="#" icon={HiShoppingBag}>
+              <Sidebar.Item href="/admin/doctorslist" icon={HiShoppingBag}>
                 Doctors
               </Sidebar.Item>
-              {/* <Sidebar.Item href="#" icon={HiArrowSmRight}>
-                Sign In
-              </Sidebar.Item> */}
               <Sidebar.Item   icon={HiTable}>
               <div onClick={handlelogout}>Logout</div>
               </Sidebar.Item>

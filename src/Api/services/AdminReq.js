@@ -83,3 +83,29 @@ export const getDocdetails = (id,token)=>{
         return error?.response
     }
 }
+
+export const getUsersList = (token)=>{
+    console.log("this axios id",token)
+    try {
+        const response = AxiosAdmin.get('/users_list',{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}
+
+export const getDoctorsList = (token)=>{
+
+    try {
+        const response = AxiosAdmin.get('/doctors_list',{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}

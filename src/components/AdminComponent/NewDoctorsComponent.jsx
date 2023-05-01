@@ -77,8 +77,8 @@ function NewDoctorsComponent() {
 
 
   return (
-    <div>
-      <>
+    <>
+      
      <FieldsetComponent title="New doctors"/>
         <div className="">
           <div className="min-w-screen flex items-center justify-center bg-gray font-sans overflow-hidden">
@@ -162,8 +162,8 @@ function NewDoctorsComponent() {
             </div>
           </div>
         </div>
-      </>
-    </div>
+      
+    </>
   );
 }
 

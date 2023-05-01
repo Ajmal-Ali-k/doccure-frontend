@@ -6,6 +6,8 @@ import NewDocDetails from "../pages/Admin/NewDocDetails";
 import Department from "../pages/Admin/Department";
 import AdminPrivateRoutes from "../utils/AdminPrivateRoutes";
 import AdminPublicRoutes from "../utils/AdminPublicRoutes";
+import UserList from "../pages/Admin/UserList";
+import DoctorsList from "../pages/Admin/DoctorsList";
 
 function AdminRoutes() {
   return (
@@ -20,6 +22,9 @@ function AdminRoutes() {
           <Route path="/new_doctors" element={<NewDoctors />}></Route>
           <Route path="/new_doctor_details/:id" element={<NewDocDetails />} />
           <Route path="/department" element={<Department />} />
+          <Route path="/userlist" element={<UserList/>}/>
+          <Route path="/doctorslist" element={<DoctorsList/>}/>
+          
         </Route>
       </Routes>
     </div>
