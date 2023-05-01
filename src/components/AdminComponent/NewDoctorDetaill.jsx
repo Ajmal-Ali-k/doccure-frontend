@@ -76,9 +76,9 @@ function NewDoctorDetaill() {
                 <div className="bg-white p-3">
                   <div className=" ">
                     <div className="avatar">
-                      <div className="w-40 h-40 rounded-full flex items-center overflow-hidden ">
+                      {/* <div className="w-40 h-40 rounded-full flex items-center overflow-hidden "> */}
                         <img className="h-fit w-fit" src={val.photo} alt="" />
-                      </div>
+                      {/* </div> */}
                     </div>
                   </div>
 

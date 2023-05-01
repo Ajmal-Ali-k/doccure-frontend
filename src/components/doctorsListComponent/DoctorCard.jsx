@@ -29,8 +29,8 @@ function DoctorCard() {
     getDoc();
   }, []);
 
-  const handleClick = () => {
-    navigate('/doctor_detail')
+  const handleClick = (id) => {
+    navigate('/doctor_detail/'+id)
 
   }
 
@@ -88,14 +88,14 @@ function DoctorCard() {
 
                       <img
                         src={val.photo}
-                        className="img-fluid"
+                        className="img-fluid h-36 w-28"
                         alt="User Image"
                       />
                     </div>
                   </div>
                   <div className="doc-info-cont">
                     <h4 className="doc-name">
-                      <a href="doctor-profile.html">{val.name}</a>
+                      <a href="doctor-profile.html">Dr.{val.name}</a>
                     </h4>
                     <p className="doc-speciality font-semibold">
                       {val.specialization}
@@ -119,7 +119,7 @@ function DoctorCard() {
             </ul>
           </div> */}
                   <div className="clinic-booking">
-                    <div className="view-pro-btn mb-2" onClick={handleClick}>
+                    <div className="view-pro-btn mb-2" onClick={()=>handleClick(val._id)}>
                       View Profile
                     </div>
                     <div className="apt-btn " href="booking.html">

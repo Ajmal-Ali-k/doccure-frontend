@@ -34,3 +34,15 @@ export const getFilteredDoctors =(data,token)=>{
     }
 
 }
+export const getDoctorDetail =(data,token)=>{
+    try {
+        const response = AxiosClient.get(`/doctorDetail?id=${data}`,{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}

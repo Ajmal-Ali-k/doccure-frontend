@@ -7,9 +7,9 @@ function Department() {
 
        <div>
         <div className="w-full flex">
-      <div className="w-1/5 fixed inset-0 md:relative sm:relative lg:relative lg:translate-x-0">
+      {/* <div className="w-1/5 fixed inset-0 md:relative sm:relative lg:relative lg:translate-x-0"> */}
         <AdminSidebar />
-      </div>
+      {/* </div> */}
       <div className="w-full ">
       <DepartmentComponenet/>
       </div>

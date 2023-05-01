@@ -10,7 +10,7 @@ function Home() {
     <div>
       <NavbarComponent />
       <BannerFirst/>
-    <BannerSecond/>
+     <BannerSecond/>
       <Footer />
     </div>
   );

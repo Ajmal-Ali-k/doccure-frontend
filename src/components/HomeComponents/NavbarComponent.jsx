@@ -22,7 +22,7 @@ function NavbarComponent() {
     navigate('/')
   }
   const handleNavigate =()=>{
-    navigate('/profile')
+    navigate('/dashboard')
   }
   return (
 
@@ -51,7 +51,7 @@ function NavbarComponent() {
           <Dropdown
             arrowIcon={false}
             inline={true}
-            label={<Avatar alt="User settings" img="https://flowbite.com/docs/images/people/profile-picture-5.jpg" rounded={true} />}
+            label={<Avatar alt="User settings" img="" rounded={true} />}
           >
             <Dropdown.Header>
         <span className="block text-sm uppercase">
@@ -62,7 +62,7 @@ function NavbarComponent() {
         </span> */}
       </Dropdown.Header>
             <Dropdown.Item onClick={handleNavigate}>
-             profile
+             Dashboard
             </Dropdown.Item>
             {/* <Dropdown.Item>
               Settings

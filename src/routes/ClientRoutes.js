@@ -1,14 +1,16 @@
-import React from "react";
+import React,{Suspense} from "react";
 import { Routes, Route } from "react-router-dom";
 import Home from "../pages/client/Home";
 import Login from "../pages/client/Login";
 import Signup from "../pages/client/Signup";
 import Doctors from "../pages/client/Doctors";
-import Department from "../pages/client/Department";
+//import Department from "../pages/client/Department";
 import DoctorDynamic from "../pages/client/DoctorDynamic";
 import UserPrivateRoutes from "../utils/UserPrivateRoutes";
-import UserProfile from "../pages/client/UserProfile";
+import Dashbaord from "../pages/client/Dashboard";
+import ProfileSetting from "../pages/client/ProfileSetting";
 //import UserPubicRoutes from "../utils/UserPubicRoutes";
+const LazyDepartment = React.lazy(()=>(import("../pages/client/Department")))
 
 function ClientRoutes() {
   return (
@@ -20,10 +22,12 @@ function ClientRoutes() {
 
         <Route element={<UserPrivateRoutes />}>
           <Route path="/doctors" element={<Doctors />} />
-          <Route path="/departments" element={<Department />} />
-          <Route path="/doctor_detail" element={<DoctorDynamic />} />
-          <Route path="/profile" element={<UserProfile />} />
-
+          <Route path="/departments" element={
+            <Suspense fallback="Loading...."><LazyDepartment /></Suspense>}/>
+  
+          <Route path="/doctor_detail/:id" element={<DoctorDynamic />} />
+          <Route path="/dashboard" element={<Dashbaord />} />
+          <Route path="/update_profile" element={<ProfileSetting/>} />
         </Route>
       </Routes>
     </div>

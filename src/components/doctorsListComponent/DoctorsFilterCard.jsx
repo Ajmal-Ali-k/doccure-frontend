@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import { getDepartment,getFilteredDoctors } from "../../Api/services/ClientReq";
+import { getDepartment } from "../../Api/services/ClientReq";
 import { useSelector } from "react-redux";
 
 function DoctorsFilterCard({selected,setSelected}) {
@@ -29,12 +29,7 @@ function DoctorsFilterCard({selected,setSelected}) {
     }
   };
 console.log(selected)
-const filteredDoctors =async()=>{
-  await getFilteredDoctors(selected,token)
-}
-// useEffect(()=>{
-// filteredDoctors()
-// },[selected])
+
   return (
     <>
       <div
