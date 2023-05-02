@@ -56,7 +56,7 @@ function ProfileCard() {
                     </Link>
                   </li>
                   <li className="border-y-2 py-2">
-                    <Link className="flex gap-2 items-center">
+                    <Link to='/change_password' className="flex gap-2 items-center">
                     <FaKey/>
                       <span>Change Password</span>
                     </Link>

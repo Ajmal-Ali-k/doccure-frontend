@@ -3,9 +3,12 @@ import FieldsetComponent from "../FieldsetComponent";
 import img from "../../../Assets/blank-profile-picture-g05926a0d9_640.png";
 import { useSelector } from "react-redux";
 import { getUsersList } from "../../../Api/services/AdminReq";
+import BlockModal from "./BlockModal";
+import UnBlockModal from "./UnBlockModal";
 function UserListComponent() {
   const { token } = useSelector((state) => state.adminLogin);
   const [users, setUsers] = useState([]);
+  const [refresh,setRefresh]= useState(false)
   const getUsers = async () => {
     const response = await getUsersList(token);
     if (response.data.success) {
@@ -15,8 +18,8 @@ function UserListComponent() {
 
   useEffect(() => {
     getUsers();
-  }, []);
-  console.log(users, "this is user list");
+  }, [refresh]);
+
   return (
     <div>
       <FieldsetComponent title="Users List" />
@@ -36,7 +39,7 @@ function UserListComponent() {
                 </thead>
                 {users &&
                   users.map((val) => {
-                    console.log(val, "this is thw ");
+  
                     return (
                       <tbody className="text-gray-600 text-sm font-light">
                         <tr className="border-b border-gray-200 hover:bg-gray-100">
@@ -76,13 +79,9 @@ function UserListComponent() {
                           <td className="py-3 px-6  text-center">
                             <div className="flex items-center justify-center font-medium">
                             {val.block ? (
-                                <button className="bg-green-400 text-green-900 py-1 px-3 rounded-full text-xs hover:bg-green-600">
-                                Unblock
-                              </button>
+                            <UnBlockModal Id={val._id} setRefresh={setRefresh}/>
                             ):(
-                                <button className="bg-red-400 text-red-900 py-1 px-3 rounded-full text-xs hover:bg-red-600">
-                                Block
-                              </button>
+                               <BlockModal Id= {val._id} setRefresh={setRefresh}/>
                             )}
                             
                             

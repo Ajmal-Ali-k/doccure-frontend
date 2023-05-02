@@ -34,7 +34,10 @@ function DoctorsListComponent() {
                     <th className="py-3 px-6 text-center">Action</th>
                   </tr>
                 </thead>
+                {doctors && doctors.map((val)=>{
+                  return(
 
+               
                 <tbody className="text-gray-600 text-sm font-light">
                   <tr className="border-b border-gray-200 hover:bg-gray-100">
                     <td className="py-3 px-6 text-left">
@@ -42,21 +45,21 @@ function DoctorsListComponent() {
                         <div className="mr-2">
                           <img
                             className="w-6 h-6 rounded-full"
-                            src={img}
+                            src={val.photo ? val.photo :img}
                             alt="profile"
                           />
                         </div>
-                        <span className="font-medium">uhasdgjidg</span>
+                        <span className="font-medium">{val.name}</span>
                       </div>
                     </td>
                     <td className="py-3 px-6 text-center whitespace-nowrap">
                       <div className=" text-center">
-                        <span className="font-medium ">dffhhd</span>
+                        <span className="font-medium ">{val.email}</span>
                       </div>
                     </td>
                     <td className="py-3 px-6  text-center">
                       <div className="flex items-center justify-center font-medium">
-                        hdudfgf
+                       {val.specialization}
                       </div>
                     </td>
 
@@ -75,6 +78,8 @@ function DoctorsListComponent() {
                     </td>
                   </tr>
                 </tbody>
+                )
+                })}
               </table>
             </div>
           </div>

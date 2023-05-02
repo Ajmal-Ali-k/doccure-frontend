@@ -26,7 +26,7 @@ const DeleteModal = (props) => {
   };
   return (
     <>
-      <Button type="danger" className="bg-red-500 text-white" onClick={showModal}>
+      <Button type="danger" className="bg-red-500 text-white py-0" onClick={showModal}>
         delete
       </Button>
       <Modal

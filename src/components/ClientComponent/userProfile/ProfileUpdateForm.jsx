@@ -3,8 +3,8 @@ import React from "react";
 import img from "../../../Assets/blank-profile-picture-g05926a0d9_640.png";
 function ProfileUpdateForm() {
   return (
-    <div>
-      <div className="col-md-7 col-lg-8 col-xl-11 mt-10">
+    <div className="contents">
+      <div className="col-md-7 col-lg-8 col-xl-8 mt-10">
         <div className="card bg-white shadow-xl rounded-lg border-0 pb-2">
           <div className="card-body">
             <form>

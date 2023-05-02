@@ -109,3 +109,29 @@ export const getDoctorsList = (token)=>{
         return error?.response
     }
 }
+
+export const blockUser = (id,token)=>{
+    console.log("this axios id",id)
+    try {
+        const response = AxiosAdmin.patch(`/block_user`,{id},{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}
+
+export const UnblockUser = (id,token)=>{
+    console.log("this axios id",id)
+    try {
+        const response = AxiosAdmin.patch(`/unblock_user`,{id},{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}
