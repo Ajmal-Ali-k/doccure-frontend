@@ -392,7 +392,7 @@ function DoctorSignupComponent() {
             <p className="text-sm font-light text-gray-500 dark:text-gray-400 pt-2">
               Already have a account ?{" "}
               <Link
-                to="/login"
+                to="/doctor/doctor_login"
                 className="font-medium text-primary-600 hover:underline dark:text-primary-500"
               >
                 Sign in

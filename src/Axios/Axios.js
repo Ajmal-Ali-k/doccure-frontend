@@ -11,5 +11,8 @@ export const AxiosAdmin = axios.create({
 export const AxiosClient = axios.create({
   baseURL:baseUrl
 })
+export const AxiosDoctor = axios.create({
+  baseURL:"http://localhost:8080/doctors"
+})
 
 export default instance;

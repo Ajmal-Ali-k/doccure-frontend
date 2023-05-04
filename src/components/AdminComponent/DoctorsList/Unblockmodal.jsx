@@ -1,15 +1,22 @@
 
-import { Button, Modal } from 'antd';
+import { Button, Modal, message } from 'antd';
 import { useState } from 'react';
+import { unBlockDoctor } from '../../../Api/services/AdminReq';
 
 
-const Unblockmodal = () => {
+const Unblockmodal = ({Id,token,setRefresh}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
+  const handleOk =async () => {
     setIsModalOpen(false);
+    const response = await unBlockDoctor(Id,token)
+    if(response.data.success){
+      setRefresh(state => !state)
+    }else{
+      message.error('some thing went wrong')
+    }
   };
   const handleCancel = () => {
     setIsModalOpen(false);

@@ -1,12 +1,19 @@
-import { Button, Modal } from 'antd';
+import { Button, Modal, message } from 'antd';
 import { useState } from 'react';
-const Blockmodal = () => {
+import { blockDoctor } from '../../../Api/services/AdminReq';
+const Blockmodal = ({Id,token,setRefresh}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const showModal = () => {
     setIsModalOpen(true);
   };
-  const handleOk = () => {
+  const handleOk =async () => {
     setIsModalOpen(false);
+    const response = await blockDoctor(Id,token)
+    if(response.data.success){
+      setRefresh(state=> !state)
+    }else{
+      message.error("something went wrong")
+    }
   };
   const handleCancel = () => {
     setIsModalOpen(false);
@@ -19,6 +26,7 @@ const Blockmodal = () => {
       <Modal title="Basic Modal" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}  okButtonProps={{ style: { backgroundColor: 'red' } }} >
         Are you sure ?
       </Modal>
+      
     </>
   );
 };

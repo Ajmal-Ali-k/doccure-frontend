@@ -59,7 +59,7 @@ export const getDepartment = (token)=>{
 }
 
 export const deleteDepartment = (id,token)=>{
-    console.log("this axios id",id)
+
     try {
         const response = AxiosAdmin.patch(`/department`,{id},{
             headers:{Authorization:"Bearer"+ token}
@@ -72,7 +72,7 @@ export const deleteDepartment = (id,token)=>{
 }
 
 export const getDocdetails = (id,token)=>{
-    console.log("this axios id",id)
+ 
     try {
         const response = AxiosAdmin.get(`/new_doctor_details?id=${id}`,{
             headers:{Authorization:"Bearer"+ token}
@@ -85,7 +85,7 @@ export const getDocdetails = (id,token)=>{
 }
 
 export const getUsersList = (token)=>{
-    console.log("this axios id",token)
+
     try {
         const response = AxiosAdmin.get('/users_list',{
             headers:{Authorization:"Bearer"+ token}
@@ -111,7 +111,7 @@ export const getDoctorsList = (token)=>{
 }
 
 export const blockUser = (id,token)=>{
-    console.log("this axios id",id)
+
     try {
         const response = AxiosAdmin.patch(`/block_user`,{id},{
             headers:{Authorization:"Bearer"+ token}
@@ -124,9 +124,34 @@ export const blockUser = (id,token)=>{
 }
 
 export const UnblockUser = (id,token)=>{
-    console.log("this axios id",id)
+ 
     try {
         const response = AxiosAdmin.patch(`/unblock_user`,{id},{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}
+
+export const blockDoctor = (id,token)=>{
+    console.log("this axios id",id)
+    try {
+        const response = AxiosAdmin.patch(`/block_doctor`,{id},{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}
+export const unBlockDoctor = (id,token)=>{
+    console.log("this axios id",id)
+    try {
+        const response = AxiosAdmin.patch(`/unBlock_doctor`,{id},{
             headers:{Authorization:"Bearer"+ token}
         },)
         return response

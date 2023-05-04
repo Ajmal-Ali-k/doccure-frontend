@@ -10,7 +10,7 @@ function DoctorLogin() {
 
 
       <DoctorLoginComponent />
-      <FooterComponent />
+
     </div>
   )
 }
