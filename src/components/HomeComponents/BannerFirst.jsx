@@ -15,7 +15,7 @@ function BannerFirst() {
             </h1>
             {client ? (
               <Link to="/service">
-                <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-xl w-48 bg-[#194569] p-2  text-white hover:text-black">
+                <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-md w-48 bg-[#194569] p-2  text-white hover:text-black">
                   Appointment
                   <ArrowForwardIcon
                     style={{ marginLeft: "10px", marginTop: "5px" }}
@@ -23,7 +23,7 @@ function BannerFirst() {
                 </span>
               </Link>
             ) : (
-              <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-xl w-48 bg-[#194569] p-2  text-white hover:text-black">
+              <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-md w-48 bg-[#194569] p-2  text-white hover:text-black">
                 Appointment
                 <ArrowForwardIcon
                   style={{ marginLeft: "10px", marginTop: "5px" }}

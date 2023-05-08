@@ -12,7 +12,7 @@ function DoctorProfileSidebar() {
                         alt="User"
                       />
                     </a>
-                    <div className="profile-det-info">
+                    <div className="">
                       <h3>Dr. Gokul das</h3>
                       <div className="patient-details">
                         {/* <h5 className="mb-0">
@@ -26,25 +26,25 @@ function DoctorProfileSidebar() {
                   <nav className="dashboard-menu">
                     <ul>
                       <li>
-                        <a href="doctor-dashboard.html">
+                        <a href="">
                           <i className="fas fa-columns" />
                           <span>Dashboard</span>
                         </a>
                       </li>
                       <li>
-                        <a href="appointments.html">
+                        <a href="">
                           <i className="fas fa-calendar-check" />
                           <span>Appointments</span>
                         </a>
                       </li>
                       <li>
-                        <a href="my-patients.html">
+                        <a href="">
                           <i className="fas fa-user-injured" />
                           <span>My Patients</span>
                         </a>
                       </li>
                       <li className="active">
-                        <a href="schedule-timings.html">
+                        <a href="">
                           <i className="fas fa-hourglass-start" />
                           <span>Schedule Timings</span>
                         </a>
@@ -52,27 +52,27 @@ function DoctorProfileSidebar() {
                      
                     
                       <li>
-                        <a href="chat-doctor.html">
+                        <a href="">
                           <i className="fas fa-comments" />
                           <span>Message</span>
                           {/* <small className="unread-msg">23</small> */}
                         </a>
                       </li>
                       <li>
-                        <a href="doctor-profile-settings.html">
+                        <a href="">
                           <i className="fas fa-user-cog" />
                           <span>Profile Settings</span>
                         </a>
                       </li>
                  
                       <li>
-                        <a href="doctor-change-password.html">
+                        <a href="">
                           <i className="fas fa-lock" />
                           <span>Change Password</span>
                         </a>
                       </li>
                       <li>
-                        <a href="index-2.html">
+                        <a href="">
                           <i className="fas fa-sign-out-alt" />
                           <span>Logout</span>
                         </a>

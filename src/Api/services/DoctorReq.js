@@ -21,3 +21,25 @@ export const doctorLogin = (data)=>{
         return error?.response
     }
 }
+export const createSlot = (data,token)=>{
+    try {
+        const response = AxiosDoctor.post('/create_slot',{data},{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+}
+export const getSlot = (token)=>{
+    try {
+        const response = AxiosDoctor.get('/getSlot',{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+}

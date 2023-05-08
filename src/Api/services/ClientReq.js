@@ -46,3 +46,28 @@ export const getDoctorDetail =(data,token)=>{
     }
 
 }
+export const updateProfile =(data,token)=>{
+    try {
+        const response = AxiosClient.post(`/update_profile`,{data},{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}
+
+export const getUserDetails =(token)=>{
+    try {
+        const response = AxiosClient.get(`/user_details`,{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}

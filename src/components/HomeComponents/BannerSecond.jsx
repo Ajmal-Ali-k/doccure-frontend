@@ -28,7 +28,7 @@ function BannerSecond() {
             </h2>
             {doctor ? (
               <Link to="/doctor">
-                <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-xl w-52 bg-[#194569] p-2  text-white hover:text-black">
+                <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-md w-52 bg-[#194569] p-2  text-white hover:text-black">
                   List Your Practice
                   <ArrowForwardIcon
                     style={{ marginLeft: "10px", marginTop: "5px" }}
@@ -37,7 +37,7 @@ function BannerSecond() {
               </Link>
             ) : (
               <Link to="/doctor/doctor_signup">
-                <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-xl w-52 bg-[#194569] p-2  text-white hover:text-black">
+                <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-md w-52 bg-[#194569] p-2  text-white hover:text-black">
                   List Your Practice
                   <ArrowForwardIcon
                     style={{ marginLeft: "10px", marginTop: "5px" }}
