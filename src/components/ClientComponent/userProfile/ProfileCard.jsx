@@ -1,15 +1,28 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
+import { Link, useNavigate } from "react-router-dom";
 import Avatar from "../../../Assets/blank-profile-picture-g05926a0d9_640.png";
 import { FaMicrosoft, FaUserCog, FaKey } from "react-icons/fa";
 import { FiLogOut } from "react-icons/fi";
 import { getUserDetails } from "../../../Api/services/ClientReq";
+import { setLogout } from "../../../store/slice/userSlice";
+
 function ProfileCard() {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   const { token } = useSelector((state) => state.clientLogin);
   const [datas, setDatas] = useState([]);
   const [refresh, setRefresh] = useState(false);
+  const handlelogout = ()=>{
+    navigate('/login')
+    localStorage.removeItem("clientToken");
+ 
+    dispatch(setLogout())
+ 
+
+
+  }
   const getuser = async () => {
     const result = await getUserDetails(token);
     if (result.data.success) {
@@ -21,6 +34,9 @@ function ProfileCard() {
   useEffect(() => {
     getuser();
   }, [refresh]);
+   
+
+
   return (
     <>
       {datas &&
@@ -87,10 +103,10 @@ function ProfileCard() {
                           <span>Change Password</span>
                         </Link>
                       </li>
-                      <li className="border-y-2 py-2">
-                        <Link className="flex gap-2 items-center">
+                      <li className="border-y-2 py-2" onClick={handlelogout}>
+                        <Link className="flex gap-2 items-center" >
                           <FiLogOut />
-                          <span>Log out</span>
+                          <span >Log out</span>
                         </Link>
                       </li>
                     </ul>

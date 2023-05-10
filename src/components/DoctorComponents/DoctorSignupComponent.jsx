@@ -24,7 +24,7 @@ function DoctorSignupComponent() {
   useEffect(() => {
     getDepartments();
   }, []);
-  console.log(departments, "this is departments signup");
+
 
   const toBase64 = (image) =>
     new Promise((resolve, reject) => {
@@ -72,7 +72,9 @@ function DoctorSignupComponent() {
     if (!data.address) {
       errors.address = "Address is required";
     }
-
+    if (!data.fee) {
+      errors.fee = "Consultation fee is required";
+    }
     // Validate email
     if (!data.email.trim()) {
       errors.email = "Email is required";
@@ -108,6 +110,7 @@ function DoctorSignupComponent() {
       number: data.get("number"),
       email: data.get("email"),
       address: data.get("address"),
+      fee:data.get('fee'),
       specialization: data.get("specialization"),
       certificate: data.get("certificate"),
       photo: data.get("photo"),
@@ -115,7 +118,7 @@ function DoctorSignupComponent() {
       password: data.get("password"),
       confirmpassword: data.get("confirmpassword"),
     };
-
+  console.log(data)
     try {
       if (validateFields(data)) {
         setLoading(true);
@@ -236,6 +239,26 @@ function DoctorSignupComponent() {
                 {errors.address && (
                   <span className="error text-red-400 text-sm">
                     {errors.address}
+                  </span>
+                )}
+              </div>
+              <div className="sm:col-span-2">
+                <label
+                  htmlFor="address"
+                  className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                >
+                Consultation fee
+                </label>
+                <input
+                  type="number"
+                  name="fee"
+                  id="fee"
+                  className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                  placeholder="Enter your consultation fee"
+                />
+                {errors.fee && (
+                  <span className="error text-red-400 text-sm">
+                    {errors.fee}
                   </span>
                 )}
               </div>

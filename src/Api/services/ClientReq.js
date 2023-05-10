@@ -71,3 +71,27 @@ export const getUserDetails =(token)=>{
     }
 
 }
+export const changePwd =(data,token)=>{
+    try {
+        const response = AxiosClient.post(`/change_password`,{data},{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}
+export const filteredSlot =(data,token)=>{
+    try {
+        const response = AxiosClient.post(`/filtered_slot`,{data},{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}

@@ -11,7 +11,7 @@ function Dashboard() {
     <div className="flex  h-screen w-full justify-start space-x-8 bg-gray-50">
     <ProfileCard/>
     <h1> dash board</h1>
-   <Loader/>
+   {/* <Loader/> */}
     </div>
     </>
   )

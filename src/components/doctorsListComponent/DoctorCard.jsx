@@ -33,6 +33,9 @@ function DoctorCard() {
     navigate('/doctor_detail/'+id)
 
   }
+  const handlenavigate =(id)=>{
+   navigate('/booking/'+id)
+  }
 
   useEffect(()=>{
      const filteredDoctors =[]
@@ -66,6 +69,7 @@ function DoctorCard() {
     
    
   },[selected])
+ 
   return (
     <>
 
@@ -105,7 +109,7 @@ function DoctorCard() {
                   Dentist
                 </h5> */}
                     <p className="text-gray-600 font-medium text-xs">
-                      consultation fee : <span className="text-md">$20</span>
+                      consultation fee : <span className="text-md">${val?.fee}</span>
                     </p>
                   </div>
                 </div>
@@ -122,8 +126,8 @@ function DoctorCard() {
                     <div className="view-pro-btn mb-2" onClick={()=>handleClick(val._id)}>
                       View Profile
                     </div>
-                    <div className="apt-btn " href="booking.html">
-                      Book Appoitment
+                    <div className="apt-btn " href="booking.html" onClick={()=>handlenavigate(val._id)}>
+                      Book now
                     </div>
                   </div>
                 </div>
