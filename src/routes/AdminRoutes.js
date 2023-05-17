@@ -13,18 +13,16 @@ function AdminRoutes() {
   return (
     <div>
       <Routes>
-      <Route element={<AdminPublicRoutes/>}>
-      <Route path="/" element={<AdminLogin />} />
+        <Route element={<AdminPublicRoutes />}>
+          <Route path="/" element={<AdminLogin />} />
+        </Route>
 
-      </Route>
-   
         <Route element={<AdminPrivateRoutes />}>
           <Route path="/new_doctors" element={<NewDoctors />}></Route>
           <Route path="/new_doctor_details/:id" element={<NewDocDetails />} />
           <Route path="/department" element={<Department />} />
-          <Route path="/userlist" element={<UserList/>}/>
-          <Route path="/doctorslist" element={<DoctorsList/>}/>
-          
+          <Route path="/userlist" element={<UserList />} />
+          <Route path="/doctorslist" element={<DoctorsList />} />
         </Route>
       </Routes>
     </div>

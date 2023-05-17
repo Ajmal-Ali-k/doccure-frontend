@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {  useParams } from "react-router-dom";
+import {  useNavigate, useParams } from "react-router-dom";
 import img from "../../../Assets/doctor-image.jpg"
 import { getDoctorDetail } from "../../../Api/services/ClientReq";
 import { useSelector } from "react-redux";
@@ -10,6 +10,7 @@ function DoctorDetailComponent() {
    const [Doctor, setDoctor] = useState([])
    const objId = useParams()
    const data = objId.id;
+   const navigate=useNavigate()
    console.log(data)
    const DoctorDetail = async()=> {
     const response = await getDoctorDetail(data,token)
@@ -24,7 +25,12 @@ function DoctorDetailComponent() {
    useEffect(()=>{
     DoctorDetail()
    },[])
- 
+   const handlenavigate =()=>{
+    navigate('/booking/'+data)
+   }
+   const handlechat =()=>{
+    navigate('/chating')
+   }
   return (
     <>
  
@@ -86,6 +92,7 @@ function DoctorDetailComponent() {
                       <button
                         className="bg-blue-600 active:bg-blue-600 uppercase text-white font-bold hover:shadow-md shadow text-xs pl-14 pr-14 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
+                        onClick={handlechat}
                       >
                         Connect
                       </button>
@@ -94,6 +101,7 @@ function DoctorDetailComponent() {
                       <button
                         className=" border-blue-600 border-2 active:bg-blue-600 uppercase text-blue  font-bold hover:shadow-md shadow text-xs px-8 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"
                         type="button"
+                        onClick={handlenavigate}
                       >
                         Book Appoiment
                       </button>

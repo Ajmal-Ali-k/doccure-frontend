@@ -15,4 +15,13 @@ export const AxiosDoctor = axios.create({
   baseURL:"http://localhost:8080/doctors"
 })
 
+
+export const AxiosMessages = axios.create({
+  baseURL:"http://localhost:8080/messages"
+})
+export const AxiosConversations = axios.create({
+  baseURL:"http://localhost:8080/conversations"
+})
 export default instance;
+
+

@@ -2,15 +2,19 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { filteredSlot, getDoctorDetail } from "../../../Api/services/ClientReq";
+import { message } from "antd";
+import Paypal from "../paypal/Paypal";
 
 function Card() {
   const { token } = useSelector((state) => state.clientLogin);
-  console.log(token, "this is user token");
   const { id } = useParams();
   const [selectedDate, setSelectedDate] = useState(
     new Date().toISOString().substr(0, 10)
   );
   const [doctor, setDoctor] = useState();
+  const [filterSlots, setfilterSlot] = useState();
+  const [checkedValues, setCheckedValues] = useState([]);
+  const [submit, setSubmit] = useState(false);
 
   const disablePastDate = () => {
     const today = new Date();
@@ -19,14 +23,31 @@ function Card() {
     const yyyy = today.getFullYear();
     return yyyy + "-" + mm + "-" + dd;
   };
-  const handleDateChange =(event)=>{
-    setSelectedDate(event.target.value)
-
-  }
+  const handleDateChange = (event) => {
+    setSelectedDate(event.target.value);
+  };
+  const handleSubmit = () => {
+    if (checkedValues.length !== 0) {
+      setSubmit(true);
+    } else {
+      message.error("select a slot ");
+    }
+  };
   const GetDoctor = async () => {
     const response = await getDoctorDetail(id, token);
     if (response.data.success) {
       setDoctor(response.data.Doctor);
+    }
+  };
+  const handleCheckboxChange = (e) => {
+    const value = e.target.value;
+
+    const isChecked = e.target.checked;
+
+    if (isChecked) {
+      setCheckedValues([...checkedValues, value]);
+    } else {
+      setCheckedValues(checkedValues.filter((val) => val !== value));
     }
   };
   useEffect(() => {
@@ -37,25 +58,25 @@ function Card() {
     id,
     selectedDate,
   };
-  const date = new Date();
-  let currentDate = new Date(date.setUTCHours(0, 0, 0, 0));
-  console.log(currentDate, "this is the current date");
   const filtered = async () => {
     const response = await filteredSlot(data, token);
     if (response.data.success) {
-      alert("success");
+      setfilterSlot(response.data.slots);
+    }else{
+      console.log("not availlable")
     }
   };
 
   useEffect(() => {
     filtered();
+    // eslint-disable-next-line
   }, [selectedDate]);
-  console.log(doctor, "this si thsi sthe doctor dataaaaa");
-  console.log(selectedDate, "this si hedata");
+  console.log(checkedValues, "this is checked values");
+console.log(process.env.REACT_APP_CLIENT_ID,"this is paypalclientid")
   return (
     <>
       <div className="w-3/5 ">
-        <div className="bg-white shadow-xl rounded-lg py-3 ">
+        <div className="bg-white shadow-xl rounded-lg py-10 ">
           <div className="photo-wrapper p-2">
             <img
               className="w-32 h-32 rounded-full mx-auto shadow-lg"
@@ -80,11 +101,13 @@ function Card() {
                 </tr>
               </tbody>
             </table>
-            <div className="flex justify-center items-center mb-2">
-              <div className="">
+            <div className="">
+              <div className="flex justify-center items-center">
                 <label htmlFor="date" className="block mb-2 text-gray text-md">
                   Select a date
                 </label>
+              </div>
+              <div className="flex justify-center items-center mb-3">
                 <input
                   type="date"
                   min={disablePastDate()}
@@ -94,27 +117,61 @@ function Card() {
                 />
               </div>
             </div>
-            <div className="flex justify-center items-center">
-              <div className="">
+
+            <div className="">
+              <div className="flex items-center justify-center">
                 <label htmlFor="date" className="block mb-2 text-gray text-md">
                   Select a Slot
                 </label>
-                <hr className="mb-3" />
-                <div className="space-x-3">
-                  <button className="btn btn-primary">Slot-1</button>
-                  <button className="btn btn-primary">Slot-2</button>
-                  <button className="btn btn-primary">Slot-3</button>
-                  <button className="btn btn-primary">Slot-4</button>
-                  <button className="btn btn-primary">Slot-5</button>
-                  <button className="btn btn-primary">Slot-6</button>
-                </div>
+              </div>
+
+              <div className="flex items-center justify-center">
+                {filterSlots?.length !== 0 ? (
+                  filterSlots?.map((val, i) => {
+                    return (
+                      <div className="mx-2 mb-3">
+                        <input
+                          defaultChecked={false}
+                          onChange={handleCheckboxChange}
+                          id={`default-checkbox${i}`}
+                          type="checkbox"
+                          value={val._id}
+                          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 mx-2 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                        />
+                        <button
+                          className={`${
+                            val.status === "booked"
+                              ? "btn btn-secondary  pointer-events-none opacity-50"
+                              : "btn btn-primary"
+                          }`}
+                        >
+                          {val.startTime}-{val.endTime}
+                        </button>
+                      </div>
+                    );
+                  })
+                ) : (
+                  <div className="font-sans flex justify-center mt-3">
+                    <h4 className="text-red-500 hover:text-red-800">
+                      Sorry not available this date !!
+                    </h4>
+                  </div>
+                )}
               </div>
             </div>
-            {/* <div className="font-sans flex justify-center mt-4">
-              <h4>Sorry not available this date !!</h4>
-            </div> */}
-            <div>
-              <button className="btn btn-primary">Book now</button>
+
+            <div className="flex justify-center mt-10">
+              <button
+                onClick={handleSubmit}
+                className="bg-blue-500 hover:bg-blue-700 text-white rounded-md py-2 px-2"
+              >
+                Book now
+              </button>
+            </div>
+            <div className=" mt-10 flex justify-center items-center">
+              {submit && (
+                <Paypal amount={doctor?.fee} checkedValues={checkedValues} />
+              )}
             </div>
           </div>
         </div>

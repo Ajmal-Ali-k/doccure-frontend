@@ -12,6 +12,8 @@ import ProfileSetting from "../pages/client/ProfileSetting";
 import ChangePassword from "../pages/client/ChangePassword";
 import Loader from "../components/HomeComponents/Loader";
 import BookingPage from "../pages/client/BookingPage";
+import Messenger from "../pages/client/Messenger";
+
 //import UserPubicRoutes from "../utils/UserPubicRoutes";
 const LazyDepartment = React.lazy(() => import("../pages/client/Department"));
 
@@ -28,7 +30,7 @@ function ClientRoutes() {
           <Route
             path="/departments"
             element={
-              <Suspense fallback={<Loader/>}>
+              <Suspense fallback={<Loader />}>
                 <LazyDepartment />
               </Suspense>
             }
@@ -39,7 +41,7 @@ function ClientRoutes() {
           <Route path="/update_profile" element={<ProfileSetting />} />
           <Route path="/change_password" element={<ChangePassword />} />
           <Route path="/booking/:id" element={<BookingPage />} />
-
+          <Route path="/chating" element={<Messenger />} />
         </Route>
       </Routes>
     </div>

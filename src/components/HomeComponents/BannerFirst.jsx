@@ -3,8 +3,9 @@ import {Link} from 'react-router-dom'
  import doctorImage from '../../Assets/doctor-image.jpg'
 
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import { useSelector } from 'react-redux';
 function BannerFirst() {
-  const client = false
+  const {token} = useSelector(state=>state.clientLogin) 
   return (
     <div >
       <div className="flex flex-col md:flex-row">
@@ -13,9 +14,9 @@ function BannerFirst() {
             <h1 className=" text-4xl font-serif font-bold ">
               LET'S FIND YOUR DOCTOR
             </h1>
-            {client ? (
-              <Link to="/service">
-                <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-md w-48 bg-[#194569] p-2  text-white hover:text-black">
+            {token ? (
+              <Link to="/doctors">
+                <span className="cursor-pointer  flex justify-center items-center mt-10 font-semibold text-md w-48 bg-[#194569] p-2  text-white hover:text-black rounded">
                   Appointment
                   <ArrowForwardIcon
                     style={{ marginLeft: "10px", marginTop: "5px" }}
@@ -23,7 +24,7 @@ function BannerFirst() {
                 </span>
               </Link>
             ) : (
-              <span className="cursor-pointer  flex justify-center  mt-10 font-semibold text-md w-48 bg-[#194569] p-2  text-white hover:text-black">
+              <span className="cursor-pointer  flex justify-center items-center mt-10 font-semibold text-md w-48 bg-[#194569] p-2  text-white hover:text-black rounded">
                 Appointment
                 <ArrowForwardIcon
                   style={{ marginLeft: "10px", marginTop: "5px" }}

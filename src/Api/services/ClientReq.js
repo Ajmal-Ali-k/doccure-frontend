@@ -95,3 +95,16 @@ export const filteredSlot =(data,token)=>{
     }
 
 }
+
+// export const createBooking =(data,token)=>{
+//     try {
+//         const response = AxiosClient.post(`/create_booking`,{data},{
+//             headers:{Authorization:"Bearer"+token}
+//         })
+//         return response
+//     } catch (error) {
+//         return error?.response
+        
+//     }
+
+// }
