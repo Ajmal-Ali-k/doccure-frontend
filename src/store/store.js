@@ -15,16 +15,13 @@ import { ClientSlice } from "./slice/userSlice";
 import { AdminSlice } from "./slice/adminSlice";
 import { DoctorSlice } from "./slice/doctorSlice";
 
-
-
-const persistConfigClient = { key: "client", storage, version: 1 };   
+const persistConfigClient = { key: "client", storage, version: 1 };
 const persistConfigAdmin = { key: "admin", storage, version: 1 };
-const persistConfigDoctor = { key: "doctor", storage, version: 1 };  
-
+const persistConfigDoctor = { key: "doctor", storage, version: 1 };
 
 const clientPersistedReducer = persistReducer(
-    persistConfigClient,
-    ClientSlice.reducer
+  persistConfigClient,
+  ClientSlice.reducer
 );
 
 const AdminPersisteReducer = persistReducer(
@@ -33,8 +30,8 @@ const AdminPersisteReducer = persistReducer(
 );
 const DocterPersistReducer = persistReducer(
   persistConfigDoctor,
-DoctorSlice.reducer
-); 
+  DoctorSlice.reducer
+);
 
 export const store = configureStore({
   reducer: {
@@ -50,4 +47,4 @@ export const store = configureStore({
     }),
 });
 
-export const persistor= persistStore(store)
+export const persistor = persistStore(store);

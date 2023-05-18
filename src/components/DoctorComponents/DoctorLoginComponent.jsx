@@ -26,7 +26,8 @@ function DoctorLoginComponent() {
       dispatch(setLogin({
         doctor:"doctor",
         name:response.data.doctorName,
-        token:response.data.doctorToken
+        token:response.data.doctorToken,
+        Id: response.data.doctorID
 
       }))
       setLoading(false)

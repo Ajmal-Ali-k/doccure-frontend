@@ -30,7 +30,8 @@ function UserLogin() {
           dispatch(setLogin({
             client: "client",
             name: result.clientName,
-            token: result.clientToken
+            token: result.clientToken,
+            Id:result.clientId
           }))
           setLoading(false)
           message.success('Login Successfully')
@@ -70,7 +71,7 @@ function UserLogin() {
                 <div>
                   <label
                     htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white "
                   >
                     Your email
                   </label>
@@ -80,7 +81,7 @@ function UserLogin() {
                     name="email"
                     id="email"
                     value={email}
-                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                    className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 " 
                     placeholder="Enter your email"
                   />
                   {/* </div>
@@ -93,7 +94,7 @@ function UserLogin() {
                 <div> */}
                   <label
                     htmlFor="password"
-                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
+                    className="block mb-2 text-sm font-medium text-gray-900 dark:text-white pt-2"
                   >
                     Password
                   </label>

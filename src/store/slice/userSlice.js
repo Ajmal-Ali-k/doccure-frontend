@@ -4,7 +4,7 @@ const initialState = {
   client: null,
   name: null,
   token: null,
-  
+  Id: null,
 };
 export const ClientSlice = createSlice({
   name: "client",
@@ -14,13 +14,13 @@ export const ClientSlice = createSlice({
       state.client = action.payload.client;
       state.name = action.payload.name;
       state.token = action.payload.token;
-    
+      state.Id = action.payload.Id;
     },
     setLogout: (state, action) => {
       state.client = null;
       state.name = null;
       state.token = null;
- 
+      state.Id = null;
     },
   },
 });

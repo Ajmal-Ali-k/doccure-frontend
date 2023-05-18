@@ -1,7 +1,17 @@
 import React from 'react'
+import moment from 'moment';
 
-function Message() {
-    const own = false
+
+function Message({own,messages}) {
+
+    function getTimeAgo(dateTime) {
+        const now = moment();
+        const givenDateTime = moment(dateTime);
+        const timeAgo = givenDateTime.from(now);
+        return timeAgo;
+      }
+
+    // const own = false
   return (
     <div
             class={own ? "flex w-full mt-2 space-x-3 max-w-xs ml-auto justify-end" : "flex w-full mt-2 space-x-3 max-w-xs"}
@@ -15,9 +25,9 @@ function Message() {
                             : "bg-gray-300 p-3 rounded-r-lg rounded-bl-lg"
                     }
                 >
-                    <p class="text-sm">bdkdhhhdh</p>
+                    <p class="text-sm">{messages?.text}</p>
                 </div>
-                <span class="text-xs text-gray-500 leading-none">2 min ago</span>
+                <span class="text-xs text-gray-500 leading-none">{getTimeAgo(messages?.createdAt)}</span>
             </div>
             {own ? <div class="flex-shrink-0 h-10 w-10 rounded-full bg-gray-300"></div> : <></>}
         </div>

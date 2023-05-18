@@ -1,15 +1,15 @@
-
-import {Link} from 'react-router-dom'
- import doctorImage from '../../Assets/doctor-image.jpg'
-
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { useSelector } from 'react-redux';
+import { Link } from "react-router-dom";
+import bannerimg from "../../Assets/banner-img.png";
+import nurse from "../../Assets/nurse.jpeg"
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import backgroundImage from "../../Assets/banner-bg.png"
+import { useSelector } from "react-redux";
 function BannerFirst() {
-  const {token} = useSelector(state=>state.clientLogin) 
+  const { token } = useSelector((state) => state.clientLogin);
   return (
-    <div >
+    <div>
       <div className="flex flex-col md:flex-row">
-        <div className="  w-full   bg-[#D6E8EE] md:w-[40%] flex justify-center content-center">
+        <div className="  w-full   md:w-[40%] flex justify-center content-center" style={{backgroundImage: `url(${backgroundImage})`}}>
           <div className="p-20 lg:p-44">
             <h1 className=" text-4xl font-serif font-bold ">
               LET'S FIND YOUR DOCTOR
@@ -33,10 +33,10 @@ function BannerFirst() {
             )}
           </div>
         </div>
-        <div className="w-full  bg-white  md:w-[60%] p-4">
-          <div className=" inset-0 flex items-center justify-center ">
-            <div className="bg-white mb-5 lg:p-12  ">
-              <img src={doctorImage} alt="" />
+        <div className="w-full  bg-white  md:w-[60%]">
+          <div className=" inset-0 flex items-center justify-center" style={{backgroundImage: `url(${backgroundImage})`}} >
+            <div className="bg-white mb-5 lg:p-12`" >
+              <img src={bannerimg} alt="" />
             </div>
           </div>
         </div>

@@ -24,6 +24,7 @@ function ClientRoutes() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/chating" element={<Messenger />} />
 
         <Route element={<UserPrivateRoutes />}>
           <Route path="/doctors" element={<Doctors />} />
@@ -35,13 +36,12 @@ function ClientRoutes() {
               </Suspense>
             }
           />
-
           <Route path="/doctor_detail/:id" element={<DoctorDynamic />} />
           <Route path="/dashboard" element={<Dashbaord />} />
           <Route path="/update_profile" element={<ProfileSetting />} />
           <Route path="/change_password" element={<ChangePassword />} />
           <Route path="/booking/:id" element={<BookingPage />} />
-          <Route path="/chating" element={<Messenger />} />
+         
         </Route>
       </Routes>
     </div>

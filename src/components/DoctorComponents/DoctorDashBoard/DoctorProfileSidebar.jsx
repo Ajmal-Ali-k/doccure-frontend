@@ -1,17 +1,18 @@
 import React from 'react'
 import img from "./../../../Assets/blank-profile-picture-g05926a0d9_640.png"
+import { Link } from 'react-router-dom'
 function DoctorProfileSidebar() {
   return (
     <>
       <div className="profile-sidebar">
                 <div className="widget-profile pro-widget-content">
                   <div className="profile-info-widget">
-                    <a href="#" className="booking-doc-img">
+                    <Link  className="booking-doc-img">
                       <img
                         src={img}
                         alt="User"
                       />
-                    </a>
+                    </Link>
                     <div className="">
                       <h3>Dr. Gokul das</h3>
                       <div className="patient-details">
@@ -26,56 +27,56 @@ function DoctorProfileSidebar() {
                   <nav className="dashboard-menu">
                     <ul>
                       <li>
-                        <a href="">
+                        <Link href="">
                           <i className="fas fa-columns" />
                           <span>Dashboard</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="">
+                        <Link href="">
                           <i className="fas fa-calendar-check" />
                           <span>Appointments</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="">
+                        <Link href="">
                           <i className="fas fa-user-injured" />
                           <span>My Patients</span>
-                        </a>
+                        </Link>
                       </li>
                       <li className="active">
-                        <a href="">
+                        <Link href="">
                           <i className="fas fa-hourglass-start" />
                           <span>Schedule Timings</span>
-                        </a>
+                        </Link>
                       </li>
                      
                     
                       <li>
-                        <a href="">
+                        <Link to="/chating">
                           <i className="fas fa-comments" />
                           <span>Message</span>
                           {/* <small className="unread-msg">23</small> */}
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="">
+                        <Link href="">
                           <i className="fas fa-user-cog" />
                           <span>Profile Settings</span>
-                        </a>
+                        </Link>
                       </li>
                  
                       <li>
-                        <a href="">
+                        <Link href="">
                           <i className="fas fa-lock" />
                           <span>Change Password</span>
-                        </a>
+                        </Link>
                       </li>
                       <li>
-                        <a href="">
+                        <Link href="">
                           <i className="fas fa-sign-out-alt" />
                           <span>Logout</span>
-                        </a>
+                        </Link>
                       </li>
                     </ul>
                   </nav>
