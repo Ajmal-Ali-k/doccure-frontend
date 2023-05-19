@@ -10,32 +10,55 @@ import {
 import { useSelector } from "react-redux";
 import { GrLinkPrevious } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
+import { io } from "socket.io-client";
 
 function ChatPage() {
   const clientToken = useSelector((state) => state.clientLogin.token);
-  const DoctorToken = useSelector((state)=> state.doctorLogin.token)
-  const navigate = useNavigate()
+  const DoctorToken = useSelector((state) => state.doctorLogin.token);
+  const navigate = useNavigate();
 
-  let token = clientToken ? clientToken : DoctorToken
-  
+  let token = clientToken ? clientToken : DoctorToken;
 
   const [conversation, setConversation] = useState([]);
   const [currentChat, setcurrentChat] = useState(null);
   const [messages, setMessages] = useState([]);
   const [newMessage, setNewMessage] = useState("");
+  const [arrivalMessage,setArrivalMessage] = useState(null)
   const [userId, setuserId] = useState("");
-
-
-
+  // const [socket,setSocket]=useState(null)
+  const socket = useRef();
   const scrollRef = useRef();
+  useEffect(() => {
+    socket.current = io("ws://localhost:8080");
+    socket.current.on("getMessage",data =>{
+      setArrivalMessage({
+        sender:data.sender,
+        text:data.text,
+        createdAt:Date.now()
+
+      })
+      
+    })
+  }, []);
+  useEffect(()=>{
+    arrivalMessage && currentChat?.members.includes(arrivalMessage.sender) &&
+    setMessages(prev=>[...prev,arrivalMessage])
+
+  },[arrivalMessage,currentChat])
+console.log(userId,"thisisi user id")
+  useEffect(() => {
+    socket.current.emit("addUser",userId);
+    socket.current.on("getUser",(users) => {
+      console.log(users, "thsis is usressssssss");
+    });
+  }, [token]);
 
   const getconversatiion = async (req, res) => {
     try {
       const response = await getConversationApi(token);
       if (response.data.success) {
         setConversation(response.data.conversation);
-        setuserId(response.data.userId)
-
+        setuserId(response.data.userId);
       } else {
         message.error("something went wrong");
       }
@@ -45,10 +68,9 @@ function ChatPage() {
     }
   };
 
-  console.log(conversation, "thisisi conversation");
   useEffect(() => {
     getconversatiion();
-  }, []);
+  }, [token]);
 
   //this is geting messages
   const getMessages = async () => {
@@ -71,36 +93,42 @@ function ChatPage() {
       text: newMessage,
       conversationId: currentChat._id,
     };
+    const recieverId = currentChat.members.find(member => member !== userId)
+    console.log(recieverId,"this is   reciever id")
+    socket.current.emit("sendMessage",{
+      senderId:userId,
+      recieverId,
+      text:newMessage
 
+    })
     try {
       const response = await postNewMessagesApi(message, token);
       if (response.data.success) {
         setMessages([...messages, response.data.savedMessage]);
         setNewMessage("");
-      }else{
-       message.error(response.data.message)  
+      } else {
+        message.error(response.data.message);
       }
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    scrollRef.current?.scrollIntoView({behavior:"smooth"});
-  }, [messages]);
-  const handleNavigate =()=>{
-    navigate(-1)
 
-  }
+  useEffect(() => {
+    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+  const handleNavigate = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="">
       <div class=" w-full  shadow-lg border-t rounded-lg ">
         <div class="flex flex-row h-screen  justify-between bg-white ">
           <div class="flex pt-16 flex-col w-2/6 border-r-2 overflow-y-auto">
-          <div className="ml-4" onClick={handleNavigate}>
-          <GrLinkPrevious/>
-
-          </div>
+            <div className="ml-4" onClick={handleNavigate}>
+              <GrLinkPrevious />
+            </div>
             <div class="border-b-2  py-4 px-2">
               <input
                 type="text"
@@ -170,6 +198,9 @@ function ChatPage() {
                           type="text"
                           onChange={(e) => setNewMessage(e.target.value)}
                           value={newMessage}
+                          onKeyUp={(e)=>{
+                                e.key === 'Enter' && handleSubmit(e)
+                              }}
                           class="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                         />
                         <button class="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600">
