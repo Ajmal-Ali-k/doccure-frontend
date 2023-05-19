@@ -18,11 +18,10 @@ function Contact({ conversation, currentuser, token }) {
 
   useEffect(() => {
     const friendId = conversation.members.find((m) => m !== currentuser);
-
     getuser(friendId);
     // eslint-disable-next-line 
   }, [conversation, currentuser]);
-  console.log(user, "this is user");
+
 
   return (
     <>
