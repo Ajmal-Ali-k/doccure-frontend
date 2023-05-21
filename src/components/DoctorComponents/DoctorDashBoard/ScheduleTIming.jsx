@@ -10,20 +10,23 @@ import SlotModal from "./SlotModal";
 
 function ScheduleTIming() {
   const initialState = {
-    date: new Date(),
+    date: "",
+    slotDuration: "",
     endTime: "",
     startTime: "",
+   
   };
-  const Today = new Date();
-  console.log(Today, "this today date");
+
+
 
   const { token } = useSelector((state) => state.doctorLogin);
-  console.log(token, "this is the doctor token");
+
   const [formValues, setFormValues] = useState(initialState);
   const [formErrors, setFormErrors] = useState({});
   const [loader, setLoader] = useState(false);
+  const [errors, setErrors] = useState({});
   const [currentDate, setCurrentDate] = useState(new Date());
-  const [submit,setSubmit]=useState(false)
+  const [submit, setSubmit] = useState(false);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -37,19 +40,22 @@ function ScheduleTIming() {
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(formValues, "thsisi form dat");
     setLoader(true);
     setFormErrors(validate(formValues));
     if (validate(formValues)) {
+     
       try {
         const result = await createSlot(formValues, token);
-        console.log(result);
+
         if (result.data.success) {
+          setFormValues(initialState)
           setLoader(false);
-          setSubmit(true)
+          setSubmit(true);
           message.success("Slot Created Successfully");
         } else {
           setLoader(false);
-          message.error("Oops  Something went wrong");
+          message.error(result.data.message);
         }
       } catch (error) {
         console.log(error);
@@ -69,26 +75,31 @@ function ScheduleTIming() {
 
     if (!values.date) {
       errors.date = "date is required";
-      message.error("date is required");
+      // message.error("date is required");
     }
     if (!values.endTime) {
       errors.endTime = "End Time is required";
-      message.error("End Time is required");
+      // message.error("End Time is required");
       // } else if (regex.test(values.email)) {
       //   errors.email = "This is not a valid email format";
     }
+    if (!values.slotDuration) {
+      errors.slotDuration = "Slot Duration is required";
+      // message.error("Slot Duration is required");
+    }
     if (!values.startTime) {
       errors.startTime = "Start Time is required";
-      message.error("Start Time is required");
+      // message.error("Start Time is required");
     }
     if (values.startTime > values.endTime) {
       errors.properTime = "Choose a proper time";
-      message.error("Choose a proper time");
+      // message.error("Choose a proper time");
     }
     if (currentDate > new Date(values.date)) {
       errors.properDate = "Choose a proper date";
-      message.error("Choose a proper date");
+      // message.error("Choose a proper date");
     }
+    setErrors(errors);
 
     // return errors;
     // Return true if there are no errors, false otherwise
@@ -114,25 +125,7 @@ function ScheduleTIming() {
                       <h4 className="card-title">Schedule Timings</h4>
                       <div className="profile-box">
                         <div className="row">
-                          <div className="col-lg-4">
-                            <div className="form-group">
-                              {/* <label>Select a day</label> */}
-                              {/* <select className="select form-control">
-                                <option>-</option>
-                                {daysofweek && daysofweek.map((val)=>{
-                                  return  <option value={val}>{val}</option>
-                                })}
-                                 
-                                 
-                              </select> */}
-                              {/* <DatePicker
-                                selected={startDate}
-                                onChange={(date) => setStartDate(date)}
-                                dateFormat="dd/MM/yyyy"
-                                className="border-gray-300 rounded-md"
-                              /> */}
-                            </div>
-                          </div>
+                          <div className="col-lg-4"></div>
                         </div>
 
                         <div className="row">
@@ -160,7 +153,7 @@ function ScheduleTIming() {
                                     <form onSubmit={handleSubmit}>
                                       <div className="mb-5 pt-3">
                                         <div className="w-full px-3 ">
-                                          <div className="mb-5">
+                                          <div className="mb-4">
                                             <label
                                               for="date"
                                               className="mb-3 block text-base font-medium text-[#07074D]"
@@ -176,17 +169,45 @@ function ScheduleTIming() {
                                               value={formValues.date}
                                               className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
                                             />
+                                            {errors.date && (
+                                              <p className="text-red-600 mt-1">
+                                                {errors.date}
+                                              </p>
+                                            )}
+                                          </div>
+                                          <div className="form-group">
+                                            <label
+                                              for="optio"
+                                              className="mb-3 block text-base font-medium text-[#07074D]"
+                                            >
+                                              Select slot duration
+                                            </label>
+                                            <select
+                                              className="select form-control"
+                                             name="slotDuration"
+                                              onChange={handleChange}
+                                            ><option value=""></option>
+                                              <option value="15">15 min</option>
+                                              <option value="30">30 min</option>
+                                              <option value="45">45 min</option>
+                                              <option value="60">1 hr</option>
+                                            </select>
+                                            {errors.slotDuration && (
+                                              <p className="text-red-600 mt-1">
+                                                {errors.slotDuration}
+                                              </p>
+                                            )}
                                           </div>
                                         </div>
                                         {/* <label className="mb-2 mt-2 block text-base  text-[#07074D] sm:text-md">
                                           Select a Time
                                         </label> */}
-                                        <div className="-mx-2 flex flex-wrap">
-                                          <div className="w-full px-3 sm:w-1/2">
-                                            <div className="mb-5">
+                                        <div className="">
+                                          <div className="w-full px-3 sm:w-2/2">
+                                            <div className="mb-3">
                                               <label
                                                 for="time"
-                                                className="mb-3 block text-base font-medium text-[#07074D]"
+                                                className="mb-2 block text-base font-medium text-[#07074D]"
                                               >
                                                 Start Time
                                               </label>
@@ -199,15 +220,21 @@ function ScheduleTIming() {
                                                 value={formValues.startTime}
                                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] appearance-none outline-none focus:border-[#6A64F1] focus:shadow-md"
                                               />
+
+                                              {errors.startTime && (
+                                                <p className="text-red-600 mt-1">
+                                                  {errors.startTime}
+                                                </p>
+                                              )}
                                             </div>
                                           </div>
                                           {loader && <Loader />}
 
-                                          <div className="w-full px-3 sm:w-1/2">
+                                          <div className="w-full px-3 sm:w-2/2">
                                             <div className="mb-5">
                                               <label
                                                 for="time"
-                                                className="mb-3 block text-base font-medium text-[#07074D]"
+                                                className="mb-2 block text-base font-medium text-[#07074D]"
                                               >
                                                 End Time
                                               </label>
@@ -220,9 +247,16 @@ function ScheduleTIming() {
                                                 value={formValues.endTime}
                                                 class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] appearance-none outline-none focus:border-[#6A64F1] focus:shadow-md"
                                               />
+
+                                              {errors.endTime && (
+                                                <p className="text-red-600 mt-1">
+                                                  {errors.endTime}
+                                                </p>
+                                              )}
                                             </div>
                                           </div>
                                         </div>
+
                                         <div>
                                           <button
                                             type="submit"
@@ -266,9 +300,8 @@ function ScheduleTIming() {
                                 >
                                   <h4 className="card-title d-flex justify-content-between">
                                     <span>Time Slots</span>
-                               
                                   </h4>
-                            {/* time slots */}
+                                  {/* time slots */}
                                   {/* <div className="doc-times">
                                     <div className="doc-slot-list">
                                       8:00 pm - 11:30 pm
@@ -281,12 +314,9 @@ function ScheduleTIming() {
                                       </a>
                                     </div>
                                   </div> */}
-                                  <SlotModal values={submit}/>
+                                  <SlotModal values={submit} />
 
-
-
-{/* timeslots */}
-                               
+                                  {/* timeslots */}
                                 </div>
                                 {/* /Monday Slot */}
                               </div>
@@ -304,7 +334,6 @@ function ScheduleTIming() {
         </div>
       </div>
     </div>
-
   );
 }
 

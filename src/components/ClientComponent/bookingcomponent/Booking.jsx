@@ -5,7 +5,7 @@ function Booking() {
   return (
     <>
       <div className="w-full h-screen">
-        <div className="flex items-center justify-center w-full my-20">
+        <div className="flex items-center justify-center w-full mt-5">
      
             <Card />
 
