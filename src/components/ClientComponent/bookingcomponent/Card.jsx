@@ -75,7 +75,7 @@ function Card() {
 console.log(process.env.REACT_APP_CLIENT_ID,"this is paypalclientid")
   return (
     <>
-      <div className="w-3/5 ">
+      {/* <div className="w-3/5 "> */}
         <div className="bg-white shadow-xl rounded-lg py-10 ">
           <div className="photo-wrapper p-2">
             <img
@@ -125,28 +125,31 @@ console.log(process.env.REACT_APP_CLIENT_ID,"this is paypalclientid")
                 </label>
               </div>
 
-              <div className="flex items-center justify-center">
+              <div className="grid grid-cols-4 gap-4">
                 {filterSlots?.length !== 0 ? (
                   filterSlots?.map((val, i) => {
+                    console.log(val,"this si map val");
                     return (
-                      <div className="mx-2 mb-3">
+                      <div className="mx-2 mb-3 flex justify-center items-center">
+                  
                         <input
                           defaultChecked={false}
                           onChange={handleCheckboxChange}
                           id={`default-checkbox${i}`}
                           type="checkbox"
-                          value={val._id}
-                          class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 mx-2 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+                          value={val.objectId}
+                          class={`${val.booked === true && " pointer-events-none opacity-50"} w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 mx-2 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 `}
                         />
-                        <button
+
+                        <div
                           className={`${
-                            val.status === "booked"
-                              ? "btn btn-secondary  pointer-events-none opacity-50"
-                              : "btn btn-primary"
+                            val.booked === true
+                              ? "bg-gray-500   text-white rounded-xl  pointer-events-none opacity-50 h-12 w-32  text-center flex items-center justify-center"
+                              : "bg-green-500  text-white rounded-xl h-12 w-32  text-center flex items-center justify-center"
                           }`}
                         >
-                          {val.startTime}-{val.endTime}
-                        </button>
+                          {val.start}-{val.end}
+                        </div>
                       </div>
                     );
                   })
@@ -169,13 +172,14 @@ console.log(process.env.REACT_APP_CLIENT_ID,"this is paypalclientid")
               </button>
             </div>
             <div className=" mt-10 flex justify-center items-center">
-              {submit && (
+              {submit && checkedValues ? (
                 <Paypal amount={doctor?.fee} checkedValues={checkedValues} />
-              )}
+            
+              ):""}
             </div>
           </div>
         </div>
-      </div>
+      {/* </div> */}
     </>
   );
 }

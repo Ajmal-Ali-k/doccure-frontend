@@ -6,9 +6,13 @@ import FooterComponent from "../../components/HomeComponents/FooterComponent";
 function BookingPage() {
   return (
     <div>
-      <NavbarComponent />
-      <Booking />
-      <FooterComponent />
+      <div>
+        <NavbarComponent />
+        <Booking />
+        <div className="mt-8">
+          <FooterComponent />
+        </div>
+      </div>
     </div>
   );
 }

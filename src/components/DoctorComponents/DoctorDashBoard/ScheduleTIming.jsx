@@ -55,7 +55,7 @@ function ScheduleTIming() {
           message.success("Slot Created Successfully");
         } else {
           setLoader(false);
-          message.error("Oops  Something went wrong");
+          message.error(result.data.message);
         }
       } catch (error) {
         console.log(error);
