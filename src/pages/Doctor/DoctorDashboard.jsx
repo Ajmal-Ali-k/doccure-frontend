@@ -1,12 +1,12 @@
-import React from 'react'
-import DoctorProfileCard from '../../components/DoctorComponents/DoctorDashBoard/DoctorProfileCard'
+import React from "react";
+import DoctorProfileSidebar from "../../components/DoctorComponents/DoctorDashBoard/DoctorProfileSidebar";
 
 function DoctorDashboard() {
   return (
-    <div>
-   <DoctorProfileCard/>
+    <div className="w-1/4">
+      <DoctorProfileSidebar />
     </div>
-  )
+  );
 }
 
-export default DoctorDashboard
+export default DoctorDashboard;

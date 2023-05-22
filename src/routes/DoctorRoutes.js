@@ -5,6 +5,7 @@ import DoctorVerification from "../pages/Doctor/DoctorVerification";
 import DoctorLogin from "../pages/Doctor/DoctorLogin";
 import DoctorDashboard from "../pages/Doctor/DoctorDashboard";
 import DoctorTimeSchedule from "../pages/Doctor/DoctorTimeSchedule";
+import DRChangePassword from "../pages/Doctor/DRChangePassword";
 
 function DoctorRoutes() {
   return (
@@ -15,6 +16,7 @@ function DoctorRoutes() {
         <Route path="/doctor_verification" element={<DoctorVerification />} />
         <Route path="/dashboard" element={<DoctorDashboard />} />
         <Route path="/schedule_timing" element={<DoctorTimeSchedule />} />
+        <Route path="/change_password" element={<DRChangePassword />} />
 
       </Routes>
     </div>

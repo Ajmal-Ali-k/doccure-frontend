@@ -10,7 +10,7 @@ function Booking() {
             <Card />
 
         </div>
-        {/* <div></div> */}
+
       </div>
     </>
   );

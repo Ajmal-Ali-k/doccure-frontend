@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import ModalSuccess from "../modal/Successmodal";
 import { AxiosClient} from "../../../Axios/Axios"
 
-function Paypal({ amount, checkedValues }) {
+function Paypal({ amount, checkedValues,timing,date }) {
   const [order, setOrder] = useState("");
   const [modal, setmodal] = useState(false);
 
@@ -21,7 +21,7 @@ function Paypal({ amount, checkedValues }) {
     AxiosClient
       .post(
         "/create_booking",
-        { slot: checkedValues, amount, doctor: id, order_id },
+        { slot: checkedValues,totalAmount, doctor: id, order_id,timing,date },
         {
           headers: {
             Authorization:"Bearer"+token

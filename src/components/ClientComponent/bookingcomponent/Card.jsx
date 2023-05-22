@@ -15,6 +15,9 @@ function Card() {
   const [filterSlots, setfilterSlot] = useState();
   const [checkedValues, setCheckedValues] = useState([]);
   const [submit, setSubmit] = useState(false);
+  const [timing, setTiming] = useState({
+    start:'',end:""
+  })
 
   const disablePastDate = () => {
     const today = new Date();
@@ -39,13 +42,15 @@ function Card() {
       setDoctor(response.data.Doctor);
     }
   };
-  const handleCheckboxChange = (e) => {
+  const handleCheckboxChange = (e,start,end) => {
+
     const value = e.target.value;
 
     const isChecked = e.target.checked;
 
     if (isChecked) {
       setCheckedValues([...checkedValues, value]);
+      setTiming({start:start,end:end})
     } else {
       setCheckedValues(checkedValues.filter((val) => val !== value));
     }
@@ -62,8 +67,8 @@ function Card() {
     const response = await filteredSlot(data, token);
     if (response.data.success) {
       setfilterSlot(response.data.slots);
-    }else{
-      console.log("not availlable")
+    } else {
+      console.log("not availlable");
     }
   };
 
@@ -71,11 +76,11 @@ function Card() {
     filtered();
     // eslint-disable-next-line
   }, [selectedDate]);
-  console.log(checkedValues, "this is checked values");
-console.log(process.env.REACT_APP_CLIENT_ID,"this is paypalclientid")
+  console.log(checkedValues, "this is checked value");
+  console.log(timing,"thsis start and");
   return (
     <>
-      {/* <div className="w-3/5 "> */}
+      <div className="w-3/5 ">
         <div className="bg-white shadow-xl rounded-lg py-10 ">
           <div className="photo-wrapper p-2">
             <img
@@ -126,26 +131,27 @@ console.log(process.env.REACT_APP_CLIENT_ID,"this is paypalclientid")
               </div>
 
               <div className="grid grid-cols-4 gap-4">
-                {filterSlots?.length !== 0 ? (
+                {filterSlots ? (
                   filterSlots?.map((val, i) => {
-                    console.log(val,"this si map val");
                     return (
                       <div className="mx-2 mb-3 flex justify-center items-center">
-                  
                         <input
                           defaultChecked={false}
-                          onChange={handleCheckboxChange}
+                          onChange={(e)=>handleCheckboxChange(e,val.start,val.end) }
                           id={`default-checkbox${i}`}
                           type="checkbox"
                           value={val.objectId}
-                          class={`${val.booked === true && " pointer-events-none opacity-50"} w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 mx-2 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 `}
+                          class={`${
+                            val.booked === true &&
+                            " pointer-events-none opacity-50"
+                          } w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 mx-2 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 `}
                         />
 
                         <div
                           className={`${
                             val.booked === true
                               ? "bg-gray-500   text-white rounded-xl  pointer-events-none opacity-50 h-12 w-32  text-center flex items-center justify-center"
-                              : "bg-green-500  text-white rounded-xl h-12 w-32  text-center flex items-center justify-center"
+                              : "bg-cyan-500  text-white rounded-xl h-12 w-32  text-center flex items-center justify-center"
                           }`}
                         >
                           {val.start}-{val.end}
@@ -154,8 +160,10 @@ console.log(process.env.REACT_APP_CLIENT_ID,"this is paypalclientid")
                     );
                   })
                 ) : (
-                  <div className="font-sans flex justify-center mt-3">
-                    <h4 className="text-red-500 hover:text-red-800">
+                  
+                  
+                  <div className="font-sans col-span-4   flex items-center justify-center mt-3">
+                    <h4 className="text-red-500  mx-auto hover:text-red-800">
                       Sorry not available this date !!
                     </h4>
                   </div>
@@ -166,20 +174,19 @@ console.log(process.env.REACT_APP_CLIENT_ID,"this is paypalclientid")
             <div className="flex justify-center mt-10">
               <button
                 onClick={handleSubmit}
-                className="bg-blue-500 hover:bg-blue-700 text-white rounded-md py-2 px-2"
+                className="bg-blue-700 hover:bg-blue-900 text-white rounded-md py-2 px-2"
               >
                 Book now
               </button>
             </div>
             <div className=" mt-10 flex justify-center items-center">
-              {submit && checkedValues ? (
-                <Paypal amount={doctor?.fee} checkedValues={checkedValues} />
-            
-              ):""}
+              {submit && (
+                <Paypal amount={doctor?.fee} checkedValues={checkedValues} timing ={timing} date ={selectedDate}/>
+              )}
             </div>
           </div>
         </div>
-      {/* </div> */}
+      </div>
     </>
   );
 }
