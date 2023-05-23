@@ -52,7 +52,8 @@ function Successmodal({ modal,setModal}) {
                 <p> Have a great day! </p>
                 <div class="py-10 text-center">
                   <a
-                   onClick={()=>navigate("/")}
+                   onClick={()=>navigate("/booking_success")}
+                
                     href="#"
                     class="px-12 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold py-3"
                   >

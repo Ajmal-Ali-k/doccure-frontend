@@ -1,13 +1,15 @@
 import React, { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
 import { useSelector } from "react-redux";
 import ModalSuccess from "../modal/Successmodal";
 import { AxiosClient} from "../../../Axios/Axios"
 
 function Paypal({ amount, checkedValues,timing,date,documentId }) {
+  const navigate = useNavigate()
   const [order, setOrder] = useState("");
   const [modal, setmodal] = useState(false);
+  const [appoinmentId,setAppoinmentId]= useState("");
 
   const totalAmount = checkedValues.length * amount;
   const {token} = useSelector(state=>state.clientLogin)
@@ -29,8 +31,10 @@ function Paypal({ amount, checkedValues,timing,date,documentId }) {
         }
       )
       .then((res) => {
-        if (res.data.status) {
-          setOrder(res.data.result);
+        if (res.data.success) {
+          // setOrder(res.data.result);
+          setAppoinmentId(res.data.appoinmentId)
+          navigate('/booking_success/'+res.data.appoinmentId);
         }
       });
   };
@@ -65,9 +69,7 @@ function Paypal({ amount, checkedValues,timing,date,documentId }) {
               // Your code here after capture the order
               if (data.orderID) {
                 createOrder(data.orderID);
-                setmodal(true);
-
-                alert("its completed");
+                // setmodal(true);
               } else {
               }
             }}

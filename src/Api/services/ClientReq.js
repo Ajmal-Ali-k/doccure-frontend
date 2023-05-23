@@ -108,3 +108,17 @@ export const filteredSlot =(data,token)=>{
 //     }
 
 // }
+
+
+export const getAppoinmentDataApi =(id,token)=>{
+    try {
+        const response = AxiosClient.get(`/success_page/`+id,{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}

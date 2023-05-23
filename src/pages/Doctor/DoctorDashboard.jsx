@@ -1,10 +1,10 @@
 import React from "react";
-import DoctorProfileSidebar from "../../components/DoctorComponents/DoctorDashBoard/DoctorProfileSidebar";
+import DashboardComponents from "../../components/DoctorComponents/DoctorDashBoard/DashboardComponents";
 
 function DoctorDashboard() {
   return (
-    <div className="w-1/4">
-      <DoctorProfileSidebar />
+    <div>
+    <DashboardComponents/>
     </div>
   );
 }

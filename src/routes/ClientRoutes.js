@@ -12,6 +12,8 @@ import ProfileSetting from "../pages/client/ProfileSetting";
 import ChangePassword from "../pages/client/ChangePassword";
 import BookingPage from "../pages/client/BookingPage";
 import Messenger from "../pages/client/Messenger";
+import BookingSuccessPage from "../pages/client/BookingSuccessPage";
+
 
 //import UserPubicRoutes from "../utils/UserPubicRoutes";
 const LazyDepartment = React.lazy(() => import("../pages/client/Department"));
@@ -24,6 +26,7 @@ function ClientRoutes() {
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
         <Route path="/chating" element={<Messenger />} />
+
 
         <Route element={<UserPrivateRoutes />}>
           <Route path="/doctors" element={<Doctors />} />
@@ -40,7 +43,8 @@ function ClientRoutes() {
           <Route path="/update_profile" element={<ProfileSetting />} />
           <Route path="/change_password" element={<ChangePassword />} />
           <Route path="/booking/:id" element={<BookingPage />} />
-         
+      
+          <Route path="/booking_success/:id" element={<BookingSuccessPage/>} />
         </Route>
       </Routes>
     </div>
