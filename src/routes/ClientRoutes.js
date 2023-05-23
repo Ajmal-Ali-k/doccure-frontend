@@ -10,7 +10,6 @@ import UserPrivateRoutes from "../utils/UserPrivateRoutes";
 import Dashbaord from "../pages/client/Dashboard";
 import ProfileSetting from "../pages/client/ProfileSetting";
 import ChangePassword from "../pages/client/ChangePassword";
-import Loader from "../components/HomeComponents/Loader";
 import BookingPage from "../pages/client/BookingPage";
 import Messenger from "../pages/client/Messenger";
 
@@ -31,7 +30,7 @@ function ClientRoutes() {
           <Route
             path="/departments"
             element={
-              <Suspense fallback={<Loader />}>
+              <Suspense fallback={<p>Loading.....</p>}>
                 <LazyDepartment />
               </Suspense>
             }

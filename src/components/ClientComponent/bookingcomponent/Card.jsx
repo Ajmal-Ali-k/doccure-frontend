@@ -18,6 +18,7 @@ function Card() {
   const [timing, setTiming] = useState({
     start:'',end:""
   })
+  const [documentId,setDocumentId] = useState("")
 
   const disablePastDate = () => {
     const today = new Date();
@@ -67,6 +68,7 @@ function Card() {
     const response = await filteredSlot(data, token);
     if (response.data.success) {
       setfilterSlot(response.data.slots);
+      setDocumentId(response.data.DocumentId)
     } else {
       console.log("not availlable");
     }
@@ -76,8 +78,7 @@ function Card() {
     filtered();
     // eslint-disable-next-line
   }, [selectedDate]);
-  console.log(checkedValues, "this is checked value");
-  console.log(timing,"thsis start and");
+console.log(documentId,"thissi filtered slots");
   return (
     <>
       <div className="w-3/5 ">
@@ -181,7 +182,7 @@ function Card() {
             </div>
             <div className=" mt-10 flex justify-center items-center">
               {submit && (
-                <Paypal amount={doctor?.fee} checkedValues={checkedValues} timing ={timing} date ={selectedDate}/>
+                <Paypal amount={doctor?.fee} checkedValues={checkedValues} timing ={timing} date ={selectedDate} documentId={documentId}/>
               )}
             </div>
           </div>
