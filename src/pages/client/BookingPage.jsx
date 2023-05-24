@@ -9,9 +9,7 @@ function BookingPage() {
       <div>
         <NavbarComponent />
         <Booking />
-        <div className="mt-8">
-          <FooterComponent />
-        </div>
+     
       </div>
     </div>
   );

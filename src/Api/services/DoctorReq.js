@@ -43,3 +43,27 @@ export const getSlot = (token)=>{
         
     }
 }
+export const  getDocname =(token)=>{
+    try {
+        const response = AxiosDoctor.get('/getDocname',{
+               headers:{Authorization:"Bearer"+token}
+
+        })
+        return response
+    } catch (error) {
+        return error?.response
+    }
+}
+
+export const change_doc_pwd = (data, token) =>{
+    try {
+        const response = AxiosDoctor.post('/change_password',{data},{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        console.log(error)
+        return error?.response
+        
+    }
+}

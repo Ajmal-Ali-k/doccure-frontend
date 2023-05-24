@@ -56,7 +56,7 @@ function SlotModal(props) {
             }}
             className="bg-red-700 hover:bg-red-900  text-white font-bold py-2 px-4 rounded-full"
           >
-            Slot-{i + 1}
+            TimeSlots-{i + 1}
           </button>
         );
       })}

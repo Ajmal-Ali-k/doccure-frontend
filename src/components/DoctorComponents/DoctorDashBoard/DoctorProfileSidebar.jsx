@@ -1,11 +1,30 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import img from "./../../../Assets/blank-profile-picture-g05926a0d9_640.png";
 import { Link, useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../../store/slice/doctorSlice";
+import { getDocname } from "../../../Api/services/DoctorReq";
 function DoctorProfileSidebar() {
+  const {token} = useSelector(state => state.doctorLogin )
+  const [docname,SetDocname] = useState("")
+  const [docimg,setDocimg]= useState("")
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const getname =async ()=>{
+    const response = await getDocname(token)
+    if(response.data.success) {
+
+      SetDocname(response.data.docname)
+      setDocimg(response.data.docimg)
+  
+  }else{
+    console.log("something went wrong")
+  }
+}
+  useEffect(()=>{
+    getname()
+
+  },[])
 
   const handleLogout = () => {
     navigate("/doctor/doctor_login");
@@ -18,10 +37,10 @@ function DoctorProfileSidebar() {
         <div className="widget-profile pro-widget-content">
           <div className="profile-info-widget">
             <Link className="booking-doc-img">
-              <img src={img} alt="User" />
+              <img src={docimg ?docimg : img} alt="User" />
             </Link>
             <div className="">
-              <h3>Dr. Gokul das</h3>
+              <h3>Dr.{docname}</h3>
               <div className="patient-details">
                 {/* <h5 className="mb-0">
                           BDS, MDS - Oral &amp; Maxillofacial Surgery
@@ -45,13 +64,13 @@ function DoctorProfileSidebar() {
                   <span>Appointments</span>
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link href="">
                   <i className="fas fa-user-injured" />
                   <span>My Patients</span>
                 </Link>
-              </li>
-              <li className="active">
+              </li> */}
+              <li className="">
                 <Link to="/doctor/schedule_timing">
                   <i className="fas fa-hourglass-start" />
                   <span>Schedule Timings</span>
