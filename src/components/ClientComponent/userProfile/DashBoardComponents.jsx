@@ -56,7 +56,7 @@ function DashBoardComponents() {
                               <td>
                                 <h2 className="table-avatar">
                                   <a href="doctor-profile.html" className="avatar avatar-sm mr-2">
-                                    <img className="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User Image" />
+                                    <img className="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User" />
                                   </a>
                                   <a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
                                 </h2>
@@ -68,10 +68,10 @@ function DashBoardComponents() {
                               <td><span className="badge badge-pill bg-success-light">Confirm</span></td>
                               <td className="text-right">
                                 <div className="table-action">
-                                  <a href="javascript:void(0);" className="btn btn-sm bg-primary-light">
+                                  <a href="" className="btn btn-sm bg-primary-light">
                                     <i className="fas fa-print" /> Print
                                   </a>
-                                  <a href="javascript:void(0);" className="btn btn-sm bg-info-light">
+                                  <a href="" className="btn btn-sm bg-info-light">
                                     <i className="far fa-eye" /> View
                                   </a>
                                 </div>
@@ -95,10 +95,10 @@ function DashBoardComponents() {
                               <td><span className="badge badge-pill bg-success-light">Confirm</span></td>
                               <td className="text-right">
                                 <div className="table-action">
-                                  <a href="javascript:void(0);" className="btn btn-sm bg-primary-light">
+                                  <a href="" className="btn btn-sm bg-primary-light">
                                     <i className="fas fa-print" /> Print
                                   </a>
-                                  <a href="javascript:void(0);" className="btn btn-sm bg-info-light">
+                                  <a href="" className="btn btn-sm bg-info-light">
                                     <i className="far fa-eye" /> View
                                   </a>
                                 </div>
