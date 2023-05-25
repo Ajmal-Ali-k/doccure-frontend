@@ -1,13 +1,19 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DoctorProfileSidebar from "./DoctorProfileSidebar";
 import icon1 from "../../../Assets/icon-01.png";
 import icon2 from "../../../Assets/icon-02.png";
 import icon3 from "../../../Assets/icon-03.png";
 import img from "../../../Assets/blank-profile-picture-g05926a0d9_640.png";
+import { useSelector } from "react-redux";
+import { getTodayAppoiment, getUpcomingAppoiment } from "../../../Api/services/DoctorReq";
 
 function DashboardComponents() {
+  const { token }= useSelector(state => state.doctorLogin)
   const [today, setToday] = useState(false);
   const [upcoming, setUpcoming] = useState(true);
+  const [todayData, setTodayData] = useState([]);
+  const [upcomingData, setUpcomingData] = useState([]);
+  let nowday  = new Date(); 
 
   const handletoday = () => {
     setToday(true);
@@ -17,6 +23,37 @@ function DashboardComponents() {
     setUpcoming(true);
     setToday(false);
   };
+
+  const getTodayAppoinments = async () => {
+    const response = await getTodayAppoiment(token)
+   if(response.data.success){
+     setTodayData(response.data.data);
+
+   }else{
+    console.log(response.data)
+   }
+    
+  }
+  useEffect(()=>{
+    getTodayAppoinments()
+  },[today])
+
+
+  const getUpcomingAppoinments = async ()=>{
+    const response = await getUpcomingAppoiment(token)
+    if(response.data.success){
+      setUpcomingData(response.data.data);
+
+    }else{
+      console.log(response.data)
+    }
+  }
+  useEffect(()=>{
+    getUpcomingAppoinments()
+
+  },[upcoming])
+  console.log(todayData,"this is todaydata")
+  console.log(upcomingData,"this upcoming dat")
   return (
     <>
       <div className="content">
@@ -45,7 +82,7 @@ function DashboardComponents() {
                             </div>
                             <div className="dash-widget-info">
                               <h6>Total Patient</h6>
-                              <h3>1500</h3>
+                              <h3>15</h3>
                               <p className="text-muted">Till Today</p>
                             </div>
                           </div>
@@ -61,8 +98,8 @@ function DashboardComponents() {
                             </div>
                             <div className="dash-widget-info">
                               <h6>Today Patient</h6>
-                              <h3>160</h3>
-                              <p className="text-muted">06, Nov 2019</p>
+                              <h3>{todayData.length}</h3>
+                              <p className="text-muted">{nowday.toLocaleDateString()}</p>
                             </div>
                           </div>
                         </div>
@@ -78,7 +115,7 @@ function DashboardComponents() {
                             <div className="dash-widget-info">
                               <h6>Appoinments</h6>
                               <h3>85</h3>
-                              <p className="text-muted">06, Apr 2019</p>
+                              <p className="text-muted"></p>
                             </div>
                           </div>
                         </div>
@@ -107,7 +144,7 @@ function DashboardComponents() {
                     {/* /Appointment Tab */}
                     <div className="tab-content">
                       {/* Upcoming Appointment Tab */}
-                      {upcoming && (
+                      {upcoming && upcomingData ? (
                         <div className="tab-pane show active">
                           <div className="card card-table mb-0">
                             <div className="card-body">
@@ -117,7 +154,7 @@ function DashboardComponents() {
                                     <tr>
                                       <th>Patient Name</th>
                                       <th>Appt Date</th>
-                                      <th>Purpose</th>
+                                      <th>Timing</th>
                                       <th>Type</th>
                                       <th className="text-center">
                                         Paid Amount
@@ -125,6 +162,9 @@ function DashboardComponents() {
                                       <th />
                                     </tr>
                                   </thead>
+                                  {upcomingData.map(data =>(
+
+                                
                                   <tbody>
                                     <tr>
                                       <td>
@@ -135,33 +175,33 @@ function DashboardComponents() {
                                           >
                                             <img
                                               className="avatar-img rounded-circle"
-                                              src={img}
+                                              src={data?.user[0]?.photo ? data?.user[0]?.photo :  img}
                                               alt="Use"
                                             />
                                           </div>
                                           <div>
-                                            Gina Moore <span>#PT0005</span>
+                                          {data?.user[0]?.username} {data?.user[0]?.lastName} <span>#{data?.transactionId.slice(-5)}</span>
                                           </div>
                                         </h2>
                                       </td>
                                       <td>
-                                        27 Oct 2019{" "}
-                                        <span className="d-block text-info">
+                                        {data?.date}
+                                        {/* <span className="d-block text-info">
                                           8.00 AM
-                                        </span>
+                                        </span> */}
                                       </td>
-                                      <td>General</td>
+                                      <td>{data?.start}-{data?.end}</td>
                                       <td>Old Patient</td>
-                                      <td className="text-center">$250</td>
+                                      <td className="text-center">${data?.consultationFee}</td>
                                       <td className="text-right">
                                         <div className="table-action">
                                           <div className="btn btn-sm bg-info-light">
-                                            <i className="far fa-eye" /> View
+                                            <i className="far fa-eye" /> call
                                           </div>
-                                          <div className="btn btn-sm bg-success-light">
+                                          {/* <div className="btn btn-sm bg-success-light">
                                             <i className="fas fa-check" />{" "}
                                             Accept
-                                          </div>
+                                          </div> */}
                                           <div className="btn btn-sm bg-danger-light">
                                             <i className="fas fa-times" />{" "}
                                             Cancel
@@ -170,15 +210,16 @@ function DashboardComponents() {
                                       </td>
                                     </tr>
                                   </tbody>
+                                  ))}
                                 </table>
                               </div>
                             </div>
                           </div>
                         </div>
-                      )}
+                      ) :''}
                       {/* /Upcoming Appointment Tab */}
                       {/* Today Appointment Tab */}
-                      {today && (
+                      {today && todayData ? (
                         <div className="tab-pane show active">
                           <div className="card card-table mb-0">
                             <div className="card-body">
@@ -188,7 +229,7 @@ function DashboardComponents() {
                                     <tr>
                                       <th>Patient Name</th>
                                       <th>Appt Date</th>
-                                      <th>Purpose</th>
+                                      <th>Timing</th>
                                       <th>Type</th>
                                       <th className="text-center">
                                         Paid Amount
@@ -196,40 +237,46 @@ function DashboardComponents() {
                                       <th />
                                     </tr>
                                   </thead>
+                                  {todayData.map(data =>(
+
+                                
                                   <tbody>
                                     <tr>
                                       <td>
                                         <h2 className="table-avatar">
-                                          <div className="avatar avatar-sm mr-2">
+                                          <div
+                                            href=""
+                                            className="avatar avatar-sm mr-2"
+                                          >
                                             <img
                                               className="avatar-img rounded-circle"
-                                              src={img}
+                                              src={data?.user[0]?.photo ? data?.user[0]?.photo :  img}
                                               alt="Use"
                                             />
                                           </div>
                                           <div>
-                                            Gina Moore <span>#PT0005</span>
+                                          {data?.user[0]?.username} {data?.user[0]?.lastName} <span>#{data?.transactionId.slice(-5)}</span>
                                           </div>
                                         </h2>
                                       </td>
                                       <td>
-                                        27 Oct 2019{" "}
-                                        <span className="d-block text-info">
-                                          1000
-                                        </span>
+                                        {data?.date}
+                                        {/* <span className="d-block text-info">
+                                          8.00 AM
+                                        </span> */}
                                       </td>
-                                      <td>General</td>
+                                      <td>{data?.start}-{data?.end}</td>
                                       <td>Old Patient</td>
-                                      <td className="text-center">$250</td>
+                                      <td className="text-center">${data?.consultationFee}</td>
                                       <td className="text-right">
                                         <div className="table-action">
                                           <div className="btn btn-sm bg-info-light">
-                                            <i className="far fa-eye" /> View
+                                            <i className="far fa-eye" /> call
                                           </div>
-                                          <div className="btn btn-sm bg-success-light">
+                                          {/* <div className="btn btn-sm bg-success-light">
                                             <i className="fas fa-check" />{" "}
                                             Accept
-                                          </div>
+                                          </div> */}
                                           <div className="btn btn-sm bg-danger-light">
                                             <i className="fas fa-times" />{" "}
                                             Cancel
@@ -238,12 +285,13 @@ function DashboardComponents() {
                                       </td>
                                     </tr>
                                   </tbody>
+                                  ))}
                                 </table>
                               </div>
                             </div>
                           </div>
                         </div>
-                      )}
+                      ) :''}
                       {/* /Today Appointment Tab */}
                     </div>
                   </div>

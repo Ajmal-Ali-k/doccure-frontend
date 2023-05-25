@@ -67,3 +67,27 @@ export const change_doc_pwd = (data, token) =>{
         
     }
 }
+export const getTodayAppoiment = (token) =>{
+    try {
+        const response = AxiosDoctor.get('/todayAppoinments',{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        console.log(error)
+        return error?.response
+        
+    }
+}
+export const getUpcomingAppoiment = (token) =>{
+    try {
+        const response = AxiosDoctor.get('/upcomingAppoinments',{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        console.log(error)
+        return error?.response
+        
+    }
+}
