@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Suspense } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
 import { Link, useNavigate } from "react-router-dom";
@@ -9,20 +9,17 @@ import { getUserDetails } from "../../../Api/services/ClientReq";
 import { setLogout } from "../../../store/slice/userSlice";
 
 function ProfileCard() {
-  const dispatch = useDispatch()
-  const navigate = useNavigate()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { token } = useSelector((state) => state.clientLogin);
   const [datas, setDatas] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  const handlelogout = ()=>{
-    navigate('/login')
+  const handlelogout = () => {
+    navigate("/login");
     localStorage.removeItem("clientToken");
- 
-    dispatch(setLogout())
- 
 
-
-  }
+    dispatch(setLogout());
+  };
   const getuser = async () => {
     const result = await getUserDetails(token);
     if (result.data.success) {
@@ -33,89 +30,83 @@ function ProfileCard() {
   };
   useEffect(() => {
     getuser();
-  }, [refresh]);
-   
-
+  }, []);
+  console.log(datas, "thisi s datas");
 
   return (
     <>
-      {datas &&
-        datas.map((val) => {
-          return (
-            <div className="w-1/5 m-10 ">
-              <div className="bg-white shadow-xl rounded-lg py-3">
-                <div className="photo-wrapper p-2">
-                  <img
-                    className="w-32 h-32 rounded-full mx-auto"
-                    src={ val.photo ? val.photo : Avatar} 
-                    alt={val.username}
-                  />
-                </div>
-                <div className="p-2">
-                  <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
-                  {val.username}{ val.lastName ? val.lastName :'' }
-                  </h3>
-
-                  <table className="text-xs my-3 mx-2 ">
-                    <tbody>
-                      <tr>
-                        <td className="px-2 py-2 text-gray-500 font-semibold">
-                          Phone
-                        </td>
-                        <td className="px-2 py-2">{val.number}</td>
-                      </tr>
-                      <tr>
-                        <td className="px-2 py-2 text-gray-500 font-semibold">
-                          Email
-                        </td>
-                        <td className="px-2 py-2">{val.email}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-                <div className="mx-4">
-                  <nav>
-                    <ul className="space-y-4 flex flex-col">
-                      <li className="border-y-2 py-2">
-                        <Link
-                          to="/dashboard"
-                          className="flex gap-2 items-center"
-                        >
-                          <FaMicrosoft />
-                          <span className="">Dashboard</span>
-                        </Link>
-                      </li>
-                      <li className="border-y-2 py-2">
-                        <Link
-                          to="/update_profile"
-                          className="flex gap-2 items-center"
-                        >
-                          <FaUserCog />
-                          <span>Update Profile</span>
-                        </Link>
-                      </li>
-                      <li className="border-y-2 py-2">
-                        <Link
-                          to="/change_password"
-                          className="flex gap-2 items-center"
-                        >
-                          <FaKey />
-                          <span>Change Password</span>
-                        </Link>
-                      </li>
-                      <li className="border-y-2 py-2" onClick={handlelogout}>
-                        <Link className="flex gap-2 items-center" >
-                          <FiLogOut />
-                          <span >Log out</span>
-                        </Link>
-                      </li>
-                    </ul>
-                  </nav>
+      <div className="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
+        <div className="profile-sidebar">
+          {datas &&
+            datas.map((val) => (
+              <div className="widget-profile pro-widget-content">
+                <div className="profile-info-widget">
+                  <div className="booking-doc-img">
+                    <Suspense fallback={<p>Loading .....</p>}>
+                      <img src={val.photo ? val.photo : Avatar} alt="User" />
+                    </Suspense>
+                  </div>
+                  <div className="profile-det-info">
+                    <h3>
+                      {val?.username} {val?.lastName}
+                    </h3>
+                    {/* <div className="patient-details">
+                  <h5>
+                    <i className="fas fa-birthday-cake" /> 24 Jul 1983, 38 years
+                  </h5>
+                  <h5 className="mb-0">
+                    <i className="fas fa-map-marker-alt" /> Newyork, USA
+                  </h5>
+                </div> */}
+                  </div>
                 </div>
               </div>
-            </div>
-          );
-        })}
+            ))}
+          <div className="dashboard-widget">
+            <nav className="dashboard-menu">
+              <ul>
+                <li className="active">
+                  <Link to="/dashboard">
+                    <i className="fas fa-columns" />
+                    <span>Dashboard</span>
+                  </Link>
+                </li>
+                {/* <li>
+                      <Link to="">
+                        <i className="fas fa-bookmark" />
+                        <span>Favourites</span>
+                      </Link>
+                    </li> */}
+                <li>
+                  <Link to="/chating">
+                    <i className="fas fa-comments" />
+                    <span>Message</span>
+                    {/* <small className="unread-msg">23</small> */}
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/update_profile">
+                    <i className="fas fa-user-cog" />
+                    <span>Profile Settings</span>
+                  </Link>
+                </li>
+                <li>
+                  <Link to="/change_password">
+                    <i className="fas fa-lock" />
+                    <span>Change Password</span>
+                  </Link>
+                </li>
+                <li onClick={handlelogout}>
+                  <Link>
+                    <i className="fas fa-sign-out-alt" />
+                    <span>Logout</span>
+                  </Link>
+                </li>
+              </ul>
+            </nav>
+          </div>
+        </div>
+      </div>
     </>
   );
 }

@@ -6,13 +6,13 @@ import ProfileUpdateForm from '../../components/ClientComponent/userProfile/Prof
 
 function ProfileSetting() {
   return (
-    <div>
+    <div className="main-wrapper">
     <NavbarComponent/>
-    <div className="flex  h-screen w-full justify-start ">
-      <ProfileCard/>
+    {/* <div className="flex  h-screen w-full justify-start "> */}
+
       <ProfileUpdateForm/>
     </div>
-    </div>
+    // </div>
   )
 }
 

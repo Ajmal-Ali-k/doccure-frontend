@@ -5,13 +5,13 @@ import ProfileCard from "../../components/ClientComponent/userProfile/ProfileCar
 
 function ChangePassword() {
   return (
-    <div>
+    <div className="main-wrapper">
       <NavbarComponent />
-      <div className="w-full flex h-screen">
-        <ProfileCard />
+
+
         <ChangePasswordComponent />
       </div>
-    </div>
+
   );
 }
 

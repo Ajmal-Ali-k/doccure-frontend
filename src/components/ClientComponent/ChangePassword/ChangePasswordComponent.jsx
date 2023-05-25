@@ -2,6 +2,7 @@ import React from "react";
 import { message } from "antd";
 import { changePwd } from "../../../Api/services/ClientReq";
 import { useSelector } from "react-redux";
+import ProfileCard from "../userProfile/ProfileCard";
 
 function ChangePasswordComponent() {
   const { token } = useSelector((state) => state.clientLogin);
@@ -30,7 +31,7 @@ function ChangePasswordComponent() {
   };
   return (
     <>
-      <div className="w-2/6 flex flex-col mt-10 ">
+      {/* <div className="w-2/6 flex flex-col mt-10 ">
         <div className="rounded-lg bg-white shadow-xl border-0">
           <div className="mx-6 my-3 ">
             <form onSubmit={handleSubmit}>
@@ -78,7 +79,53 @@ function ChangePasswordComponent() {
             </form>
           </div>
         </div>
+      </div> */}
+      <div className="content">
+        <div className="container-fluid">
+          <div className="row">
+     
+              {/* Profile Sidebar */}
+              <ProfileCard/>
+              {/* /Profile Sidebar */}
+         
+            <div className="col-md-7 col-lg-5 col-xl-5">
+              <div className="card">
+                <div className="card-body">
+                  <div className="row">
+                    <div className="col-md-12 col-lg-12">
+                      {/* Change Password Form */}
+                      <form onSubmit={handleSubmit}>
+                        <div className="form-group">
+                          <label>Old Password</label>
+                          <input type="password"  name="oldPassword" className="form-control" />
+                        </div>
+                        <div className="form-group">
+                          <label>New Password</label>
+                          <input type="password"  name="newPassword" className="form-control" />
+                        </div>
+                        <div className="form-group">
+                          <label>Confirm Password</label>
+                          <input type="password"   name="confirmPassword" className="form-control" />
+                        </div>
+                        <div className="submit-section">
+                          <button
+                            type="submit"
+                            className="px-2 py-2 bg-blue-500 text-white rounded-2xl hover:bg-blue-800"
+                          >
+                            Save Changes
+                          </button>
+                        </div>
+                      </form>
+                      {/* /Change Password Form */}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
+
     </>
   );
 }
