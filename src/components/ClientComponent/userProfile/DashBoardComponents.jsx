@@ -1,7 +1,25 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import ProfileCard from './ProfileCard'
+import { useSelector } from 'react-redux'
+import { getAppoinmentsApi } from '../../../Api/services/ClientReq'
+
 
 function DashBoardComponents() {
+  const {token} = useSelector(state => state.clientLogin)
+  const [datas,setDatas] = useState([])
+
+  const getdata = async ()=>{
+    const response  = await getAppoinmentsApi(token)
+    if(response.data.success){
+      setDatas(response.data.appointments)
+    }
+  }
+
+  useEffect(()=>{
+    getdata();
+  },[])
+  
+  console.log(datas,"this is a dashboard")
   return (
    <div>
   {/* Page Content */}
@@ -51,17 +69,20 @@ function DashBoardComponents() {
                               <th />
                             </tr>
                           </thead>
+                          { datas && datas.map((val)=>(
+
+                       
                           <tbody>
                             <tr>
                               <td>
                                 <h2 className="table-avatar">
                                   <a href="doctor-profile.html" className="avatar avatar-sm mr-2">
-                                    <img className="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-01.jpg" alt="User" />
+                                    <img className="avatar-img rounded-circle" src={val?.doctor?.photo} alt="User" />
                                   </a>
-                                  <a href="doctor-profile.html">Dr. Ruby Perrin <span>Dental</span></a>
+                                  <a href="doctor-profile.html">Dr.{val?.doctor?.name}<span>{val?.doctor?.specialization}</span></a>
                                 </h2>
                               </td>
-                              <td>14 Nov 2019 <span className="d-block text-info">10.00 AM</span></td>
+                              <td>{val?.createdAt.substring(0, 10)}<span className="d-block text-info"></span></td>
                               <td>12 Nov 2019</td>
                               <td>$160</td>
                               <td>16 Nov 2019</td>
@@ -77,34 +98,8 @@ function DashBoardComponents() {
                                 </div>
                               </td>
                             </tr>
-                            
-                            
-                            <tr>
-                              <td>
-                                <h2 className="table-avatar">
-                                  <a href="doctor-profile.html" className="avatar avatar-sm mr-2">
-                                    <img className="avatar-img rounded-circle" src="assets/img/doctors/doctor-thumb-10.jpg" alt="User Image" />
-                                  </a>
-                                  <a href="doctor-profile.html">Dr. Olga Barlow  <span>Dental</span></a>
-                                </h2>
-                              </td>
-                              <td>5 Nov 2019 <span className="d-block text-info">5.00 PM</span></td>
-                              <td>1 Nov 2019</td>
-                              <td>$100</td>
-                              <td>7 Nov 2019</td>
-                              <td><span className="badge badge-pill bg-success-light">Confirm</span></td>
-                              <td className="text-right">
-                                <div className="table-action">
-                                  <a href="" className="btn btn-sm bg-primary-light">
-                                    <i className="fas fa-print" /> Print
-                                  </a>
-                                  <a href="" className="btn btn-sm bg-info-light">
-                                    <i className="far fa-eye" /> View
-                                  </a>
-                                </div>
-                              </td>
-                            </tr>
                           </tbody>
+                          )) }
                         </table>
                       </div>
                     </div>

@@ -85,7 +85,7 @@ function DoctorProfileSidebar() {
                 </Link>
               </li>
               <li>
-                <Link href="">
+                <Link to={'/doctor/profile_setting'}>
                   <i className="fas fa-user-cog" />
                   <span>Profile Settings</span>
                 </Link>

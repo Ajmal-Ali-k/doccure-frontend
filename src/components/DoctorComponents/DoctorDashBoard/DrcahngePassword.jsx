@@ -63,7 +63,7 @@ function DrcahngePassword() {
                         <div className="submit-section">
                           <button
                             type="submit"
-                            className="btn btn-primary submit-btn"
+                            className="px-2 py-2 bg-blue-500 text-white rounded-lg "
                           >
                             Save Changes
                           </button>

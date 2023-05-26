@@ -35,8 +35,8 @@ function ProfileCard() {
 
   return (
     <>
-      <div className="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-        <div className="profile-sidebar">
+      <div className="col-md-5 col-lg-4 col-xl-3 ">
+        <div className="profile-sidebar sticky top-0">
           {datas &&
             datas.map((val) => (
               <div className="widget-profile pro-widget-content">

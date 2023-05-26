@@ -122,3 +122,19 @@ export const getAppoinmentDataApi =(id,token)=>{
     }
 
 }
+
+// this request fetch data for client dashboard
+
+
+export const getAppoinmentsApi =(token)=>{
+    try {
+        const response = AxiosClient.get('/appoiments',{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}
