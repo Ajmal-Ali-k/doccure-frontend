@@ -4,6 +4,7 @@ import DashboardComponents from "../../components/DoctorComponents/DoctorDashBoa
 function DoctorDashboard() {
   return (
     <div>
+    
     <DashboardComponents/>
     </div>
   );

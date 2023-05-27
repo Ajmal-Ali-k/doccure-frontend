@@ -6,10 +6,13 @@ import icon3 from "../../../Assets/icon-03.png";
 import img from "../../../Assets/blank-profile-picture-g05926a0d9_640.png";
 import { useSelector } from "react-redux";
 import {
+  acceptAppoinmentsApi,
+  cancelAppoinmentsApi,
   getTodayAppoiment,
   getUpcomingAppoiment,
 } from "../../../Api/services/DoctorReq";
 import { useNavigate } from "react-router-dom";
+import { message } from "antd";
 
 function DashboardComponents() {
   const navigate = useNavigate();
@@ -18,6 +21,7 @@ function DashboardComponents() {
   const [upcoming, setUpcoming] = useState(true);
   const [todayData, setTodayData] = useState([]);
   const [upcomingData, setUpcomingData] = useState([]);
+  const [refresh,setRefresh] = useState(true)
   let nowday = new Date();
 
   const handletoday = () => {
@@ -39,7 +43,7 @@ function DashboardComponents() {
   };
   useEffect(() => {
     getTodayAppoinments();
-  }, [today]);
+  }, [today,refresh]);
 
   const getUpcomingAppoinments = async () => {
     const response = await getUpcomingAppoiment(token);
@@ -51,11 +55,53 @@ function DashboardComponents() {
   };
   useEffect(() => {
     getUpcomingAppoinments();
-  }, [upcoming]);
-  console.log(todayData, "this is todaydata");
-  console.log(upcomingData, "this upcoming dat");
+  }, [upcoming,refresh]);
+
   const handleCall = () => {
     navigate("/doctor/videoCall");
+  };
+  const AcceptAppoinment = async(Id)=>{
+    try {
+      const response = await acceptAppoinmentsApi(Id,token);
+    if(response.data.success){
+      message.success(response.data.message)
+      setRefresh(state => !state)
+    }else{
+      message.error(response.data.message)
+      setRefresh(state => !state)
+    }
+      
+    } catch (error) {
+      console.log(error)
+      message.error(error.message);
+    }
+    
+
+  }
+  const cancelAppoinment =async (Id)=>{
+    try {
+      const response = await cancelAppoinmentsApi(Id,token)
+    if(response.data.success){
+      message.success(response.data.message)
+      setRefresh(state => !state)
+    }else{
+      message.error(response.data.message)
+      setRefresh(state => !state)
+    }
+      
+    } catch (error) {
+      console.log(error)
+      message.error(error.message);
+    }
+
+  }
+
+
+  const handleAccept = (id) => {
+    AcceptAppoinment(id)
+  };
+  const handleCancel = (id) => {
+  cancelAppoinment(id)
   };
   return (
     <>
@@ -149,7 +195,7 @@ function DashboardComponents() {
                     {/* /Appointment Tab */}
                     <div className="tab-content">
                       {/* Upcoming Appointment Tab */}
-                      {upcoming && upcomingData  ? (
+                      {upcoming && upcomingData ? (
                         <div className="tab-pane show active">
                           <div className="card card-table mb-0">
                             <div className="card-body">
@@ -160,7 +206,7 @@ function DashboardComponents() {
                                       <th>Patient Name</th>
                                       <th>Appt Date</th>
                                       <th>Timing</th>
-                                      <th>Type</th>
+                                      <th>Status</th>
                                       <th className="text-center">
                                         Paid Amount
                                       </th>
@@ -204,7 +250,42 @@ function DashboardComponents() {
                                         <td>
                                           {data?.start}-{data?.end}
                                         </td>
-                                        <td>Old Patient</td>
+                                        {data.status === "pending" ? (
+                                          <td>
+                                            <span className="badge badge-pill bg-warning-light">
+                                              Pending
+                                            </span>
+                                          </td>
+                                        ) : (
+                                          ""
+                                        )}
+                                        {data.status === "cancelled" ? (
+                                          <td>
+                                            <span className="badge badge-pill bg-danger-light">
+                                              Cancelled
+                                            </span>
+                                          </td>
+                                        ) : (
+                                          ""
+                                        )}
+                                        {data?.status === "confirmed" ? (
+                                          <td>
+                                            <span className="badge badge-pill bg-success-light">
+                                              Confirm
+                                            </span>
+                                          </td>
+                                        ) : (
+                                          ""
+                                        )}
+                                        {data?.status === "compeleted" ? (
+                                          <td>
+                                            <span className="badge badge-pill bg-info-light">
+                                              Compleated
+                                            </span>
+                                          </td>
+                                        ) : (
+                                          ""
+                                        )}
                                         <td className="text-center">
                                           ${data?.consultationFee}
                                         </td>
@@ -216,14 +297,28 @@ function DashboardComponents() {
                                             >
                                               <i className="far fa-eye" /> call
                                             </div> */}
-                                            <div className="btn btn-sm bg-success-light">
-                                            <i className="fas fa-check" />{" "}
-                                            Accept
-                                          </div>
-                                            <div className="btn btn-sm bg-danger-light">
-                                              <i className="fas fa-times" />{" "}
-                                              Cancel
-                                            </div>
+                                            {data?.status !== "cancelled" &&
+                                            data?.status === "pending" &&
+                                            data?.status !== "confirmed" ? (
+                                              <div>
+                                                <div
+                                                  className="btn btn-sm bg-success-light"
+                                                  onClick={()=>handleAccept(data._id)}
+                                                >
+                                                  <i className="fas fa-check" />
+                                                  Accept
+                                                </div>
+                                                <div
+                                                  className="btn btn-sm bg-danger-light"
+                                                  onClick={()=>handleCancel(data._id)}
+                                                >
+                                                  <i className="fas fa-times" />
+                                                  Cancel
+                                                </div>
+                                              </div>
+                                            ) : (
+                                              ""
+                                            )}
                                           </div>
                                         </td>
                                       </tr>
@@ -235,7 +330,7 @@ function DashboardComponents() {
                           </div>
                         </div>
                       ) : (
-                          ""
+                        ""
                       )}
                       {/* /Upcoming Appointment Tab */}
                       {/* Today Appointment Tab */}
@@ -335,23 +430,39 @@ function DashboardComponents() {
                                         </td>
                                         <td className="text-right">
                                           <div className="table-action">
-                                          { data?.status === "confirmed" ? 
-
-                                            <div
-                                              className="btn btn-sm bg-info-light"
-                                              onClick={handleCall}
-                                            >
-                                              <i className="far fa-eye" /> call
-                                            </div> :""
-                                          }
-                                            <div className="btn btn-sm bg-success-light">
-                                              <i className="fas fa-check" />
-                                              Accept
-                                            </div>
-                                            <div className="btn btn-sm bg-danger-light">
-                                              <i className="fas fa-times" />
-                                              Cancel
-                                            </div>
+                                            {data?.status === "confirmed" ? (
+                                              <div
+                                                className="btn btn-sm bg-info-light"
+                                                onClick={handleCall}
+                                              >
+                                                <i className="far fa-eye" />{" "}
+                                                call
+                                              </div>
+                                            ) : (
+                                              ""
+                                            )}
+                                            {data?.status !== "cancelled" &&
+                                            data?.status === "pending" &&
+                                            data?.status !== "confirmed" ? (
+                                              <div>
+                                                <div
+                                                  className="btn btn-sm bg-success-light"
+                                                  onClick={()=>handleAccept(data._id)}
+                                                >
+                                                  <i className="fas fa-check" />
+                                                  Accept
+                                                </div>
+                                                <div
+                                                  className="btn btn-sm bg-danger-light"
+                                                  onClick={()=>handleCancel(data._id)}
+                                                >
+                                                  <i className="fas fa-times" />
+                                                  Cancel
+                                                </div>
+                                              </div>
+                                            ) : (
+                                              ""
+                                            )}
                                           </div>
                                         </td>
                                       </tr>

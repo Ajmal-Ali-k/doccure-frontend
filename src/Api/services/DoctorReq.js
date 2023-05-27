@@ -91,3 +91,29 @@ export const getUpcomingAppoiment = (token) =>{
         
     }
 }
+
+export const acceptAppoinmentsApi =(id,token)=>{
+    try {
+        const response = AxiosDoctor.put(`/accept_appoinment?id=${id}`,{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}
+
+export const cancelAppoinmentsApi =(id,token)=>{
+    try {
+        const response = AxiosDoctor.put(`/cancel_appoinment?id=${id}`,{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}
