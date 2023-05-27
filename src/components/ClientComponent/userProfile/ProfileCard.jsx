@@ -12,7 +12,7 @@ function ProfileCard() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.clientLogin);
-  const [datas, setDatas] = useState([]);
+  const [datas, setDatas] = useState();
   const [refresh, setRefresh] = useState(false);
   const handlelogout = () => {
     navigate("/login");
@@ -23,7 +23,7 @@ function ProfileCard() {
   const getuser = async () => {
     const result = await getUserDetails(token);
     if (result.data.success) {
-      setDatas([result.data.user]);
+      setDatas(result.data.user);
     } else {
       message.error(result.data.message);
     }
@@ -31,24 +31,22 @@ function ProfileCard() {
   useEffect(() => {
     getuser();
   }, []);
-  console.log(datas, "thisi s datas");
+  console.log(datas, "thisi s datas from profile");
 
   return (
     <>
       <div className="col-md-5 col-lg-4 col-xl-3 ">
         <div className="profile-sidebar sticky top-0">
-          {datas &&
-            datas.map((val) => (
               <div className="widget-profile pro-widget-content">
                 <div className="profile-info-widget">
                   <div className="booking-doc-img">
                     <Suspense fallback={<p>Loading .....</p>}>
-                      <img src={val.photo ? val.photo : Avatar} alt="User" />
+                      <img src={datas?.photo ? datas.photo : Avatar} alt="User" />
                     </Suspense>
                   </div>
                   <div className="profile-det-info">
                     <h3>
-                      {val?.username} {val?.lastName}
+                      {datas?.username} {datas?.lastName}
                     </h3>
                     {/* <div className="patient-details">
                   <h5>
@@ -61,11 +59,11 @@ function ProfileCard() {
                   </div>
                 </div>
               </div>
-            ))}
+
           <div className="dashboard-widget">
             <nav className="dashboard-menu">
               <ul>
-                <li className="active">
+                <li className="">
                   <Link to="/dashboard">
                     <i className="fas fa-columns" />
                     <span>Dashboard</span>

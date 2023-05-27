@@ -7,6 +7,7 @@ import DoctorDashboard from "../pages/Doctor/DoctorDashboard";
 import DoctorTimeSchedule from "../pages/Doctor/DoctorTimeSchedule";
 import DRChangePassword from "../pages/Doctor/DRChangePassword";
 import DoctorProflesetting from "../pages/Doctor/DoctorProflesetting";
+import VideoCallPage from "../pages/videoCall/VideoCallPage";
 
 function DoctorRoutes() {
   return (
@@ -19,6 +20,7 @@ function DoctorRoutes() {
         <Route path="/schedule_timing" element={<DoctorTimeSchedule />} />
         <Route path="/change_password" element={<DRChangePassword />} />
         <Route path ="/profile_setting" element={<DoctorProflesetting/>}/>
+        <Route path="/videoCall" element={<VideoCallPage/>}/>
 
       </Routes>
     </div>

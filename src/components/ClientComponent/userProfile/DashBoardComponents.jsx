@@ -64,7 +64,7 @@ function DashBoardComponents() {
                               <th>Appt Date</th>
                               <th>Booking Date</th>
                               <th>Amount</th>
-                              <th>Follow Up</th>
+                              {/* <th>Follow Up</th> */}
                               <th>Status</th>
                               <th />
                             </tr>
@@ -83,11 +83,33 @@ function DashBoardComponents() {
                                 </h2>
                               </td>
                               <td>{val?.createdAt.substring(0, 10)}<span className="d-block text-info"></span></td>
-                              <td>12 Nov 2019</td>
-                              <td>$160</td>
-                              <td>16 Nov 2019</td>
-                              <td><span className="badge badge-pill bg-success-light">Confirm</span></td>
-                              <td className="text-right">
+                              <td>{val?.date}</td>
+                              <td>${val?.consultationFee}</td>
+                              {/* <td>16 Nov 2019</td> */}
+                              {
+                                val?.status === "pending" ?
+                                  <td><span className="badge badge-pill bg-warning-light">Pending</span></td>
+                                :""
+                              }
+                              {
+                                val?.status === "confirm" ?
+                                <td><span className="badge badge-pill bg-success-light">Confirm</span></td>
+                                :""
+                              }
+                              {
+                                val?.status === "cancelled" ?
+                                <td><span className="badge badge-pill bg-danger-light">Cancelled</span></td>
+                              
+                                :""
+                              }
+                              {
+                                val?.status === "compeleted" ?
+                                <td><span className="badge badge-pill bg-info-light">Compleated</span></td>
+                              
+                                :""
+                              }
+     
+                              {/* <td className="text-right">
                                 <div className="table-action">
                                   <a href="" className="btn btn-sm bg-primary-light">
                                     <i className="fas fa-print" /> Print
@@ -96,7 +118,7 @@ function DashBoardComponents() {
                                     <i className="far fa-eye" /> View
                                   </a>
                                 </div>
-                              </td>
+                              </td> */}
                             </tr>
                           </tbody>
                           )) }

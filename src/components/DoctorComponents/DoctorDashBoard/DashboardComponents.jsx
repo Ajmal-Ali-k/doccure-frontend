@@ -6,8 +6,10 @@ import icon3 from "../../../Assets/icon-03.png";
 import img from "../../../Assets/blank-profile-picture-g05926a0d9_640.png";
 import { useSelector } from "react-redux";
 import { getTodayAppoiment, getUpcomingAppoiment } from "../../../Api/services/DoctorReq";
+import { useNavigate } from "react-router-dom";
 
 function DashboardComponents() {
+  const navigate = useNavigate()
   const { token }= useSelector(state => state.doctorLogin)
   const [today, setToday] = useState(false);
   const [upcoming, setUpcoming] = useState(true);
@@ -54,6 +56,10 @@ function DashboardComponents() {
   },[upcoming])
   console.log(todayData,"this is todaydata")
   console.log(upcomingData,"this upcoming dat")
+  const handleCall = ()=>{
+    navigate('/doctor/videoCall')
+
+  }
   return (
     <>
       <div className="content">
@@ -114,7 +120,7 @@ function DashboardComponents() {
                             </div>
                             <div className="dash-widget-info">
                               <h6>Appoinments</h6>
-                              <h3>85</h3>
+                              <h3>15</h3>
                               <p className="text-muted"></p>
                             </div>
                           </div>
@@ -195,7 +201,7 @@ function DashboardComponents() {
                                       <td className="text-center">${data?.consultationFee}</td>
                                       <td className="text-right">
                                         <div className="table-action">
-                                          <div className="btn btn-sm bg-info-light">
+                                          <div className="btn btn-sm bg-info-light" onClick={handleCall}>
                                             <i className="far fa-eye" /> call
                                           </div>
                                           {/* <div className="btn btn-sm bg-success-light">
@@ -270,7 +276,7 @@ function DashboardComponents() {
                                       <td className="text-center">${data?.consultationFee}</td>
                                       <td className="text-right">
                                         <div className="table-action">
-                                          <div className="btn btn-sm bg-info-light">
+                                          <div className="btn btn-sm bg-info-light" onClick={handleCall}>
                                             <i className="far fa-eye" /> call
                                           </div>
                                           {/* <div className="btn btn-sm bg-success-light">
