@@ -13,6 +13,7 @@ import ChangePassword from "../pages/client/ChangePassword";
 import BookingPage from "../pages/client/BookingPage";
 import Messenger from "../pages/client/Messenger";
 import BookingSuccessPage from "../pages/client/BookingSuccessPage";
+import Wallet from "../pages/client/Wallet"
 
 
 //import UserPubicRoutes from "../utils/UserPubicRoutes";
@@ -45,6 +46,9 @@ function ClientRoutes() {
           <Route path="/booking/:id" element={<BookingPage />} />
       
           <Route path="/booking_success/:id" element={<BookingSuccessPage/>} />
+           
+          <Route path="/wallet" element={<Wallet/>} />
+        
         </Route>
       </Routes>
     </div>

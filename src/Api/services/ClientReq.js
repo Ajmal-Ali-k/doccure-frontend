@@ -138,3 +138,15 @@ export const getAppoinmentsApi =(token)=>{
     }
 
 }
+export const cancelAppoinmentsApi =(id,token)=>{
+    try {
+        const response = AxiosClient.put(`/appoiments?id=${id}`,{
+            headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}

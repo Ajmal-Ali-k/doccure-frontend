@@ -1,12 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import ProfileCard from './ProfileCard'
 import { useSelector } from 'react-redux'
-import { getAppoinmentsApi } from '../../../Api/services/ClientReq'
+import { cancelAppoinmentsApi, getAppoinmentsApi } from '../../../Api/services/ClientReq'
+import { message } from 'antd'
 
 
 function DashBoardComponents() {
   const {token} = useSelector(state => state.clientLogin)
   const [datas,setDatas] = useState([])
+  const [refresh,setRefresh] = useState(false)
+
 
   const getdata = async ()=>{
     const response  = await getAppoinmentsApi(token)
@@ -17,9 +20,23 @@ function DashBoardComponents() {
 
   useEffect(()=>{
     getdata();
-  },[])
+  },[refresh])
   
-  console.log(datas,"this is a dashboard")
+  const cancelAppoinment =async (id)=>{
+    const response = await cancelAppoinmentsApi(id,token)
+    if(response.data.success){
+      message.success(response.data.message)
+      setRefresh(state => !state)
+    }else{
+      message.error(response.data.message)
+      setRefresh(state => !state)
+    }
+  }
+ const handleCancel = (id)=>{
+  cancelAppoinment(id)
+
+
+ }
   return (
    <div>
   {/* Page Content */}
@@ -64,7 +81,7 @@ function DashBoardComponents() {
                               <th>Appt Date</th>
                               <th>Booking Date</th>
                               <th>Amount</th>
-                              {/* <th>Follow Up</th> */}
+                              <th>Timing</th>
                               <th>Status</th>
                               <th />
                             </tr>
@@ -85,14 +102,14 @@ function DashBoardComponents() {
                               <td>{val?.createdAt.substring(0, 10)}<span className="d-block text-info"></span></td>
                               <td>{val?.date}</td>
                               <td>${val?.consultationFee}</td>
-                              {/* <td>16 Nov 2019</td> */}
+                              <td>{val?.start} - {val?.end}</td>
                               {
                                 val?.status === "pending" ?
                                   <td><span className="badge badge-pill bg-warning-light">Pending</span></td>
                                 :""
                               }
                               {
-                                val?.status === "confirm" ?
+                                val?.status === "confirmed" ?
                                 <td><span className="badge badge-pill bg-success-light">Confirm</span></td>
                                 :""
                               }
@@ -109,16 +126,19 @@ function DashBoardComponents() {
                                 :""
                               }
      
-                              {/* <td className="text-right">
+                              <td className="text-right">
                                 <div className="table-action">
-                                  <a href="" className="btn btn-sm bg-primary-light">
+                                  {/* <a href="" className="btn btn-sm bg-primary-light">
                                     <i className="fas fa-print" /> Print
-                                  </a>
-                                  <a href="" className="btn btn-sm bg-info-light">
-                                    <i className="far fa-eye" /> View
-                                  </a>
+                                  </a> */}
+                                  {
+                                    val.status === "pending" &&
+                                  <div className="btn btn-sm bg-danger-light" onClick={()=>handleCancel(val._id)}>
+                                    <i className="far fa-eye" /> Cancel
+                                  </div>
+                                  }
                                 </div>
-                              </td> */}
+                              </td>
                             </tr>
                           </tbody>
                           )) }
@@ -129,7 +149,7 @@ function DashBoardComponents() {
                 </div>
                 {/* /Appointment Tab */}
                 {/* Prescription Tab */}
-                <div className="tab-pane fade" id="pat_prescriptions">
+                {/* <div className="tab-pane fade" id="pat_prescriptions">
                   <div className="card card-table mb-0">
                     <div className="card-body">
                       <div className="table-responsive">
@@ -171,7 +191,7 @@ function DashBoardComponents() {
                       </div>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 {/* /Prescription Tab */}
                
                 

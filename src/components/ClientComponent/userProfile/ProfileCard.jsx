@@ -83,6 +83,14 @@ function ProfileCard() {
                   </Link>
                 </li>
                 <li>
+                  <Link to="/wallet">
+                    <i className="fas fa-comments" />
+                    <span>wallet</span>
+                    {/* <small className="unread-msg">23</small> */}
+                  </Link>
+                </li>
+        
+                <li>
                   <Link to="/update_profile">
                     <i className="fas fa-user-cog" />
                     <span>Profile Settings</span>

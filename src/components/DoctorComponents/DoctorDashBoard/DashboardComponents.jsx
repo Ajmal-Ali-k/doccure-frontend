@@ -5,17 +5,20 @@ import icon2 from "../../../Assets/icon-02.png";
 import icon3 from "../../../Assets/icon-03.png";
 import img from "../../../Assets/blank-profile-picture-g05926a0d9_640.png";
 import { useSelector } from "react-redux";
-import { getTodayAppoiment, getUpcomingAppoiment } from "../../../Api/services/DoctorReq";
+import {
+  getTodayAppoiment,
+  getUpcomingAppoiment,
+} from "../../../Api/services/DoctorReq";
 import { useNavigate } from "react-router-dom";
 
 function DashboardComponents() {
-  const navigate = useNavigate()
-  const { token }= useSelector(state => state.doctorLogin)
+  const navigate = useNavigate();
+  const { token } = useSelector((state) => state.doctorLogin);
   const [today, setToday] = useState(false);
   const [upcoming, setUpcoming] = useState(true);
   const [todayData, setTodayData] = useState([]);
   const [upcomingData, setUpcomingData] = useState([]);
-  let nowday  = new Date(); 
+  let nowday = new Date();
 
   const handletoday = () => {
     setToday(true);
@@ -27,39 +30,33 @@ function DashboardComponents() {
   };
 
   const getTodayAppoinments = async () => {
-    const response = await getTodayAppoiment(token)
-   if(response.data.success){
-     setTodayData(response.data.data);
-
-   }else{
-    console.log(response.data)
-   }
-    
-  }
-  useEffect(()=>{
-    getTodayAppoinments()
-  },[today])
-
-
-  const getUpcomingAppoinments = async ()=>{
-    const response = await getUpcomingAppoiment(token)
-    if(response.data.success){
-      setUpcomingData(response.data.data);
-
-    }else{
-      console.log(response.data)
+    const response = await getTodayAppoiment(token);
+    if (response.data.success) {
+      setTodayData(response.data.data);
+    } else {
+      console.log(response.data);
     }
-  }
-  useEffect(()=>{
-    getUpcomingAppoinments()
+  };
+  useEffect(() => {
+    getTodayAppoinments();
+  }, [today]);
 
-  },[upcoming])
-  console.log(todayData,"this is todaydata")
-  console.log(upcomingData,"this upcoming dat")
-  const handleCall = ()=>{
-    navigate('/doctor/videoCall')
-
-  }
+  const getUpcomingAppoinments = async () => {
+    const response = await getUpcomingAppoiment(token);
+    if (response.data.success) {
+      setUpcomingData(response.data.data);
+    } else {
+      console.log(response.data);
+    }
+  };
+  useEffect(() => {
+    getUpcomingAppoinments();
+  }, [upcoming]);
+  console.log(todayData, "this is todaydata");
+  console.log(upcomingData, "this upcoming dat");
+  const handleCall = () => {
+    navigate("/doctor/videoCall");
+  };
   return (
     <>
       <div className="content">
@@ -105,7 +102,9 @@ function DashboardComponents() {
                             <div className="dash-widget-info">
                               <h6>Today Patient</h6>
                               <h3>{todayData.length}</h3>
-                              <p className="text-muted">{nowday.toLocaleDateString()}</p>
+                              <p className="text-muted">
+                                {nowday.toLocaleDateString()}
+                              </p>
                             </div>
                           </div>
                         </div>
@@ -150,7 +149,7 @@ function DashboardComponents() {
                     {/* /Appointment Tab */}
                     <div className="tab-content">
                       {/* Upcoming Appointment Tab */}
-                      {upcoming && upcomingData ? (
+                      {upcoming && upcomingData  ? (
                         <div className="tab-pane show active">
                           <div className="card card-table mb-0">
                             <div className="card-body">
@@ -168,61 +167,76 @@ function DashboardComponents() {
                                       <th />
                                     </tr>
                                   </thead>
-                                  {upcomingData.map(data =>(
-
-                                
-                                  <tbody>
-                                    <tr>
-                                      <td>
-                                        <h2 className="table-avatar">
-                                          <div
-                                            href=""
-                                            className="avatar avatar-sm mr-2"
-                                          >
-                                            <img
-                                              className="avatar-img rounded-circle"
-                                              src={data?.user[0]?.photo ? data?.user[0]?.photo :  img}
-                                              alt="Use"
-                                            />
-                                          </div>
-                                          <div>
-                                          {data?.user[0]?.username} {data?.user[0]?.lastName} <span>#{data?.transactionId.slice(-5)}</span>
-                                          </div>
-                                        </h2>
-                                      </td>
-                                      <td>
-                                        {data?.date}
-                                        {/* <span className="d-block text-info">
+                                  {upcomingData.map((data) => (
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <h2 className="table-avatar">
+                                            <div
+                                              href=""
+                                              className="avatar avatar-sm mr-2"
+                                            >
+                                              <img
+                                                className="avatar-img rounded-circle"
+                                                src={
+                                                  data?.user[0]?.photo
+                                                    ? data?.user[0]?.photo
+                                                    : img
+                                                }
+                                                alt="Use"
+                                              />
+                                            </div>
+                                            <div>
+                                              {data?.user[0]?.username}{" "}
+                                              {data?.user[0]?.lastName}{" "}
+                                              <span>
+                                                #{data?.transactionId.slice(-5)}
+                                              </span>
+                                            </div>
+                                          </h2>
+                                        </td>
+                                        <td>
+                                          {data?.date}
+                                          {/* <span className="d-block text-info">
                                           8.00 AM
                                         </span> */}
-                                      </td>
-                                      <td>{data?.start}-{data?.end}</td>
-                                      <td>Old Patient</td>
-                                      <td className="text-center">${data?.consultationFee}</td>
-                                      <td className="text-right">
-                                        <div className="table-action">
-                                          <div className="btn btn-sm bg-info-light" onClick={handleCall}>
-                                            <i className="far fa-eye" /> call
-                                          </div>
-                                          {/* <div className="btn btn-sm bg-success-light">
+                                        </td>
+                                        <td>
+                                          {data?.start}-{data?.end}
+                                        </td>
+                                        <td>Old Patient</td>
+                                        <td className="text-center">
+                                          ${data?.consultationFee}
+                                        </td>
+                                        <td className="text-right">
+                                          <div className="table-action">
+                                            {/* <div
+                                              className="btn btn-sm bg-info-light"
+                                              onClick={handleCall}
+                                            >
+                                              <i className="far fa-eye" /> call
+                                            </div> */}
+                                            <div className="btn btn-sm bg-success-light">
                                             <i className="fas fa-check" />{" "}
                                             Accept
-                                          </div> */}
-                                          <div className="btn btn-sm bg-danger-light">
-                                            <i className="fas fa-times" />{" "}
-                                            Cancel
                                           </div>
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  </tbody>
+                                            <div className="btn btn-sm bg-danger-light">
+                                              <i className="fas fa-times" />{" "}
+                                              Cancel
+                                            </div>
+                                          </div>
+                                        </td>
+                                      </tr>
+                                    </tbody>
                                   ))}
                                 </table>
                               </div>
                             </div>
                           </div>
                         </div>
-                      ) :''}
+                      ) : (
+                          ""
+                      )}
                       {/* /Upcoming Appointment Tab */}
                       {/* Today Appointment Tab */}
                       {today && todayData ? (
@@ -236,68 +250,121 @@ function DashboardComponents() {
                                       <th>Patient Name</th>
                                       <th>Appt Date</th>
                                       <th>Timing</th>
-                                      <th>Type</th>
+                                      <th>Status</th>
                                       <th className="text-center">
                                         Paid Amount
                                       </th>
                                       <th />
                                     </tr>
                                   </thead>
-                                  {todayData.map(data =>(
-
-                                
-                                  <tbody>
-                                    <tr>
-                                      <td>
-                                        <h2 className="table-avatar">
-                                          <div
-                                            href=""
-                                            className="avatar avatar-sm mr-2"
-                                          >
-                                            <img
-                                              className="avatar-img rounded-circle"
-                                              src={data?.user[0]?.photo ? data?.user[0]?.photo :  img}
-                                              alt="Use"
-                                            />
-                                          </div>
-                                          <div>
-                                          {data?.user[0]?.username} {data?.user[0]?.lastName} <span>#{data?.transactionId.slice(-5)}</span>
-                                          </div>
-                                        </h2>
-                                      </td>
-                                      <td>
-                                        {data?.date}
-                                        {/* <span className="d-block text-info">
+                                  {todayData.map((data) => (
+                                    <tbody>
+                                      <tr>
+                                        <td>
+                                          <h2 className="table-avatar">
+                                            <div
+                                              href=""
+                                              className="avatar avatar-sm mr-2"
+                                            >
+                                              <img
+                                                className="avatar-img rounded-circle"
+                                                src={
+                                                  data?.user[0]?.photo
+                                                    ? data?.user[0]?.photo
+                                                    : img
+                                                }
+                                                alt="Use"
+                                              />
+                                            </div>
+                                            <div>
+                                              {data?.user[0]?.username}
+                                              {data?.user[0]?.lastName}
+                                              <span>
+                                                #{data?.transactionId.slice(-5)}
+                                              </span>
+                                            </div>
+                                          </h2>
+                                        </td>
+                                        <td>
+                                          {data?.date}
+                                          {/* <span className="d-block text-info">
                                           8.00 AM
                                         </span> */}
-                                      </td>
-                                      <td>{data?.start}-{data?.end}</td>
-                                      <td>Old Patient</td>
-                                      <td className="text-center">${data?.consultationFee}</td>
-                                      <td className="text-right">
-                                        <div className="table-action">
-                                          <div className="btn btn-sm bg-info-light" onClick={handleCall}>
-                                            <i className="far fa-eye" /> call
+                                        </td>
+                                        <td>
+                                          {data?.start}-{data?.end}
+                                        </td>
+                                        {data.status === "pending" ? (
+                                          <td>
+                                            <span className="badge badge-pill bg-warning-light">
+                                              Pending
+                                            </span>
+                                          </td>
+                                        ) : (
+                                          ""
+                                        )}
+                                        {data.status === "cancelled" ? (
+                                          <td>
+                                            <span className="badge badge-pill bg-danger-light">
+                                              Cancelled
+                                            </span>
+                                          </td>
+                                        ) : (
+                                          ""
+                                        )}
+                                        {data?.status === "confirmed" ? (
+                                          <td>
+                                            <span className="badge badge-pill bg-success-light">
+                                              Confirm
+                                            </span>
+                                          </td>
+                                        ) : (
+                                          ""
+                                        )}
+                                        {data?.status === "compeleted" ? (
+                                          <td>
+                                            <span className="badge badge-pill bg-info-light">
+                                              Compleated
+                                            </span>
+                                          </td>
+                                        ) : (
+                                          ""
+                                        )}
+                                        <td className="text-center">
+                                          ${data?.consultationFee}
+                                        </td>
+                                        <td className="text-right">
+                                          <div className="table-action">
+                                          { data?.status === "confirmed" ? 
+
+                                            <div
+                                              className="btn btn-sm bg-info-light"
+                                              onClick={handleCall}
+                                            >
+                                              <i className="far fa-eye" /> call
+                                            </div> :""
+                                          }
+                                            <div className="btn btn-sm bg-success-light">
+                                              <i className="fas fa-check" />
+                                              Accept
+                                            </div>
+                                            <div className="btn btn-sm bg-danger-light">
+                                              <i className="fas fa-times" />
+                                              Cancel
+                                            </div>
                                           </div>
-                                          {/* <div className="btn btn-sm bg-success-light">
-                                            <i className="fas fa-check" />{" "}
-                                            Accept
-                                          </div> */}
-                                          <div className="btn btn-sm bg-danger-light">
-                                            <i className="fas fa-times" />{" "}
-                                            Cancel
-                                          </div>
-                                        </div>
-                                      </td>
-                                    </tr>
-                                  </tbody>
+                                        </td>
+                                      </tr>
+                                    </tbody>
                                   ))}
                                 </table>
                               </div>
                             </div>
                           </div>
                         </div>
-                      ) :''}
+                      ) : (
+                        ""
+                      )}
                       {/* /Today Appointment Tab */}
                     </div>
                   </div>
