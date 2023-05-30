@@ -29,7 +29,7 @@ function ChatPage() {
   const socket = useRef();
   const scrollRef = useRef();
   useEffect(() => {
-    socket.current = io("ws://localhost:8080");
+    // socket.current = io("ws://localhost:8080");
     socket.current.on("getMessage",data =>{
       setArrivalMessage({
         sender:data.sender,

@@ -1,13 +1,13 @@
 import React from 'react'
 import VideoCallComponents from '../../components/videoCall/VideoCallComponents'
-import { ContextProvider } from '../../Context/SocketContext'
+// import { ContextProvider } from '../../Context/SocketContext'
 
 function VideoCallPage() {
   return (
     <div>
-    <ContextProvider>  
+    {/* <ContextProvider>   */}
       <VideoCallComponents/>
-    </ContextProvider>
+    {/* </ContextProvider> */}
     </div>
   )
 }
