@@ -17,6 +17,7 @@ function Lobby() {
   const handleJoinRoom = useCallback((data)=>{
     const {email,room}=data
     console.log(email,room);
+    navigate(`/doctor/room/${room}`)
 
   },[])
   useEffect(()=>{

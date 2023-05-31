@@ -9,6 +9,7 @@ import DRChangePassword from "../pages/Doctor/DRChangePassword";
 import DoctorProflesetting from "../pages/Doctor/DoctorProflesetting";
 import VideoCallPage from "../pages/videoCall/VideoCallPage";
 import LobbyPage from "../pages/videoCall/LobbyPage";
+import Room from "../pages/videoCall/Room";
 
 function DoctorRoutes() {
   return (
@@ -23,6 +24,7 @@ function DoctorRoutes() {
         <Route path ="/profile_setting" element={<DoctorProflesetting/>}/>
         <Route path="/videoCall" element={<VideoCallPage/>}/>
         <Route path="/Lobby" element={<LobbyPage/>}/>
+        <Route path="/room/:roomId" element={<Room/>}/>
 
 
       </Routes>
