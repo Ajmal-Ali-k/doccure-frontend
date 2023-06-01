@@ -31,7 +31,7 @@ function AdminLoginComponent() {
         }))
 
         message.success('login successfully')
-        navigate('/admin/new_doctors')
+        navigate('/admin/dashboard')
       }else{
         setLoading(false)
         message.error(result.message)

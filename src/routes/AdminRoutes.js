@@ -8,6 +8,7 @@ import AdminPrivateRoutes from "../utils/AdminPrivateRoutes";
 import AdminPublicRoutes from "../utils/AdminPublicRoutes";
 import UserList from "../pages/Admin/UserList";
 import DoctorsList from "../pages/Admin/DoctorsList";
+import DashBoard from "../pages/Admin/DashBoard";
 
 function AdminRoutes() {
   return (
@@ -23,6 +24,7 @@ function AdminRoutes() {
           <Route path="/department" element={<Department />} />
           <Route path="/userlist" element={<UserList />} />
           <Route path="/doctorslist" element={<DoctorsList />} />
+          <Route path="/dashboard" element={<DashBoard />} />
         </Route>
       </Routes>
     </div>
