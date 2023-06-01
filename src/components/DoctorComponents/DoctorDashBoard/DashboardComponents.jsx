@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import DoctorProfileSidebar from "./DoctorProfileSidebar";
 import icon1 from "../../../Assets/icon-01.png";
 import icon2 from "../../../Assets/icon-02.png";
@@ -13,8 +13,10 @@ import {
 } from "../../../Api/services/DoctorReq";
 import { useNavigate } from "react-router-dom";
 import { message } from "antd";
+import { useSocket } from "../../../Context/SocketProvider";
 
 function DashboardComponents() {
+  const socket = useSocket()
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.doctorLogin);
   const [today, setToday] = useState(false);
@@ -22,6 +24,7 @@ function DashboardComponents() {
   const [todayData, setTodayData] = useState([]);
   const [upcomingData, setUpcomingData] = useState([]);
   const [refresh,setRefresh] = useState(true)
+  const email = "doctor@gmail.com"
   let nowday = new Date();
 
   const handletoday = () => {
@@ -56,10 +59,25 @@ function DashboardComponents() {
   useEffect(() => {
     getUpcomingAppoinments();
   }, [upcoming,refresh]);
+  //video call
+  const handleCall = useCallback((room) => {
+    socket.emit("room:join",{email,room})
+  },[email,socket]);
+  const handleJoinRoom = useCallback((data)=>{
+    const {email,room}=data
+ 
+    navigate(`/doctor/room/${room}`)
 
-  const handleCall = () => {
-    navigate("/doctor/videoCall");
-  };
+  },[])
+  useEffect(()=>{
+    socket.on('room:join',handleJoinRoom)
+    return ()=>{
+      socket.off('room:join',handleJoinRoom)
+    }
+  },[handleJoinRoom, socket])
+
+
+  ////////
   const AcceptAppoinment = async(Id)=>{
     try {
       const response = await acceptAppoinmentsApi(Id,token);
@@ -103,6 +121,7 @@ function DashboardComponents() {
   const handleCancel = (id) => {
   cancelAppoinment(id)
   };
+  console.log(todayData,"thsi si todat")
   return (
     <>
       <div className="content">
@@ -353,6 +372,7 @@ function DashboardComponents() {
                                     </tr>
                                   </thead>
                                   {todayData.map((data) => (
+                               
                                     <tbody>
                                       <tr>
                                         <td>
@@ -433,7 +453,7 @@ function DashboardComponents() {
                                             {data?.status === "confirmed" ? (
                                               <div
                                                 className="btn btn-sm bg-info-light"
-                                                onClick={handleCall}
+                                                onClick={()=>handleCall(data.doctor)}
                                               >
                                                 <i className="far fa-eye" />{" "}
                                                 call

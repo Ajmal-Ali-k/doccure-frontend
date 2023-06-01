@@ -11,7 +11,7 @@ function Paypal({ amount, checkedValues,timing,date,documentId }) {
   const [modal, setmodal] = useState(false);
   const [appoinmentId,setAppoinmentId]= useState("");
 
-  const totalAmount = checkedValues.length * amount;
+  const totalAmount =  amount;
   const {token} = useSelector(state=>state.clientLogin)
 
   console.log(totalAmount, "totl amount");

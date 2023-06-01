@@ -31,7 +31,7 @@ function Lobby() {
 
       <form  className='flex flex-col items-center justify-center' onSubmit={handleSubmit}>
         <label for="email" >email</label>
-        <input type='email' className='rounded-md' id='email' value={email} onChange={e =>setEmail(e.target.value)}/>
+        <input type='text' className='rounded-md' id='email' value={email} onChange={e =>setEmail(e.target.value)}/>
         <label for="room"  >room id</label>
         <input  type="text" className='rounded-md' id='room' value={room} onChange={e =>setRoom(e.target.value)}/>
         <button type='submit' className='bg-blue-500 px-2 py-2 mt-4 rounded-md text-white'>Join</button>

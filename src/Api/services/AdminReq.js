@@ -160,3 +160,17 @@ export const unBlockDoctor = (id,token)=>{
         return error?.response
     }
 }
+
+
+export const getDashDataApi = (token)=>{
+
+    try {
+        const response = AxiosAdmin.get(`/dashboard`,{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}

@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { message } from "antd";
 import Message from "./Message";
 import Contact from "./Contact";
+
 import {
   getConversationApi,
   getMessagesApi,
@@ -11,8 +12,10 @@ import { useSelector } from "react-redux";
 import { GrLinkPrevious } from "react-icons/gr";
 import { useNavigate } from "react-router-dom";
 import { io } from "socket.io-client";
+import { useSocket } from "../../../../Context/SocketProvider";
 
 function ChatPage() {
+  const socketio = useSocket()
   const clientToken = useSelector((state) => state.clientLogin.token);
   const DoctorToken = useSelector((state) => state.doctorLogin.token);
   const navigate = useNavigate();
@@ -30,6 +33,7 @@ function ChatPage() {
   const scrollRef = useRef();
   useEffect(() => {
     // socket.current = io("ws://localhost:8080");
+    socket.current =socketio
     socket.current.on("getMessage",data =>{
       setArrivalMessage({
         sender:data.sender,

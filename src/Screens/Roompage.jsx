@@ -6,11 +6,13 @@ import 'react-tippy/dist/tippy.css';
 import { BsFillCameraVideoFill } from "react-icons/bs";
 
 import { IoCallSharp } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
 
 
 
 function Roompage() {
+  const navigate = useNavigate()
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null)
   const [myStream, setMyStream] = useState(null)
@@ -109,6 +111,26 @@ function Roompage() {
       socket.off("peer:nego:final", handleNegoNeedFinal)
     };
   }, [handleCallAccepted, handleIncommingCall, handleNegoNeedFinal, handleNegoNeedIncomming, handleUserJoined, socket]);
+  // call end handling
+   const handleEndCall =()=>{
+    peer.peer.close() //close connection
+    setMyStream(null)
+    setRemoteStream(null)
+    window.location.reload();
+    if(myStream){
+      myStream.getTracks().forEach(track => {
+        track.stop()
+        
+      });
+    }
+    navigate(-1)
+   navigator.mediaDevices.getUserMedia({audio:false,video:false})
+
+
+    
+   }
+
+
   return <>
    
     <p className="flex justify-center mt-5 text-lg">{remoteSocketId ? "conected" : "no one in the room"}</p>
@@ -201,7 +223,7 @@ function Roompage() {
                     </li> */}
                
                   </ul>
-                  <div className="end-call">
+                  <div className="end-call" onClick={handleEndCall}>
                     <a href="javascript:void(0);">
                       <i className="material-icons">call_end</i>
                     </a>
