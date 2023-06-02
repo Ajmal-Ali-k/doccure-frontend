@@ -174,3 +174,31 @@ export const getDashDataApi = (token)=>{
         return error?.response
     }
 }
+
+
+
+export const getBarDataApi = (token)=>{
+
+    try {
+        const response = AxiosAdmin.get(`/bargraph`,{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}
+
+export const getPieDataApi = (token)=>{
+
+    try {
+        const response = AxiosAdmin.get(`/pieChart`,{
+            headers:{Authorization:"Bearer"+ token}
+        },)
+        return response
+        
+    } catch (error) {
+        return error?.response
+    }
+}

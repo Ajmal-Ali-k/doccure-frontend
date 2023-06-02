@@ -4,25 +4,47 @@ import { AiFillDollarCircle } from "react-icons/ai";
 import { BsCalendarCheckFill } from "react-icons/bs";
 import { Chart } from "./Chart";
 import { PieChart } from "./PieChart";
-import { getDashDataApi } from "../../../Api/services/AdminReq";
+import { getBarDataApi, getDashDataApi, getPieDataApi } from "../../../Api/services/AdminReq";
 import { useSelector } from "react-redux";
 
 function DashBoardComponent() {
  const {token} = useSelector(state => state.adminLogin)
   const [data,setData]= useState('')
+  const [barData,setBardata]= useState('')
+  const [pieData,setPieData] =useState('')
   const getdata = async ()=>{
     const response = await getDashDataApi(token) 
     if(response.data.success){
-      console.log(response)
+
       setData(response.data)
     }else{
       console.log(response)
     }
   }
+
+  const getbarchart = async()=>{
+    const response = await getBarDataApi(token)
+    if(response.data.success){
+
+      setBardata(response.data.saleReport)
+  
+    }
+  }
+
+  const getPieChart = async ()=>{
+    const response = await getPieDataApi(token)
+    if(response.data.success){
+      setPieData(response.data.saleReport)
+   
+
+    }
+  }
   useEffect(()=>{
     getdata()
+    getbarchart()
+    getPieChart()
   },[])
-  console.log(data,"this is data")
+  console.log(barData,"this is data")
   return (
     <>
       <div className="grid my-4 pb-10 px-8 mx-4 rounded-3xl bg-gray-100 border-4 border-sky-400">
@@ -133,11 +155,16 @@ function DashBoardComponent() {
             </div>
             <div className="col-span-12 mt-5">
               <div className="grid gap-2 grid-cols-1 lg:grid-cols-2">
-                <div className="bg-white shadow-lg p-4" id="chartline" >
-                  <Chart/>
+                <div className="bg-white shadow-lg p-4" id="chartline" >{
+                  barData && <Chart saleReport={barData} />
+                }
+                  
                   </div>
                 <div className="bg-white shadow-lg flex justify-center items-center" id="chartpie"  style={{ height: '312px'}}>
-                  <PieChart/>
+                
+                  {
+                    pieData &&   <PieChart saleReport={pieData}/>
+                  }
                   </div>
               </div>
             </div>

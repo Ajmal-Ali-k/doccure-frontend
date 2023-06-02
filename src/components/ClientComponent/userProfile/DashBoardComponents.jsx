@@ -7,7 +7,7 @@ import {
 } from "../../../Api/services/ClientReq";
 import { message } from "antd";
 import { useSocket } from "../../../Context/SocketProvider";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 function DashBoardComponents() {
   const socket = useSocket()
@@ -16,6 +16,18 @@ function DashBoardComponents() {
   const [datas, setDatas] = useState([]);
   const [refresh, setRefresh] = useState(false);
   const email = "client@gmail.com"
+
+  const now = new Date();
+
+  const currentTime = new Date(now.getTime());
+  const hours = currentTime.getHours();
+  const minutes = currentTime.getMinutes();
+
+  const time =
+    hours.toString().padStart(2, "0") +
+    ":" +
+    minutes.toString().padStart(2, "0");
+
 
   const getdata = async () => {
     const response = await getAppoinmentsApi(token);
@@ -58,7 +70,7 @@ function DashBoardComponents() {
       socket.off('room:join',handleJoinRoom)
     }
   },[handleJoinRoom, socket])
-  console.log(datas, "thissssssssssss");
+
   return (
     <div>
       {/* Page Content */}
@@ -204,14 +216,14 @@ function DashBoardComponents() {
                                               Cancel
                                             </div>
                                           )}
-                                          {val?.status === "confirmed" ? (
+                                          {val?.status === "confirmed" && time > val?.start && time < val?.end ? (
                                             <div
                                               className="btn btn-sm bg-info-light"
                                               onClick={() =>
-                                                handleCall(val.doctor?._id)
+                                                handleCall(val._id)
                                               }
                                             >
-                                              <i className="far fa-eye" /> call
+                                              <i className="far fa-eye" /> join
                                             </div>
                                           ) : (
                                             ""

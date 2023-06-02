@@ -6,17 +6,23 @@ import 'react-tippy/dist/tippy.css';
 import { BsFillCameraVideoFill } from "react-icons/bs";
 
 import { IoCallSharp } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { compeleteAppoinmentsApi } from "../Api/services/DoctorReq";
+import { useSelector } from "react-redux";
 
 
 
 
 function Roompage() {
+  const {token} = useSelector(state => state.doctorLogin)
+
   const navigate = useNavigate()
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null)
   const [myStream, setMyStream] = useState(null)
   const [remoteStream, setRemoteStream] = useState(null)
+  const {roomId} = useParams()
+
   const handleUserJoined = useCallback(({ email, id }) => {
 
     setRemoteSocketId(id)
@@ -111,11 +117,33 @@ function Roompage() {
       socket.off("peer:nego:final", handleNegoNeedFinal)
     };
   }, [handleCallAccepted, handleIncommingCall, handleNegoNeedFinal, handleNegoNeedIncomming, handleUserJoined, socket]);
+  //after call ending change the status
+  const changeStatus =async ()=>{
+    try {
+    
+      if(token && roomId){
+      
+        const response = await compeleteAppoinmentsApi(roomId,token)
+          // if(response.data.success){
+         
+
+          // }
+        
+      }
+    
+    } catch (error) {
+      console.log(error)
+    }
+ 
+  }
+
+
   // call end handling
    const handleEndCall =()=>{
     peer.peer.close() //close connection
     setMyStream(null)
     setRemoteStream(null)
+    changeStatus()
     window.location.reload();
     if(myStream){
       myStream.getTracks().forEach(track => {
@@ -223,7 +251,7 @@ function Roompage() {
                     </li> */}
                
                   </ul>
-                  <div className="end-call" onClick={handleEndCall}>
+                  <div className="end-call" onClick={()=>handleEndCall()}>
                     <a href="javascript:void(0);">
                       <i className="material-icons">call_end</i>
                     </a>

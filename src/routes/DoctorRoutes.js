@@ -10,6 +10,8 @@ import DoctorProflesetting from "../pages/Doctor/DoctorProflesetting";
 import VideoCallPage from "../pages/videoCall/VideoCallPage";
 import LobbyPage from "../pages/videoCall/LobbyPage";
 import Room from "../pages/videoCall/Room";
+import NotFound from "../pages/NotFound";
+import PastAppoiment from "../pages/Doctor/PastAppoiment";
 
 function DoctorRoutes() {
   return (
@@ -25,6 +27,8 @@ function DoctorRoutes() {
         <Route path="/videoCall" element={<VideoCallPage/>}/>
         <Route path="/Lobby" element={<LobbyPage/>}/>
         <Route path="/room/:roomId" element={<Room/>}/>
+        <Route path="/appoinments" element={<PastAppoiment/>}/>
+        <Route path="/*" element={<NotFound/>} />
 
 
       </Routes>

@@ -59,7 +59,7 @@ function DoctorProfileSidebar() {
                 </Link>
               </li>
               <li>
-                <Link href="">
+                <Link to="/doctor/appoinments">
                   <i className="fas fa-calendar-check" />
                   <span>Appointments</span>
                 </Link>
@@ -84,12 +84,12 @@ function DoctorProfileSidebar() {
                   {/* <small className="unread-msg">23</small> */}
                 </Link>
               </li>
-              <li>
+              {/* <li>
                 <Link to={'/doctor/profile_setting'}>
                   <i className="fas fa-user-cog" />
                   <span>Profile Settings</span>
                 </Link>
-              </li>
+              </li> */}
 
               <li>
                 <Link to="/doctor/change_password">

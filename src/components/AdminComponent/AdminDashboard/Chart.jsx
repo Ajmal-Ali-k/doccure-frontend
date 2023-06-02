@@ -10,7 +10,16 @@ import {
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
 
-export function Chart() {
+export function Chart({saleReport}) {
+  let monthlySales = [];
+  let monthlyProfit = [];
+  let datedata = [];
+
+  for (let i = 0; i < saleReport.length; i++) {
+      monthlySales.push(saleReport[i].totalPrice);
+      monthlyProfit.push((saleReport[i].totalPrice * 10) / 100)
+      datedata.push(saleReport[i]._id);
+  }
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -33,19 +42,18 @@ ChartJS.register(
   },
 };
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
+const labels = datedata;
  const data = {
   labels,
   datasets: [
     {
-      label: 'Appoinments',
-      data: [10,2,4,56,],
+      label:'Monthly Earning', 
+      data: monthlySales,
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
-      label: 'Revenue',
-      data:[],
+      label: 'Monthly Profit',
+      data: monthlyProfit,
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
     },
   ],

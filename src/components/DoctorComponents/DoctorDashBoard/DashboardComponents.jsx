@@ -26,6 +26,17 @@ function DashboardComponents() {
   const [refresh,setRefresh] = useState(true)
   const email = "doctor@gmail.com"
   let nowday = new Date();
+  const now = new Date();
+
+  const currentTime = new Date(now.getTime());
+  const hours = currentTime.getHours();
+  const minutes = currentTime.getMinutes();
+
+  const time =
+    hours.toString().padStart(2, "0") +
+    ":" +
+    minutes.toString().padStart(2, "0");
+  
 
   const handletoday = () => {
     setToday(true);
@@ -450,10 +461,10 @@ function DashboardComponents() {
                                         </td>
                                         <td className="text-right">
                                           <div className="table-action">
-                                            {data?.status === "confirmed" ? (
+                                            {data?.status === "confirmed"  && time > data?.start && time < data?.end ?(
                                               <div
                                                 className="btn btn-sm bg-info-light"
-                                                onClick={()=>handleCall(data.doctor)}
+                                                onClick={()=>handleCall(data._id)}
                                               >
                                                 <i className="far fa-eye" />{" "}
                                                 call

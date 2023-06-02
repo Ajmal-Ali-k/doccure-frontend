@@ -104,7 +104,7 @@ function NavbarComponent() {
           <Navbar.Link href="/">Home</Navbar.Link>
           <Navbar.Link href="/doctors">Doctors</Navbar.Link>
           <Navbar.Link href="/departments">Departments</Navbar.Link>
-          <Navbar.Link href="/navbars">Contact</Navbar.Link>
+          {/* <Navbar.Link href="/navbars">Contact</Navbar.Link> */}
         </Navbar.Collapse>
       )}
     </Navbar>
