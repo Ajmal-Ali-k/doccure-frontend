@@ -6,21 +6,21 @@ const instance = axios.create({
 });
 
 export const AxiosAdmin = axios.create({
-  baseURL:"http://localhost:8080/admin"
+  baseURL:"https://doccure.onrender.com/admin"
 })
 export const AxiosClient = axios.create({
   baseURL:baseUrl
 })
 export const AxiosDoctor = axios.create({
-  baseURL:"http://localhost:8080/doctors"
+  baseURL:"https://doccure.onrender.com/doctors"
 })
 
 
 export const AxiosMessages = axios.create({
-  baseURL:"http://localhost:8080/messages"
+  baseURL:"https://doccure.onrender.com/messages"
 })
 export const AxiosConversations = axios.create({
-  baseURL:"http://localhost:8080/conversations"
+  baseURL:"https://doccure.onrender.com/conversations"
 })
 export default instance;
 

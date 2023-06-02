@@ -10,7 +10,7 @@ export const useSocket =()=>{
 }
 
 export const SocketProvider = (props) =>{
-    const socket = useMemo(()=> io('localhost:8080'),[])
+    const socket = useMemo(()=> io('https://doccure.onrender.com'),[])
     return (
         <SocketContext.Provider value={socket}>
             {props.children}
