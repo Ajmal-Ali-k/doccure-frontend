@@ -150,3 +150,42 @@ export const cancelAppoinmentsApi =(id,token)=>{
     }
 
 }
+
+export const forgotPwdApi =(email)=>{
+    try {
+        const response = AxiosClient.post(`/forgot_password?email=${email}`,{
+            // headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}
+
+export const verifyotpApi =(otp,mobile)=>{
+    try {
+        const response = AxiosClient.post(`/verify_otp`,{otp,mobile},{
+            // headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}
+
+export const NewpwdApi =(newPassword,mobile)=>{
+    try {
+        const response = AxiosClient.post(`/change_pwd`,{newPassword,mobile},{
+            // headers:{Authorization:"Bearer"+token}
+        })
+        return response
+    } catch (error) {
+        return error?.response
+        
+    }
+
+}
