@@ -6,12 +6,14 @@ import { message } from "antd";
 import { Spinner } from "flowbite-react";
 import { useDispatch } from "react-redux";
 import { setLogin } from '../../store/slice/userSlice'
+import Forgotpwd from "./Forgotpwd";
 
 function UserLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState(null);
   const [loading, setLoading] = useState(false)
+  const [forgot,setForgot]= useState(false)
   const navigate = useNavigate()
   const dispatch = useDispatch()
 
@@ -54,6 +56,7 @@ function UserLogin() {
   };
   return (
     <div>
+      { !forgot ? (
       <section className="bg-gray-50 dark:bg-gray-900">
         <div className="flex flex-col items-center justify-center px-6 py-8 mx-auto md:h-screen lg:py-0">
           <Link
@@ -113,12 +116,12 @@ function UserLogin() {
                   <div className="flex items-start">
              
                   </div>
-                  <Link
-                    href="#"
+                  <div
+                
                     className="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500"
-                  >
+                  onClick={()=>setForgot(true)}>
                     Forgot password?
-                  </Link>
+                  </div>
                 </div>
                 {errors && (
                   <span className="error text-red-400 text-sm">
@@ -153,6 +156,7 @@ function UserLogin() {
           </div>
         </div>
       </section>
+      ):(<Forgotpwd/>)}
     </div>
   );
 }
