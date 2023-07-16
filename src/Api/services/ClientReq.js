@@ -189,3 +189,17 @@ export const NewpwdApi =(newPassword,mobile)=>{
     }
 
 }
+export const createChatApi = (senderId,recieverId) => {
+    try {
+      const response = AxiosClient.post(
+        "/conversations/conversation",
+        { senderId,recieverId },
+        // {
+        //   headers: { Authorization: "Bearer" + token },
+        // }
+      );
+      return response;
+    } catch (error) {
+      return error?.response;
+    }
+  };

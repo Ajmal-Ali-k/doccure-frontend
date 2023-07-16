@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import {  useNavigate, useParams } from "react-router-dom";
 import img from "../../../Assets/doctor-image.jpg"
-import { getDoctorDetail } from "../../../Api/services/ClientReq";
+import { createChatApi, getDoctorDetail } from "../../../Api/services/ClientReq";
 import { useSelector } from "react-redux";
 import { message } from "antd";
 
+
 function DoctorDetailComponent() {
   const { token } = useSelector((state) => state.clientLogin);
+  const {clientId} = JSON.parse(localStorage.getItem("clientToken"))
+
+  console.log(clientId,"this is client")
    const [Doctor, setDoctor] = useState([])
    const objId = useParams()
    const data = objId.id;
    const navigate=useNavigate()
-   console.log(data)
+   console.log(data,"doctorid")
    const DoctorDetail = async()=> {
     const response = await getDoctorDetail(data,token)
     console.log(response,"ygsddjfhfjihdjfhj")
@@ -28,8 +32,15 @@ function DoctorDetailComponent() {
    const handlenavigate =()=>{
     navigate('/booking/'+data)
    }
-   const handlechat =()=>{
-    navigate('/chating')
+   const handlechat =async()=>{
+
+    const createChat = await createChatApi(clientId,data)
+   
+   if(createChat.data.success){
+        navigate('/chating')
+   }
+    
+
    }
   return (
     <>
