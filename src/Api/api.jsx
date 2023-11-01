@@ -1,2 +1,2 @@
-//  export default 'https://doccure.onrender.com';
-export default 'http://localhost:8080';
+ export default 'https://doccure.onrender.com';
+// export default 'http://localhost:8080';
