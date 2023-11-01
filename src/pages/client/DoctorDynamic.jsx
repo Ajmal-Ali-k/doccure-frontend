@@ -1,18 +1,15 @@
-import React from "react";
 import DoctorDetailComponent from "../../components/ClientComponent/DoctorDynamic/DoctorDetailComponent";
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
+import Layout from "../../components/layout/Layout";
 
 function DoctorDynamic() {
   return (
-    <div>
-      <NavbarComponent />
-
-
-        <div className="w-full flex justify-center items-center">
+    <>
+      <Layout>
+        <section className="bg-slate-100">
           <DoctorDetailComponent />
-        </div>
-   
-    </div>
+        </section>
+      </Layout>
+    </>
   );
 }
 

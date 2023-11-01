@@ -151,6 +151,15 @@ function UserLogin() {
                     Sign up
                   </Link>
                 </p>
+                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                  Are you a Doctor ?
+                  <Link
+                    to="/doctor/doctor_login"
+                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  >
+                    Login
+                  </Link>
+                </p>
               </form>
             </div>
           </div>

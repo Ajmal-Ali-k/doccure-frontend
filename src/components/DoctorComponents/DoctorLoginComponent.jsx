@@ -90,14 +90,6 @@ function DoctorLoginComponent() {
                     className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 mb-2"
                     placeholder="Enter your email"
                   />
-                  {/* </div>
-              {errors.email && (
-                <span className="error text-red-400 text-sm">
-                  {" "}
-                  {errors.email}
-                </span>
-              )}
-              <div> */}
                   <label
                     htmlFor="password"
                     className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
@@ -149,6 +141,15 @@ function DoctorLoginComponent() {
                     className="font-medium text-primary-600 hover:underline dark:text-primary-500"
                   >
                     Sign up
+                  </Link>
+                </p>
+                <p className="text-sm font-light text-gray-500 dark:text-gray-400">
+                  Are you a patient ?
+                  <Link
+                    to="/login"
+                    className="font-medium text-primary-600 hover:underline dark:text-primary-500"
+                  >
+                    Login
                   </Link>
                 </p>
               </form>

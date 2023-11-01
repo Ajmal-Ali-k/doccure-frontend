@@ -10,12 +10,12 @@ import { useSocket } from "../../../Context/SocketProvider";
 import { useNavigate, useParams } from "react-router-dom";
 
 function DashBoardComponents() {
-  const socket = useSocket()
-  const navigate = useNavigate()
+  const socket = useSocket();
+  const navigate = useNavigate();
   const { token } = useSelector((state) => state.clientLogin);
   const [datas, setDatas] = useState([]);
   const [refresh, setRefresh] = useState(false);
-  const email = "client@gmail.com"
+  const email = "client@gmail.com";
 
   const now = new Date();
 
@@ -27,7 +27,6 @@ function DashBoardComponents() {
     hours.toString().padStart(2, "0") +
     ":" +
     minutes.toString().padStart(2, "0");
-
 
   const getdata = async () => {
     const response = await getAppoinmentsApi(token);
@@ -55,27 +54,29 @@ function DashBoardComponents() {
   };
 
   //handle video call
-  const handleCall = useCallback((room) => {
-    socket.emit("room:join",{email,room})
-  },[email,socket]);
-  const handleJoinRoom = useCallback((data)=>{
-    const {email,room}=data
- 
-    navigate(`/doctor/room/${room}`)
+  const handleCall = useCallback(
+    (room) => {
+      socket.emit("room:join", { email, room });
+    },
+    [email, socket]
+  );
+  const handleJoinRoom = useCallback((data) => {
+    const { email, room } = data;
 
-  },[])
-  useEffect(()=>{
-    socket.on('room:join',handleJoinRoom)
-    return ()=>{
-      socket.off('room:join',handleJoinRoom)
-    }
-  },[handleJoinRoom, socket])
+    navigate(`/doctor/room/${room}`);
+  }, []);
+  useEffect(() => {
+    socket.on("room:join", handleJoinRoom);
+    return () => {
+      socket.off("room:join", handleJoinRoom);
+    };
+  }, [handleJoinRoom, socket]);
 
   return (
     <div>
       {/* Page Content */}
-      <div className="content">
-        <div className="container-fluid">
+      <div className="content w-full">
+        <div className="container-fluid  max-container w-full h-screen">
           <div className="row">
             {/* Profile Sidebar */}
             <ProfileCard />
@@ -95,15 +96,6 @@ function DashBoardComponents() {
                           Appointments
                         </a>
                       </li>
-                      {/* <li className="nav-item">
-                    <a className="nav-link" href="#pat_prescriptions" data-toggle="tab">Prescriptions</a>
-                  </li> */}
-                      {/* <li className="nav-item">
-                    <a className="nav-link" href="#pat_medical_records" data-toggle="tab"><span className="med-records">Medical Records</span></a>
-                  </li>
-                  <li className="nav-item">
-                    <a className="nav-link" href="#pat_billing" data-toggle="tab">Billing</a>
-                  </li> */}
                     </ul>
                   </nav>
                   {/* /Tab Menu */}
@@ -131,7 +123,6 @@ function DashBoardComponents() {
                               </thead>
                               {datas &&
                                 datas.map((val) => (
-                               
                                   <tbody>
                                     <tr>
                                       <td>
@@ -216,7 +207,9 @@ function DashBoardComponents() {
                                               Cancel
                                             </div>
                                           )}
-                                          {val?.status === "confirmed" && time > val?.start && time < val?.end ? (
+                                          {val?.status === "confirmed" &&
+                                          time > val?.start &&
+                                          time < val?.end ? (
                                             <div
                                               className="btn btn-sm bg-info-light"
                                               onClick={() =>
@@ -229,7 +222,6 @@ function DashBoardComponents() {
                                             ""
                                           )}
                                         </div>
-                                      
                                       </td>
                                     </tr>
                                   </tbody>

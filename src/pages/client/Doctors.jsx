@@ -1,14 +1,16 @@
-import React from "react";
 
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
 import DoctorCard from "../../components/doctorsListComponent/DoctorCard";
+import Layout from "../../components/layout/Layout";
 
 function Doctors() {
   return (
-    <div>
-      <NavbarComponent />
-      <DoctorCard/>
-    </div>
+    <main>
+      <Layout>
+        <section className="bg-slate-100 h-full">
+          <DoctorCard />
+        </section>
+      </Layout>
+    </main>
   );
 }
 

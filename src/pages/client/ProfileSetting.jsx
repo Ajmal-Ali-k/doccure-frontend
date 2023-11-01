@@ -1,19 +1,18 @@
-import React from 'react'
-import ProfileCard from '../../components/ClientComponent/userProfile/ProfileCard'
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent"
-import ProfileUpdateForm from '../../components/ClientComponent/userProfile/ProfileUpdateForm'
-
+import React from "react";
+import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
+import ProfileUpdateForm from "../../components/ClientComponent/userProfile/ProfileUpdateForm";
+import Layout from "../../components/layout/Layout";
 
 function ProfileSetting() {
   return (
-    <div className="main-wrapper">
-    <NavbarComponent/>
-    {/* <div className="flex  h-screen w-full justify-start "> */}
-
-      <ProfileUpdateForm/>
-    </div>
-    // </div>
-  )
+    <>
+      <Layout>
+        <section className="bg-slate-100">
+          <ProfileUpdateForm />
+        </section>
+      </Layout>
+    </>
+  );
 }
 
-export default ProfileSetting
+export default ProfileSetting;

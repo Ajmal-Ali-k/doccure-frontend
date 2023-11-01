@@ -1,23 +1,24 @@
-import React from 'react'
-import DepartmentCard from '../../components/ClientComponent/Department/DepartmentCard'
-import NavbarComponent from '../../components/HomeComponents/NavbarComponent'
+import React from "react";
+import DepartmentCard from "../../components/ClientComponent/Department/DepartmentCard";
+import Layout from "../../components/layout/Layout";
 
 function Department() {
   return (
-    <div>
-    <div className='mb-3'>
-    <NavbarComponent/>
-    </div>
-    <div className='min-w-max w-full my-4'>
-        <h2 className='text-center text-4xl font-serif font-normal'>Our Departments</h2>
-    </div>
-    
-      <div className="w-full flex">
-        <DepartmentCard/>
-
-      </div>
-    </div>
-  )
+    <Layout>
+      <section className="w-full  h-full bg-slate-100">
+        <div className="w-full flex flex-col justify-center items-center max-container">
+          <div className="w-[85%]  bg-white border rounded-xl border-black m-4">
+            <h2 className="text-center text-4xl font-serif font-normal m-4">
+              Our Departments
+            </h2>
+          </div>
+          <div className="flex flex-wrap ">
+            <DepartmentCard />
+          </div>
+        </div>
+      </section>
+    </Layout>
+  );
 }
 
-export default Department
+export default Department;

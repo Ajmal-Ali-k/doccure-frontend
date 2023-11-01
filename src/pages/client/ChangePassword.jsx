@@ -1,17 +1,17 @@
 import React from "react";
 import ChangePasswordComponent from "../../components/ClientComponent/ChangePassword/ChangePasswordComponent";
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
-import ProfileCard from "../../components/ClientComponent/userProfile/ProfileCard";
+import Layout from "../../components/layout/Layout";
 
 function ChangePassword() {
   return (
-    <div className="main-wrapper">
-      <NavbarComponent />
-
+    <div>
+      <Layout>
+        <section className="bg-slate-100">
 
         <ChangePasswordComponent />
-      </div>
-
+        </section>
+      </Layout>
+    </div>
   );
 }
 

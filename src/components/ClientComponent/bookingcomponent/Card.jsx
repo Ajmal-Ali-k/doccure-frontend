@@ -78,12 +78,12 @@ function Card() {
     filtered();
     // eslint-disable-next-line
   }, [selectedDate]);
-console.log(documentId,"thissi filtered slots");
+
   return (
     <>
-      <div className="w-3/5 ">
-        <div className="bg-white shadow-xl rounded-lg py-10 ">
-          <div className="photo-wrapper p-2">
+      <div className="w-3/5 max-container h-screen py-20 ">
+        <div className="bg-white shadow-xl rounded-lg  ">
+          <div className="photo-wrapper py-8">
             <img
               className="w-32 h-32 rounded-full mx-auto shadow-lg"
               src={doctor?.photo}

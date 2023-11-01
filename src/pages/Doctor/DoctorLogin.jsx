@@ -1,13 +1,14 @@
-import React from "react";
 import DoctorLoginComponent from "../../components/DoctorComponents/DoctorLoginComponent";
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
-// import FooterComponent from "../../components/HomeComponents/FooterComponent";
+import Layout from "../../components/layout/Layout";
 
 function DoctorLogin() {
   return (
     <>
-      <NavbarComponent />
-      <DoctorLoginComponent />
+      <Layout>
+        <section>
+          <DoctorLoginComponent />
+        </section>
+      </Layout>
     </>
   );
 }

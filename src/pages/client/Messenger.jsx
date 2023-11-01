@@ -1,14 +1,15 @@
 import React from "react";
 import ChatComponets from "../../components/ClientComponent/Chat/ChatComponets";
-
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
+import Layout from "../../components/layout/Layout";
 
 function Messenger() {
   return (
     <>
-      <NavbarComponent />
-      <ChatComponets />
-      
+      <Layout>
+        <section className="bg-slate-100">
+          <ChatComponets />
+        </section>
+      </Layout>
     </>
   );
 }

@@ -1,17 +1,16 @@
 import React from "react";
 import Booking from "../../components/ClientComponent/bookingcomponent/Booking";
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
-import FooterComponent from "../../components/HomeComponents/FooterComponent";
+import Layout from "../../components/layout/Layout";
 
 function BookingPage() {
   return (
-    <div>
-      <div>
-        <NavbarComponent />
-        <Booking />
-     
-      </div>
-    </div>
+    <>
+      <Layout>
+        <section className="bg-slate-100 ">
+          <Booking />
+        </section>
+      </Layout>
+    </>
   );
 }
 

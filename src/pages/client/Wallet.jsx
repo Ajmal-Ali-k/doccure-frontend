@@ -1,12 +1,18 @@
-import React from 'react'
-import WalletComponent from '../../components/ClientComponent/userProfile/WalletComponent'
+import React from "react";
+import WalletComponent from "../../components/ClientComponent/userProfile/WalletComponent";
+import Layout from "../../components/layout/Layout";
+
 
 function Wallet() {
   return (
-    <div>
-     <WalletComponent/>
-    </div>
-  )
+    <>
+      <Layout>
+        <section className="bg-slate-100">
+          <WalletComponent />
+        </section>
+      </Layout>
+    </>
+  );
 }
 
-export default Wallet
+export default Wallet;

@@ -5,10 +5,15 @@ module.exports = {
     'node_modules/flowbite-react/**/*.{js,jsx,ts,tsx}'
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage : {
+        "banner":"url('Assets/banner-bg.png')",
+        // "banner2":"url('Assets/banner-bg2.png')"
+      }
+    },
   },
   plugins: [
-    [require("daisyui")],
+    require("daisyui"),
     require('flowbite/plugin'),
   
 ],

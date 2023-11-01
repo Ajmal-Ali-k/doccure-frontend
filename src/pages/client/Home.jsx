@@ -1,18 +1,25 @@
 import React from "react";
 
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
-import Footer from "../../components/HomeComponents/FooterComponent";
 import BannerFirst from "../../components/HomeComponents/BannerFirst";
 import BannerSecond from "../../components/HomeComponents/BannerSecond";
+import Layout from "../../components/layout/Layout";
+import SpecialityComponent from "../../components/HomeComponents/SpecialityComponent";
 
 function Home() {
   return (
-    <div>
-      <NavbarComponent />
-      <BannerFirst/>
-     <BannerSecond/>
-      <Footer />
-    </div>
+    <main>
+      <Layout>
+        <section className="bg-banner bg-slate-50">
+          <BannerFirst />
+        </section>
+        <section className="bg-banner bg-gray-100">
+          <BannerSecond />
+        </section>
+        {/* <section className="bg-banner2 bg-slate-50">
+          <SpecialityComponent/>
+        </section> */}
+      </Layout>
+    </main>
   );
 }
 

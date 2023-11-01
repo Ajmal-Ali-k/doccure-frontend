@@ -1,14 +1,15 @@
-import FooterComponent from "../../components/HomeComponents/FooterComponent";
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
+import Layout from "../../components/layout/Layout";
 import UserLogin from "../../components/LoginComponents/UserLogin";
 
 function Login() {
   return (
-    <div>
-      <NavbarComponent />
-      <UserLogin />
-      <FooterComponent />
-    </div>
+    <>
+      <Layout>
+        <section>
+          <UserLogin />
+        </section>
+      </Layout>
+    </>
   );
 }
 

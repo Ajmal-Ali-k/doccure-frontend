@@ -16,7 +16,7 @@ function ProfileUpdateForm() {
       message.error(result.data.message);
     }
   };
-  console.log(datas);
+
   useEffect(() => {
     getuser();
   }, [refresh]);
@@ -67,7 +67,7 @@ function ProfileUpdateForm() {
     <>
       {/* Page Content */}
       <div className="content">
-        <div className="container-fluid ">
+        <div className="container-fluid max-container h-screen">
           <div className="flex row">
             {/* Profile Sidebar */}
             <ProfileCard />

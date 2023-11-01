@@ -1,21 +1,16 @@
 import Usersignup from "../../components/LoginComponents/Usersignup";
-import NavbarComponent from "../../components/HomeComponents/NavbarComponent";
-import Footer from "../../components/HomeComponents/FooterComponent";
-
-
-
-
-
+import Layout from "../../components/layout/Layout";
 
 function Signup() {
-    
-    return (
-        <div>
-        <NavbarComponent/>
-            <Usersignup/>
-            <Footer/>
-        </div>
-    );
+  return (
+    <>
+      <Layout>
+        <section>
+          <Usersignup />
+        </section>
+      </Layout>
+    </>
+  );
 }
 
 export default Signup;

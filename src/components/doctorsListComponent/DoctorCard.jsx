@@ -11,9 +11,9 @@ function DoctorCard() {
   const { token } = useSelector((state) => state.clientLogin);
   const [selected, setSelected] = useState([]);
   const [doctors, setDoctors] = useState([]);
-  const [doctorlist,setDoctorlist] =useState([]);
+  const [doctorlist, setDoctorlist] = useState([]);
   const [filterd, setFiltered] = useState([]);
-  const searchInp = useRef()
+  const searchInp = useRef();
 
   console.log(filterd, "here is doctors");
 
@@ -21,7 +21,7 @@ function DoctorCard() {
     await getDoctors(token)
       .then((data) => {
         setDoctors(data.data.Doctors);
-        setDoctorlist(data.data.Doctors)
+        setDoctorlist(data.data.Doctors);
       })
       .catch((error) => {
         console.log(error);
@@ -42,9 +42,6 @@ function DoctorCard() {
     const filteredDoctors = [];
 
     for (let i = 0; i < doctors.length; i++) {
-      console.log(6666666666);
-      console.log(doctors[i], "haaai");
-
       for (let j = 0; j < selected.length; j++) {
         console.log(doctors[i].specialization, selected[j]);
         console.log(doctors[i].specialization === selected[j]);
@@ -61,26 +58,25 @@ function DoctorCard() {
       }
     }
   }, [selected]);
-  async function search(){
+  async function search() {
     const data = searchInp.current.value;
     const regex = new RegExp(`^${data}`, "i");
     const filteredDoctor = doctors?.filter((doctor) => regex.test(doctor.name));
-    if(!data){
-      setDoctors(doctorlist)
-    }else{
-      setDoctors(filteredDoctor)
+    if (!data) {
+      setDoctors(doctorlist);
+    } else {
+      setDoctors(filteredDoctor);
     }
   }
-  console.log(doctors,"thhis is doctorsss")
 
   return (
-    <div>
-      <div className="mr-20">
-        <form className="flex items-end justify-end">
+    <>
+      <section className="max-container ">
+        <form className="flex items-end justify-end  mr-24">
           <label htmlFor="simple-search" className="sr-only">
             Search
           </label>
-          <div className="relative w-2/5 mt-6">
+          <div className="relative w-2/5 mt-6 ">
             <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <svg
                 aria-hidden="true"
@@ -126,69 +122,98 @@ function DoctorCard() {
             <span className="sr-only">Search</span>
           </button>
         </form>
-      </div>
+      </section>
 
-      <div className="w-full flex">
-        <div className="w-1/5  inset-0 md:relative sm:relative lg:relative lg:translate-x-0 ">
+      <section className="w-screen flex flex-col lg:flex-row  max-container">
+        <div className="lg:w-1/5 w-full   inset-0 md:relative sm:relative lg:relative lg:translate-x-0 mt-12 ">
           <DoctorsFilterCard selected={selected} setSelected={setSelected} />
         </div>
 
-        <div className="w-full ">
+        <div className="w-full mt-12 ">
           {(selected[0] ? filterd : doctors).map((val) => {
             return (
-              <div className="block  w-auto mt-5  p-6 mx-20 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                <div className="card-body">
-                  <div className="doctor-widget">
-                    <div className="doc-info-left">
-                      <div className="doctor-img">
-                        <div href="doctor-profile.html">
-                          <img
-                            src={val.photo}
-                            className="img-fluid h-36 w-28"
-                            alt="User Image"
-                          />
-                        </div>
+              // <div
+              //   key={val._id}
+              //   className="block  w-auto my-5  p-6 mx-20 bg-white border border-gray-200  hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+              // >
+              //   <div className="card-body">
+              //     <div className="doctor-widget">
+              //       <div className="doc-info-left">
+              //         <div className="doctor-img">
+              //           <div href="doctor-profile.html">
+              //             <img
+              //               src={val.photo}
+              //               className="img-fluid h-36 w-28 object-cover"
+              //               alt="User Image"
+              //             />
+              //           </div>
+              //         </div>
+              //         <div className="doc-info-cont">
+              //           <h4 className="doc-name">
+              //             <a href="doctor-profile.html">Dr.{val.name}</a>
+              //           </h4>
+              //           <p className="font-semibold">{val.specialization}</p>
+
+              //           <p className="text-gray-600 font-medium font-sans text-base leading-none mt-1">
+              //             consultation fee :
+              //             <span className="text-sm"> ${val?.fee}</span>
+              //           </p>
+              //         </div>
+              //       </div>
+              //       <div className="doc-info-right">
+              //         <div className="clinic-booking">
+              //           <div
+              //             className="view-pro-btn mb-2"
+              //             onClick={() => handleClick(val._id)}
+              //           >
+              //             View Profile
+              //           </div>
+              //           <div
+              //             className="apt-btn "
+              //             href="booking.html"
+              //             onClick={() => handlenavigate(val._id)}
+              //           >
+              //             Book now
+              //           </div>
+              //         </div>
+              //       </div>
+              //     </div>
+              //   </div>
+              // </div>
+              <div key={val._id} className="mx-auto ">
+                <div className="  min-w-[288px] mx-auto overflow-hidden sm:w-[90%] md:w-[83%]  bg-white mb-3 border border-gray-200  hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                  <div className="flex flex-col md:flex-row justify-between items-center">
+                    <div className="flex-1 flex justify-center items-center flex-col md:flex-row gap-5 p-5">
+                      <div className="min-h-36 min-w-28">
+                        <img
+                          src={val.photo}
+                          className="w-28 h-36 object-cover rounded-lg"
+                          alt="User Image"
+                        />
                       </div>
-                      <div className="doc-info-cont">
-                        <h4 className="doc-name">
-                          <a href="doctor-profile.html">Dr.{val.name}</a>
-                        </h4>
-                        <p className="doc-speciality font-semibold">
-                          {val.specialization}
-                        </p>
-                        {/* <h5 className="doc-department">
-                  <img src={img} className="img-fluid" alt="Speciality" />
-                  Dentist
-                </h5> */}
-                        <p className="text-gray-600 font-medium text-xs">
-                          consultation fee :{" "}
-                          <span className="text-md">${val?.fee}</span>
+
+                      <div className="pt-3">
+                        <h4 className="">Dr.{val.name}</h4>
+                        <p className="font-semibold">{val.specialization}</p>
+
+                        <p className="text-gray-600 font-medium font-sans text-base leading-none mt-1">
+                          consultation fee :
+                          <span className="text-sm"> ${val?.fee}</span>
                         </p>
                       </div>
                     </div>
-                    <div className="doc-info-right">
-                      {/* <div className="clini-infos">
-            <ul>
-              <li><i className="far fa-thumbs-up" /> 98%</li>
-              <li><i className="far fa-comment" /> 17 Feedback</li>
-              <li><i className="fas fa-map-marker-alt" /> Florida, USA</li>
-              <li><i className="far fa-money-bill-alt" /> $300 - $1000 <i className="fas fa-info-circle" data-toggle="tooltip" title="Lorem Ipsum" /> </li>
-            </ul>
-          </div> */}
-                      <div className="clinic-booking">
-                        <div
-                          className="view-pro-btn mb-2"
-                          onClick={() => handleClick(val._id)}
-                        >
-                          View Profile
-                        </div>
-                        <div
-                          className="apt-btn "
-                          href="booking.html"
-                          onClick={() => handlenavigate(val._id)}
-                        >
-                          Book now
-                        </div>
+                    <div className="flex-1 flex flex-col items-center md:items-end justify-center p-5">
+                      <div
+                        className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-800 rounded-lg text-white mb-2 md:w-1/3"
+                        onClick={() => handleClick(val._id)}
+                      >
+                        View Profile
+                      </div>
+                      <div
+                        className="w-full px-3 py-2  border-2 border-blue-600 rounded-lg text-blue hover:bg-blue-600 hover:text-white md:w-1/3"
+                        onClick={() => handlenavigate(val._id)}
+                      >
+                        Book now
                       </div>
                     </div>
                   </div>
@@ -197,8 +222,8 @@ function DoctorCard() {
             );
           })}
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }
 
