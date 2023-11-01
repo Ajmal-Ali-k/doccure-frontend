@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import Shimmer from "../../common/Shimmer";
+import {Shimmer} from "../../common/Shimmer";
 
 import { getDepartment } from "../../../Api/services/ClientReq";
 import { useSelector } from "react-redux";

@@ -1,10 +1,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./DoctorCard.css";
-import img from "../../Assets/doctor-image.jpg";
 import { useSelector } from "react-redux";
 import { getDoctors } from "../../Api/services/ClientReq";
 import { useNavigate } from "react-router-dom";
 import DoctorsFilterCard from "../doctorsListComponent/DoctorsFilterCard";
+import { DoctorShimmer, FilterCardShimmer } from "../common/Shimmer";
 
 function DoctorCard() {
   const navigate = useNavigate();
@@ -15,13 +15,13 @@ function DoctorCard() {
   const [filterd, setFiltered] = useState([]);
   const searchInp = useRef();
 
-  console.log(filterd, "here is doctors");
-
   const getDoc = async () => {
     await getDoctors(token)
       .then((data) => {
-        setDoctors(data.data.Doctors);
-        setDoctorlist(data.data.Doctors);
+        setTimeout(() => {
+          setDoctors(data.data.Doctors);
+          setDoctorlist(data.data.Doctors);
+        }, 500);
       })
       .catch((error) => {
         console.log(error);
@@ -126,101 +126,61 @@ function DoctorCard() {
 
       <section className="w-screen flex flex-col lg:flex-row  max-container">
         <div className="lg:w-1/5 w-full   inset-0 md:relative sm:relative lg:relative lg:translate-x-0 mt-12 ">
-          <DoctorsFilterCard selected={selected} setSelected={setSelected} />
+          {!doctors.length > 0 ? (
+            <FilterCardShimmer />
+          ) : (
+            <DoctorsFilterCard selected={selected} setSelected={setSelected} />
+          )}
         </div>
 
         <div className="w-full mt-12 ">
-          {(selected[0] ? filterd : doctors).map((val) => {
-            return (
-              // <div
-              //   key={val._id}
-              //   className="block  w-auto my-5  p-6 mx-20 bg-white border border-gray-200  hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
-              // >
-              //   <div className="card-body">
-              //     <div className="doctor-widget">
-              //       <div className="doc-info-left">
-              //         <div className="doctor-img">
-              //           <div href="doctor-profile.html">
-              //             <img
-              //               src={val.photo}
-              //               className="img-fluid h-36 w-28 object-cover"
-              //               alt="User Image"
-              //             />
-              //           </div>
-              //         </div>
-              //         <div className="doc-info-cont">
-              //           <h4 className="doc-name">
-              //             <a href="doctor-profile.html">Dr.{val.name}</a>
-              //           </h4>
-              //           <p className="font-semibold">{val.specialization}</p>
+          {!doctors.length > 0 ? (
+            <DoctorShimmer />
+          ) : (
+            (selected[0] ? filterd : doctors).map((val) => {
+              return (
+                <div key={val._id} className="mx-auto ">
+                  <div className="  min-w-[288px] mx-auto overflow-hidden sm:w-[90%] md:w-[83%]  bg-white mb-3 border border-gray-200  hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
+                    <div className="flex flex-col md:flex-row justify-between items-center">
+                      <div className="flex-1 flex justify-center items-center flex-col md:flex-row gap-5 p-5">
+                        <div className="min-h-36 min-w-28">
+                          <img
+                            src={val.photo}
+                            className="w-28 h-36 object-cover rounded-lg"
+                            alt="User Image"
+                          />
+                        </div>
 
-              //           <p className="text-gray-600 font-medium font-sans text-base leading-none mt-1">
-              //             consultation fee :
-              //             <span className="text-sm"> ${val?.fee}</span>
-              //           </p>
-              //         </div>
-              //       </div>
-              //       <div className="doc-info-right">
-              //         <div className="clinic-booking">
-              //           <div
-              //             className="view-pro-btn mb-2"
-              //             onClick={() => handleClick(val._id)}
-              //           >
-              //             View Profile
-              //           </div>
-              //           <div
-              //             className="apt-btn "
-              //             href="booking.html"
-              //             onClick={() => handlenavigate(val._id)}
-              //           >
-              //             Book now
-              //           </div>
-              //         </div>
-              //       </div>
-              //     </div>
-              //   </div>
-              // </div>
-              <div key={val._id} className="mx-auto ">
-                <div className="  min-w-[288px] mx-auto overflow-hidden sm:w-[90%] md:w-[83%]  bg-white mb-3 border border-gray-200  hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700">
-                  <div className="flex flex-col md:flex-row justify-between items-center">
-                    <div className="flex-1 flex justify-center items-center flex-col md:flex-row gap-5 p-5">
-                      <div className="min-h-36 min-w-28">
-                        <img
-                          src={val.photo}
-                          className="w-28 h-36 object-cover rounded-lg"
-                          alt="User Image"
-                        />
-                      </div>
+                        <div className="pt-3">
+                          <h4 className="">Dr.{val.name}</h4>
+                          <p className="font-semibold">{val.specialization}</p>
 
-                      <div className="pt-3">
-                        <h4 className="">Dr.{val.name}</h4>
-                        <p className="font-semibold">{val.specialization}</p>
-
-                        <p className="text-gray-600 font-medium font-sans text-base leading-none mt-1">
-                          consultation fee :
-                          <span className="text-sm"> ${val?.fee}</span>
-                        </p>
+                          <p className="text-gray-600 font-medium font-sans text-base leading-none mt-1">
+                            consultation fee :
+                            <span className="text-sm"> ${val?.fee}</span>
+                          </p>
+                        </div>
                       </div>
-                    </div>
-                    <div className="flex-1 flex flex-col items-center md:items-end justify-center p-5">
-                      <div
-                        className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-800 rounded-lg text-white mb-2 md:w-1/3"
-                        onClick={() => handleClick(val._id)}
-                      >
-                        View Profile
-                      </div>
-                      <div
-                        className="w-full px-3 py-2  border-2 border-blue-600 rounded-lg text-blue hover:bg-blue-600 hover:text-white md:w-1/3"
-                        onClick={() => handlenavigate(val._id)}
-                      >
-                        Book now
+                      <div className="flex-1 flex flex-col items-center md:items-end justify-center p-5">
+                        <div
+                          className="w-full px-3 py-2 bg-blue-600 hover:bg-blue-800 rounded-lg text-white mb-2 md:w-1/3"
+                          onClick={() => handleClick(val._id)}
+                        >
+                          View Profile
+                        </div>
+                        <div
+                          className="w-full px-3 py-2  border-2 border-blue-600 rounded-lg text-blue hover:bg-blue-600 hover:text-white md:w-1/3"
+                          onClick={() => handlenavigate(val._id)}
+                        >
+                          Book now
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            );
-          })}
+              );
+            })
+          )}
         </div>
       </section>
     </>
