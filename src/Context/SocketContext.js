@@ -5,8 +5,8 @@ import Peer from "simple-peer";
 
 const SocketContext = createContext();
 
-// const socket = io("https://doccure.onrender.com");
-const socket = io("http://localhost:8080");
+const socket = io("https://doccure.onrender.com");
+// const socket = io("http://localhost:8080");
 
 const ContextProvider = ({ children }) => {
   const location = useLocation();
