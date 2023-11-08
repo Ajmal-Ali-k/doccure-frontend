@@ -18,10 +18,8 @@ function DoctorCard() {
   const getDoc = async () => {
     await getDoctors(token)
       .then((data) => {
-        setTimeout(() => {
-          setDoctors(data.data.Doctors);
-          setDoctorlist(data.data.Doctors);
-        }, 500);
+        setDoctors(data.data.Doctors);
+        setDoctorlist(data.data.Doctors);
       })
       .catch((error) => {
         console.log(error);

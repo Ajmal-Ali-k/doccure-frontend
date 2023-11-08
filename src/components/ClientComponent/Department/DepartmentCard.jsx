@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {Shimmer} from "../../common/Shimmer";
+import { Shimmer } from "../../common/Shimmer";
 
 import { getDepartment } from "../../../Api/services/ClientReq";
 import { useSelector } from "react-redux";
@@ -10,11 +10,8 @@ function DepartmentCard() {
 
   const getDepartments = async () => {
     await getDepartment(token)
-    .then((data) =>setTimeout(()=>{
-      setDepartment(data.data.departments)
-
-    },1000))
-    .catch((err) => console.log(err));
+      .then((data) => setDepartment(data.data.departments))
+      .catch((err) => console.log(err));
   };
   useEffect(() => {
     getDepartments();
@@ -38,7 +35,7 @@ function DepartmentCard() {
                     className="h-full w-full object-cover"
                   />
                 </figure>
-                <div className="card-body">
+                <div className="card-body bg-white">
                   <h2 className="card-title text-xl font-medium">
                     {val.department}
                   </h2>
