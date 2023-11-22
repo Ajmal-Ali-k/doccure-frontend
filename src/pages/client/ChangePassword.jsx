@@ -7,8 +7,7 @@ function ChangePassword() {
     <div>
       <Layout>
         <section className="bg-slate-100">
-
-        <ChangePasswordComponent />
+          <ChangePasswordComponent />
         </section>
       </Layout>
     </div>

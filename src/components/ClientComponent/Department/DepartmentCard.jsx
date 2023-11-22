@@ -7,7 +7,6 @@ import { useSelector } from "react-redux";
 function DepartmentCard() {
   const { token } = useSelector((state) => state.clientLogin);
   const [department, setDepartment] = useState([]);
-
   const getDepartments = async () => {
     await getDepartment(token)
       .then((data) => setDepartment(data.data.departments))

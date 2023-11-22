@@ -33,7 +33,7 @@ function NavbarComponent() {
     navigate("/");
   };
   return (
-    <header className="w-full">
+    <header className="w-full ">
       <Navbar
         fluid={true}
         rounded={true}

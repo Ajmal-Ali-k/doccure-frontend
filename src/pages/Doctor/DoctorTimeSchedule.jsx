@@ -1,13 +1,14 @@
-import React from 'react'
+import React from "react";
 
-import ScheduleTIming from '../../components/DoctorComponents/DoctorDashBoard/ScheduleTIming'
+import ScheduleTIming from "../../components/DoctorComponents/DoctorDashBoard/ScheduleTIming";
+import DocDashLayout from "../../components/DoctorComponents/DoctorDashBoard/DocDashLayout";
 
 function DoctorTimeSchedule() {
   return (
-    <div>
-      <ScheduleTIming/>
-    </div>
-  )
+    <DocDashLayout>
+      <ScheduleTIming />
+    </DocDashLayout>
+  );
 }
 
-export default DoctorTimeSchedule
+export default DoctorTimeSchedule;

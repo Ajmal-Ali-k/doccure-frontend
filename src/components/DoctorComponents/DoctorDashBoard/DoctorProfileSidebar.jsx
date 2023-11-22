@@ -1,9 +1,15 @@
 import React, { useEffect, useState } from "react";
 import img from "./../../../Assets/blank-profile-picture-g05926a0d9_640.png";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate,NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setLogout } from "../../../store/slice/doctorSlice";
 import { getDocname } from "../../../Api/services/DoctorReq";
+import { MdDashboard, MdPassword } from "react-icons/md";
+import { AiFillMessage, AiFillWallet } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { IoLogOutSharp } from "react-icons/io5";
+import { IoMdTime } from "react-icons/io";
+
 function DoctorProfileSidebar() {
   const {token} = useSelector(state => state.doctorLogin )
   const [docname,SetDocname] = useState("")
@@ -31,6 +37,34 @@ function DoctorProfileSidebar() {
     localStorage.removeItem("doctorToken");
     dispatch(setLogout());
   };
+  const sidebarData = [
+    {
+      path: "/doctor/dashboard",
+      name: "Dashboard",
+      icon: <MdDashboard />,
+    },
+    {
+      path: "/doctor/appoinments",
+      name: "Appoinments",
+      icon: <AiFillWallet />,
+    },
+    {
+      path: "/doctor/schedule_timing",
+      name: "Schedule Timing",
+      icon: <IoMdTime />,
+    },
+    {
+      path: "/chating",
+      name: "Messages",
+      icon: <AiFillMessage />,
+    },
+    {
+      path: "/doctor/change_password",
+      name: "Change Password",
+      icon: <CgProfile />,
+    },
+
+  ];
   return (
     <>
       <div className="profile-sidebar">
@@ -42,9 +76,6 @@ function DoctorProfileSidebar() {
             <div className="">
               <h3>Dr.{docname}</h3>
               <div className="patient-details">
-                {/* <h5 className="mb-0">
-                          BDS, MDS - Oral &amp; Maxillofacial Surgery
-                        </h5> */}
               </div>
             </div>
           </div>
@@ -52,57 +83,35 @@ function DoctorProfileSidebar() {
         <div className="dashboard-widget">
           <nav className="dashboard-menu">
             <ul>
-              <li>
-                <Link to="/doctor/dashboard">
-                  <i className="fas fa-columns" />
-                  <span>Dashboard</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/doctor/appoinments">
-                  <i className="fas fa-calendar-check" />
-                  <span>Appointments</span>
-                </Link>
-              </li>
-              {/* <li>
-                <Link href="">
-                  <i className="fas fa-user-injured" />
-                  <span>My Patients</span>
-                </Link>
-              </li> */}
-              <li className="">
-                <Link to="/doctor/schedule_timing">
-                  <i className="fas fa-hourglass-start" />
-                  <span>Schedule Timings</span>
-                </Link>
-              </li>
-
-              <li>
-                <Link to="/chating">
-                  <i className="fas fa-comments" />
-                  <span>Message</span>
-                  {/* <small className="unread-msg">23</small> */}
-                </Link>
-              </li>
-              {/* <li>
-                <Link to={'/doctor/profile_setting'}>
-                  <i className="fas fa-user-cog" />
-                  <span>Profile Settings</span>
-                </Link>
-              </li> */}
-
-              <li>
-                <Link to="/doctor/change_password">
-                  <i className="fas fa-lock" />
-                  <span>Change Password</span>
-                </Link>
-              </li>
+            {sidebarData.map((datas, index) => (
+                  <li className="" key={index}>
+                    <NavLink
+                      to={datas.path}
+                      className={(navClass) =>
+                        navClass.isActive
+                          ? "text-white text-[16px] leading-7 font-[600] bg-gray-300"
+                          : "text-gray-500 text-[16px] leading-7 font-[600] hover:text-blue-500"
+                      }
+                    >
+                      <div className="flex gap-x-4 items-center">
+                        <div>{datas.icon}</div>
+                        <div>{datas.name}</div>
+                      </div>
+                    </NavLink>
+                  </li>
+                ))}
+            
               <li onClick={handleLogout}>
-                <Link>
-                  <i className="fas fa-sign-out-alt" />
-                  <span>Logout</span>
-                </Link>
-              </li>
+                  <Link className="text-gray-500 text-[16px] leading-7 font-[600] hover:text-blue-500 flex">
+                    <div className="flex gap-x-4 items-center">
+                      <div>
+                        {" "}
+                        <IoLogOutSharp />
+                      </div>
+                      <div>LogOut</div>
+                    </div>
+                  </Link>
+                </li>
             </ul>
           </nav>
         </div>

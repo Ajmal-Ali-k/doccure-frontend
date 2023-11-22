@@ -1,4 +1,5 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@200;300;400;500;600;700;800&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,17 +9,51 @@
   padding: 0;
   box-sizing: border-box;
   font-family: "Manrope", sans-serif;
- 
 }
 body {
-    max-width: 100vw;
-    overflow-x: hidden;
-  
-
+  max-width: 100vw;
+  overflow-x: hidden;
 }
+
+.swiper-pagination-bullet {
+  width: 12px !important;
+  height: 12px !important;
+  border: 1px solid #181a1e !important;
+  opacity: 100 !important;
+  background: #fff !important;
+}
+.swiper-pagination-bullet-active {
+  background: #0067ff !important;
+  border: none !important;
+}
+.swiper {
+  padding-bottom: 70px !important;
+}
+.swiper-slide.swiper-slide-next {
+  background: #0067ff;
+  border-radius: 12px;
+  box-shadow: 0px 20px 70px rgba(0, 103, 255, 0.3) !important;
+}
+.swiper-slide.swiper-slide-next h4,
+.swiper-slide.swiper-slide-next p {
+  color: #fff !important;
+}
+.swiper-pagination {
+  top: 90% !important;
+}
+
 @layer components {
   .max-container {
     max-width: 1440px;
     margin: 0 auto;
+  }
+  .heading {
+    @apply text-[44px] leading-[54px] font-[700] text-headingColor;
+  }
+  .text__para {
+    @apply text-[18px] leading-[30px] font-[400] text-textColor mt-[18px];
+  }
+  .btn {
+    @apply bg-primaryColor py-[15px] px-[35px] rounded-[50px] text-white font-[600] mt-[38px];
   }
 }

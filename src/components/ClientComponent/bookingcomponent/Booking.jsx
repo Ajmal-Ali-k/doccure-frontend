@@ -3,9 +3,9 @@ import Card from "./Card";
 
 function Booking() {
   return (
-    <>
+    <section>
       <Card />
-    </>
+    </section>
   );
 }
 

@@ -26,7 +26,6 @@ function UserLogin() {
       setErrors(null);
       axios.post('/login', { email, password }).then((response) => {
         const result = response.data;
-        console.log(result)
         if (result.success) {
           localStorage.setItem('clientToken', JSON.stringify(result));
           dispatch(setLogin({

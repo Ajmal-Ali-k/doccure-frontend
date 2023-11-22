@@ -14,10 +14,7 @@ function ScheduleTIming() {
     slotDuration: "",
     endTime: "",
     startTime: "",
-   
   };
-
-
 
   const { token } = useSelector((state) => state.doctorLogin);
 
@@ -44,12 +41,11 @@ function ScheduleTIming() {
     setLoader(true);
     setFormErrors(validate(formValues));
     if (validate(formValues)) {
-     
       try {
         const result = await createSlot(formValues, token);
 
         if (result.data.success) {
-          setFormValues(initialState)
+          setFormValues(initialState);
           setLoader(false);
           setSubmit(true);
           message.success("Slot Created Successfully");
@@ -107,36 +103,26 @@ function ScheduleTIming() {
   };
 
   return (
-    <div>
-      <div className="content">
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-md-5 col-lg-4 col-xl-3 theiaStickySidebar">
-              {/* Profile Sidebar */}
-              <DoctorProfileSidebar />
-              {/* /Profile Sidebar */}
-            </div>
+    <div className="col-md-7 col-lg-8 col-xl-9">
+      <div className="row">
+        <div className="col-sm-12">
+          <div className="card">
+            <div className="card-body">
+              <h4 className="card-title">Schedule Timings</h4>
+              <div className="profile-box">
+                <div className="row">
+                  <div className="col-lg-4"></div>
+                </div>
 
-            <div className="col-md-7 col-lg-8 col-xl-9">
-              <div className="row">
-                <div className="col-sm-12">
-                  <div className="card">
-                    <div className="card-body">
-                      <h4 className="card-title">Schedule Timings</h4>
-                      <div className="profile-box">
-                        <div className="row">
-                          <div className="col-lg-4"></div>
-                        </div>
-
-                        <div className="row">
-                          <div className="col-md-12">
-                            <div className="card schedule-widget mb-0">
-                              {/* Schedule Header */}
-                              <div className="schedule-header">
-                                {/* Schedule Nav */}
-                                <div className="schedule-nav">
-                                  <ul className="nav nav-tabs nav-justified">
-                                    {/* { daysofweek && daysofweek.map((val)=>{
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="card schedule-widget mb-0">
+                      {/* Schedule Header */}
+                      <div className="schedule-header">
+                        {/* Schedule Nav */}
+                        <div className="schedule-nav">
+                          <ul className="nav nav-tabs nav-justified">
+                            {/* { daysofweek && daysofweek.map((val)=>{
                                     return (
                                       <li className="nav-item">
                                       <a
@@ -150,159 +136,157 @@ function ScheduleTIming() {
                                     )
                                   })} */}
 
-                                    <form onSubmit={handleSubmit}>
-                                      <div className="mb-5 pt-3">
-                                        <div className="w-full px-3 ">
-                                          <div className="mb-4">
-                                            <label
-                                              for="date"
-                                              className="mb-3 block text-base font-medium text-[#07074D]"
-                                            >
-                                              Date
-                                            </label>
-                                            <input
-                                              min={disablePastDate()}
-                                              type="date"
-                                              name="date"
-                                              id="date"
-                                              onChange={handleChange}
-                                              value={formValues.date}
-                                              className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                            />
-                                            {errors.date && (
-                                              <p className="text-red-600 mt-1">
-                                                {errors.date}
-                                              </p>
-                                            )}
-                                          </div>
-                                          <div className="form-group">
-                                            <label
-                                              for="optio"
-                                              className="mb-3 block text-base font-medium text-[#07074D]"
-                                            >
-                                              Select slot duration
-                                            </label>
-                                            <select
-                                              className="select form-control"
-                                             name="slotDuration"
-                                              onChange={handleChange}
-                                            ><option value=""></option>
-                                              <option value="15">15 min</option>
-                                              <option value="30">30 min</option>
-                                              <option value="45">45 min</option>
-                                              <option value="60">1 hr</option>
-                                            </select>
-                                            {errors.slotDuration && (
-                                              <p className="text-red-600 mt-1">
-                                                {errors.slotDuration}
-                                              </p>
-                                            )}
-                                          </div>
-                                        </div>
-                                        {/* <label className="mb-2 mt-2 block text-base  text-[#07074D] sm:text-md">
+                            <form onSubmit={handleSubmit}>
+                              <div className="mb-5 pt-3">
+                                <div className="w-full px-3 ">
+                                  <div className="mb-4">
+                                    <label
+                                      for="date"
+                                      className="mb-3 block text-base font-medium text-[#07074D]"
+                                    >
+                                      Date
+                                    </label>
+                                    <input
+                                      min={disablePastDate()}
+                                      type="date"
+                                      name="date"
+                                      id="date"
+                                      onChange={handleChange}
+                                      value={formValues.date}
+                                      className="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                    />
+                                    {errors.date && (
+                                      <p className="text-red-600 mt-1">
+                                        {errors.date}
+                                      </p>
+                                    )}
+                                  </div>
+                                  <div className="form-group">
+                                    <label
+                                      for="optio"
+                                      className="mb-3 block text-base font-medium text-[#07074D]"
+                                    >
+                                      Select slot duration
+                                    </label>
+                                    <select
+                                      className="select form-control"
+                                      name="slotDuration"
+                                      onChange={handleChange}
+                                    >
+                                      <option value=""></option>
+                                      <option value="15">15 min</option>
+                                      <option value="30">30 min</option>
+                                      <option value="45">45 min</option>
+                                      <option value="60">1 hr</option>
+                                    </select>
+                                    {errors.slotDuration && (
+                                      <p className="text-red-600 mt-1">
+                                        {errors.slotDuration}
+                                      </p>
+                                    )}
+                                  </div>
+                                </div>
+                                {/* <label className="mb-2 mt-2 block text-base  text-[#07074D] sm:text-md">
                                           Select a Time
                                         </label> */}
-                                        <div className="">
-                                          <div className="w-full px-3 sm:w-2/2">
-                                            <div className="mb-3">
-                                              <label
-                                                for="time"
-                                                className="mb-2 block text-base font-medium text-[#07074D]"
-                                              >
-                                                Start Time
-                                              </label>
-                                              <input
-                                                type="time"
-                                                name="startTime"
-                                                id="time"
-                                                step="3600"
-                                                onChange={handleChange}
-                                                value={formValues.startTime}
-                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] appearance-none outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                              />
+                                <div className="">
+                                  <div className="w-full px-3 sm:w-2/2">
+                                    <div className="mb-3">
+                                      <label
+                                        for="time"
+                                        className="mb-2 block text-base font-medium text-[#07074D]"
+                                      >
+                                        Start Time
+                                      </label>
+                                      <input
+                                        type="time"
+                                        name="startTime"
+                                        id="time"
+                                        step="3600"
+                                        onChange={handleChange}
+                                        value={formValues.startTime}
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] appearance-none outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                      />
 
-                                              {errors.startTime && (
-                                                <p className="text-red-600 mt-1">
-                                                  {errors.startTime}
-                                                </p>
-                                              )}
-                                            </div>
-                                          </div>
-                                          {loader && <Loader />}
+                                      {errors.startTime && (
+                                        <p className="text-red-600 mt-1">
+                                          {errors.startTime}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
+                                  {loader && <Loader />}
 
-                                          <div className="w-full px-3 sm:w-2/2">
-                                            <div className="mb-5">
-                                              <label
-                                                for="time"
-                                                className="mb-2 block text-base font-medium text-[#07074D]"
-                                              >
-                                                End Time
-                                              </label>
-                                              <input
-                                                type="time"
-                                                name="endTime"
-                                                id="time"
-                                                step="3600"
-                                                onChange={handleChange}
-                                                value={formValues.endTime}
-                                                class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] appearance-none outline-none focus:border-[#6A64F1] focus:shadow-md"
-                                              />
+                                  <div className="w-full px-3 sm:w-2/2">
+                                    <div className="mb-5">
+                                      <label
+                                        for="time"
+                                        className="mb-2 block text-base font-medium text-[#07074D]"
+                                      >
+                                        End Time
+                                      </label>
+                                      <input
+                                        type="time"
+                                        name="endTime"
+                                        id="time"
+                                        step="3600"
+                                        onChange={handleChange}
+                                        value={formValues.endTime}
+                                        class="w-full rounded-md border border-[#e0e0e0] bg-white py-3 px-6 text-base font-medium text-[#6B7280] appearance-none outline-none focus:border-[#6A64F1] focus:shadow-md"
+                                      />
 
-                                              {errors.endTime && (
-                                                <p className="text-red-600 mt-1">
-                                                  {errors.endTime}
-                                                </p>
-                                              )}
-                                            </div>
-                                          </div>
-                                        </div>
-
-                                        <div>
-                                          <button
-                                            type="submit"
-                                            className="px-2 py-2 bg-blue-600 hover:bg-blue-800 text-white rounded-lg ml-4"
-                                          >
-                                            submit
-                                          </button>
-                                        </div>
-                                      </div>
-                                    </form>
-                                  </ul>
+                                      {errors.endTime && (
+                                        <p className="text-red-600 mt-1">
+                                          {errors.endTime}
+                                        </p>
+                                      )}
+                                    </div>
+                                  </div>
                                 </div>
 
-                                {/* /Schedule Nav */}
+                                <div>
+                                  <button
+                                    type="submit"
+                                    className="px-2 py-2 bg-blue-600 hover:bg-blue-800 text-white rounded-lg ml-4"
+                                  >
+                                    submit
+                                  </button>
+                                </div>
                               </div>
-                              {/* /Schedule Header */}
-                              {/* Schedule Content */}
-                              <div className="tab-content schedule-cont">
-                                {/* Sunday Slot */}
-                                <div id="slot_sunday" className="tab-pane fade">
-                                  <h4 className="card-title d-flex justify-content-between">
-                                    <span>Time Slots</span>
-                                    <a
-                                      className="edit-link"
-                                      data-toggle="modal"
-                                      href="#add_time_slot"
-                                    >
-                                      <i className="fa fa-plus-circle" /> Add
-                                      Slot
-                                    </a>
-                                  </h4>
-                                  <p className="text-muted mb-0">
-                                    Not Available
-                                  </p>
-                                </div>
-                                {/* /Sunday Slot */}
-                                {/* Monday Slot */}
-                                <div
-                                  id="slot_monday"
-                                  className="tab-pane fade show active"
-                                >
-                                  <h4 className="card-title d-flex justify-content-between">
-                                    <span>Time Slots</span>
-                                  </h4>
-                                  {/* time slots */}
-                                  {/* <div className="doc-times">
+                            </form>
+                          </ul>
+                        </div>
+
+                        {/* /Schedule Nav */}
+                      </div>
+                      {/* /Schedule Header */}
+                      {/* Schedule Content */}
+                      <div className="tab-content schedule-cont">
+                        {/* Sunday Slot */}
+                        <div id="slot_sunday" className="tab-pane fade">
+                          <h4 className="card-title d-flex justify-content-between">
+                            <span>Time Slots</span>
+                            <a
+                              className="edit-link"
+                              data-toggle="modal"
+                              href="#add_time_slot"
+                            >
+                              <i className="fa fa-plus-circle" /> Add Slot
+                            </a>
+                          </h4>
+                          <p className="text-muted mb-0">Not Available</p>
+                        </div>
+                        {/* /Sunday Slot */}
+                        {/* Monday Slot */}
+                        <div
+                          id="slot_monday"
+                          className="tab-pane fade show active"
+                        >
+                          <h4 className="card-title d-flex justify-content-between">
+                            <span>Time Slots</span>
+                          </h4>
+                          {/* time slots */}
+                          {/* <div className="doc-times">
                                     <div className="doc-slot-list">
                                       8:00 pm - 11:30 pm
                                       <a
@@ -314,17 +298,13 @@ function ScheduleTIming() {
                                       </a>
                                     </div>
                                   </div> */}
-                                  <SlotModal values={submit} />
+                          <SlotModal values={submit} />
 
-                                  {/* timeslots */}
-                                </div>
-                                {/* /Monday Slot */}
-                              </div>
-                              {/* /Schedule Content */}
-                            </div>
-                          </div>
+                          {/* timeslots */}
                         </div>
+                        {/* /Monday Slot */}
                       </div>
+                      {/* /Schedule Content */}
                     </div>
                   </div>
                 </div>

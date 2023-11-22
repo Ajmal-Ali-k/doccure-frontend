@@ -81,8 +81,8 @@ function Card() {
 
   return (
     <>
-      <div className="w-3/5 max-container h-screen py-20 ">
-        <div className="bg-white shadow-xl rounded-lg  ">
+      <div className=" w-full    max-container h-screen">
+        <div className="bg-white shadow-xl rounded-lg ">
           <div className="photo-wrapper py-8">
             <img
               className="w-32 h-32 rounded-full mx-auto shadow-lg"
@@ -90,7 +90,7 @@ function Card() {
               alt="doctor"
             />
           </div>
-          <div className="p-2">
+          <div className="mb-4">
             <h3 className="text-center text-xl text-gray-900 font-medium leading-8">
               Dr.{doctor?.name}
             </h3>
@@ -148,7 +148,8 @@ function Card() {
                           } w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 mx-2 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 `}
                         />
 
-                        <div
+                        <label
+                          htmlFor={`default-checkbox${i}`}
                           className={`${
                             val.booked === true
                               ? "bg-gray-500   text-white rounded-xl  pointer-events-none opacity-50 h-12 w-32  text-center flex items-center justify-center"
@@ -156,7 +157,7 @@ function Card() {
                           }`}
                         >
                           {val.start}-{val.end}
-                        </div>
+                        </label>
                       </div>
                     );
                   })

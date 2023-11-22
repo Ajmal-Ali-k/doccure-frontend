@@ -1,14 +1,16 @@
-import React, { useState, useEffect, Suspense } from "react";
+import React, { useState, useEffect, Suspense, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { message } from "antd";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import Avatar from "../../../Assets/blank-profile-picture-g05926a0d9_640.png";
-import { FaMicrosoft, FaUserCog, FaKey } from "react-icons/fa";
-import { FiLogOut } from "react-icons/fi";
 import { getUserDetails } from "../../../Api/services/ClientReq";
 import { setLogout } from "../../../store/slice/userSlice";
+import { MdDashboard, MdPassword } from "react-icons/md";
+import { AiFillMessage, AiFillWallet } from "react-icons/ai";
+import { CgProfile } from "react-icons/cg";
+import { IoLogOutSharp } from "react-icons/io5";
 
-function ProfileCard() {
+function ProfileCard1() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { token } = useSelector((state) => state.clientLogin);
@@ -31,81 +33,84 @@ function ProfileCard() {
   useEffect(() => {
     getuser();
   }, []);
-  console.log(datas, "thisi s datas from profile");
+
+  const sidebarData = [
+    {
+      path: "/dashboard",
+      name: "Dashboard",
+      icon: <MdDashboard />,
+    },
+    {
+      path: "/chating",
+      name: "Messages",
+      icon: <AiFillMessage />,
+    },
+    {
+      path: "/wallet",
+      name: "Wallet",
+      icon: <AiFillWallet />,
+    },
+    {
+      path: "/update_profile",
+      name: "Profile",
+      icon: <CgProfile />,
+    },
+    {
+      path: "/change_password",
+      name: "Change Password",
+      icon: <MdPassword />,
+    },
+  ];
 
   return (
     <>
       <div className="col-md-5 col-lg-4 col-xl-3 ">
         <div className="profile-sidebar sticky top-0">
-              <div className="widget-profile pro-widget-content">
-                <div className="profile-info-widget">
-                  <div className="booking-doc-img">
-                    <Suspense fallback={<p>Loading .....</p>}>
-                      <img src={datas?.photo ? datas.photo : Avatar} alt="User" />
-                    </Suspense>
-                  </div>
-                  <div className="profile-det-info">
-                    <h3>
-                      {datas?.username} {datas?.lastName}
-                    </h3>
-                    {/* <div className="patient-details">
-                  <h5>
-                    <i className="fas fa-birthday-cake" /> 24 Jul 1983, 38 years
-                  </h5>
-                  <h5 className="mb-0">
-                    <i className="fas fa-map-marker-alt" /> Newyork, USA
-                  </h5>
-                </div> */}
-                  </div>
-                </div>
+          <div className="widget-profile pro-widget-content">
+            <div className="profile-info-widget">
+              <div className="booking-doc-img">
+                <Suspense fallback={<p>Loading .....</p>}>
+                  <img src={datas?.photo ? datas.photo : Avatar} alt="User" />
+                </Suspense>
               </div>
+              <div className="profile-det-info">
+                <h3>
+                  {datas?.username} {datas?.lastName}
+                </h3>
+              </div>
+            </div>
+          </div>
 
           <div className="dashboard-widget">
             <nav className="dashboard-menu">
               <ul>
-                <li className="">
-                  <Link to="/dashboard">
-                    <i className="fas fa-columns" />
-                    <span>Dashboard</span>
-                  </Link>
-                </li>
-                {/* <li>
-                      <Link to="">
-                        <i className="fas fa-bookmark" />
-                        <span>Favourites</span>
-                      </Link>
-                    </li> */}
-                <li>
-                  <Link to="/chating">
-                    <i className="fas fa-comments" />
-                    <span>Message</span>
-                    {/* <small className="unread-msg">23</small> */}
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/wallet">
-                    <i className="fas fa-comments" />
-                    <span>wallet</span>
-                    {/* <small className="unread-msg">23</small> */}
-                  </Link>
-                </li>
-        
-                <li>
-                  <Link to="/update_profile">
-                    <i className="fas fa-user-cog" />
-                    <span>Profile Settings</span>
-                  </Link>
-                </li>
-                <li>
-                  <Link to="/change_password">
-                    <i className="fas fa-lock" />
-                    <span>Change Password</span>
-                  </Link>
-                </li>
+                {sidebarData.map((datas, index) => (
+                  <li className="" key={index}>
+                    <NavLink
+                      to={datas.path}
+                      className={(navClass) =>
+                        navClass.isActive
+                          ? "text-white text-[16px] leading-7 font-[600] bg-gray-300"
+                          : "text-gray-500 text-[16px] leading-7 font-[600] hover:text-blue-500"
+                      }
+                    >
+                      <div className="flex gap-x-4 items-center">
+                        <div>{datas.icon}</div>
+                        <div>{datas.name}</div>
+                      </div>
+                    </NavLink>
+                  </li>
+                ))}
+
                 <li onClick={handlelogout}>
-                  <Link>
-                    <i className="fas fa-sign-out-alt" />
-                    <span>Logout</span>
+                  <Link className="text-gray-500 text-[16px] leading-7 font-[600] hover:text-blue-500 flex">
+                    <div className="flex gap-x-4 items-center">
+                      <div>
+                        {" "}
+                        <IoLogOutSharp />
+                      </div>
+                      <div>LogOut</div>
+                    </div>
                   </Link>
                 </li>
               </ul>
@@ -116,5 +121,6 @@ function ProfileCard() {
     </>
   );
 }
+const ProfileCard = React.memo(ProfileCard1);
 
 export default ProfileCard;

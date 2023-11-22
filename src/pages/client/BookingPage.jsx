@@ -6,7 +6,7 @@ function BookingPage() {
   return (
     <>
       <Layout>
-        <section className="bg-slate-100 ">
+        <section className="bg-slate-100  p-20">
           <Booking />
         </section>
       </Layout>
